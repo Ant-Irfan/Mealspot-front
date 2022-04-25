@@ -1,0 +1,19 @@
+@import '~antd/dist/antd.css';
+@import './variables.scss';
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+.slick-dots {
+    bottom: 40px;
+}
+.slick-dots li.slick-active button:before {
+    color: #fff;
+    font-size: 10px;
+}
+.slick-dots li button:before {
+    color: #fff;
+    font-size: 10px;
+}
+.ant-input-suffix {
+    font-size: 16px;
+}

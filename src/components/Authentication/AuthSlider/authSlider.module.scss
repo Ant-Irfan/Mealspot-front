@@ -1,0 +1,63 @@
+@import '../../../variables.scss';
+@import '../../../utils/breakpointsHelper.scss';
+
+.testimonialContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 40px;
+    background-size: 100% 100%;
+    height: 40vh;
+    width: 100%;
+    text-align: center;
+    @include mobile-lg {
+        height: 50vh;
+    }
+    @include tablet {
+        height: 100vh;
+        padding: 70px;
+        text-align: unset;
+    }
+    .testimonialNameAndRating{
+        margin-bottom: 30px;
+        color: white;
+        font-size: 16px;
+        display: flex;
+        flex-direction: column;
+        @include tablet {
+            justify-content: space-between;
+            flex-direction: row;
+            font-size: 24px;
+        }
+    }
+    .testimonialText {
+        color: white;
+        font-size: 16px;
+        @include tablet {
+            font-size: 24px;
+        }
+    }
+    .testimonialAuthor {
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        @include tablet {
+            font-size: 24px;
+        }
+    }
+    .stars {
+        color: white;
+        margin-left: 0;
+        @include tablet {
+            margin-left: 5px;
+        }
+    }
+    .logo {
+        display: block;
+        padding-bottom: 20px;
+        margin: 0 auto;
+        @include tablet {
+            display: none;
+        }
+    }
+}
