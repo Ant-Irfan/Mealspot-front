@@ -1,0 +1,12 @@
+.wizzardHeaderContainer {
+    padding: 30px 0;
+    display: flex;
+    align-items: center;
+    .wizzardHeaderHeading {
+        font-size: 26px;
+        margin: 0;
+    }
+    .wizzardHeaderDescription {
+        font-size: 14px;
+    }
+}
