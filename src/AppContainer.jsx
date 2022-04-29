@@ -10,9 +10,9 @@ import {
   registerConfirmedRoute,
   wizzardRoute,
 } from './utils/pathsHelper';
-import Authentication from './components/Authentication/View';
+import Authentication from './components/Authentication';
 import RegisterConfirmed from './components/Authentication/RegisterConfirmed/RegisterConfirmed';
-import Wizzard from './components/Wizzard/View';
+import Wizzard from './components/Wizzard';
 
 const AppContainer = ({ location }) => (
   <Switch location={location}>

@@ -1,16 +1,42 @@
 /* eslint-disable no-console */
 /* eslint-disable array-callback-return */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Form, Input } from 'antd';
 import { ReactComponent as GoogleLogo } from '../../../images/login/google-logo.svg';
 import Logo from '../../../images/Logo-colored.png';
 import styles from '../auth.module.scss';
+import { BASE_URL } from '../../../utils/constants';
 
-const Register = () => {
+const Register = ({ actions }) => {
   const [emailSelected, setEmailSelected] = useState(false);
+  const [isRegisterDisabled, setisRegisterDisabled] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(null);
+
+  useEffect(() => {
+    if (timeLeft === 0) {
+      setTimeLeft(null);
+    }
+    if (!timeLeft) return;
+
+    const intervalId = setInterval(() => {
+      setTimeLeft(timeLeft - 1);
+    }, 1000);
+
+    // eslint-disable-next-line consistent-return
+    return () => clearInterval(intervalId);
+  }, [timeLeft]);
+
   const onFinishLogin = (values) => {
     console.log('Values', values);
+    const { email } = values;
+    actions.registerUserEmail(email);
+    setisRegisterDisabled(true);
+    setTimeLeft(30);
+    setTimeout(() => {
+      setisRegisterDisabled(false);
+    }, 30000);
   };
 
   const onFinishFailedLogin = (errorInfo) => {
@@ -73,9 +99,12 @@ const Register = () => {
                   ? (
                     <button
                       type="submit"
+                      disabled={isRegisterDisabled}
                       className={`${styles.loginButton} btn btn-light py-2`}
                     >
-                      Submit
+                      {
+                        isRegisterDisabled ? `Retry in: ${timeLeft} sec` : 'Submit'
+                      }
                     </button>
                   )
                   : (
@@ -90,15 +119,17 @@ const Register = () => {
             }
         </div>
         <div>
-          <button
-            type="button"
-            className={`${styles.loginGoogleButton} btn btn-light py-2`}
-          >
-            <GoogleLogo
-              style={{ marginRight: 10 }}
-            />
-            Continue with Google
-          </button>
+          <a href={`${BASE_URL}/ext/login/google`}>
+            <button
+              type="button"
+              className={`${styles.loginGoogleButton} btn btn-light py-2`}
+            >
+              <GoogleLogo
+                style={{ marginRight: 10 }}
+              />
+              Continue with Google
+            </button>
+          </a>
         </div>
 
         <div className={`${styles.loginInputField} text-center`}>
@@ -108,6 +139,13 @@ const Register = () => {
       </Form>
     </div>
   );
+};
+
+const { shape, func } = PropTypes;
+Register.propTypes = {
+  actions: shape({
+    registerUserEmail: func.isRequired,
+  }).isRequired,
 };
 
 export default Register;

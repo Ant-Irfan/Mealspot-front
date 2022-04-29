@@ -2,13 +2,15 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import AuthSlider from './AuthSlider/AuthSlider';
 import Login from './Login/Login';
 import Register from './Register/Register';
 import styles from './auth.module.scss';
 
-const Authentication = () => {
+const Authentication = (props) => {
+  const { actions } = props;
   const [isLogin, setisLogin] = useState(null);
   const location = useLocation();
 
@@ -31,12 +33,23 @@ const Authentication = () => {
           {
             isLogin
               ? <Login />
-              : <Register />
+              : (
+                <Register
+                  actions={actions}
+                />
+              )
           }
         </div>
       </div>
     </div>
   );
+};
+
+const { shape, func } = PropTypes;
+Authentication.propTypes = {
+  actions: shape({
+    registerUserEmail: func.isRequired,
+  }).isRequired,
 };
 
 export default Authentication;
