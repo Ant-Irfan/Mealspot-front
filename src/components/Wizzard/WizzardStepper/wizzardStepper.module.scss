@@ -1,0 +1,9 @@
+@import '../../../variables.scss';
+@import '../../../utils/breakpointsHelper.scss';
+
+.stepsContainer {
+    padding: 0 25px;
+    @include tablet {
+        padding: 0;
+    }
+}

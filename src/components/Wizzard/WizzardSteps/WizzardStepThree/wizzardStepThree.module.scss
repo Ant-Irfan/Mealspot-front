@@ -1,0 +1,25 @@
+@import '../../../../variables.scss';
+@import '../../../../utils/breakpointsHelper.scss';
+
+.alertContainer {
+    padding: 0 25px;
+    @include tablet {
+        padding: 0;
+    }
+    span {
+        margin-top: 5px;
+    }
+}
+.CheckBoxHeader {
+    color: $dark-color;
+    font-size: 20px;
+    margin-left: 10px;
+}
+.CheckBoxBackground {
+    height: 32px;
+    width: 32px;
+    background-color: rgba(86, 162, 190, 0.1);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
