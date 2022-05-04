@@ -8,9 +8,11 @@ import {
   loginRoute,
   registerRoute,
   registerConfirmedRoute,
+  wizzardRoute,
 } from './utils/pathsHelper';
 import Authentication from './components/Authentication/View';
 import RegisterConfirmed from './components/Authentication/RegisterConfirmed/RegisterConfirmed';
+import Wizzard from './components/Wizzard/View';
 
 const AppContainer = ({ location }) => (
   <Switch location={location}>
@@ -25,6 +27,10 @@ const AppContainer = ({ location }) => (
     <RouteWithoutNavbar
       path={registerConfirmedRoute}
       component={RegisterConfirmed}
+    />
+    <RouteWithoutNavbar
+      path={wizzardRoute}
+      component={Wizzard}
     />
   </Switch>
 );
