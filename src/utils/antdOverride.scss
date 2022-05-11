@@ -221,3 +221,6 @@
 .ant-input-feedback-icon {
     display: flex;
 }
+.ant-checkbox:hover::after, .ant-checkbox-wrapper:hover .ant-checkbox::after {
+    visibility: hidden;
+}

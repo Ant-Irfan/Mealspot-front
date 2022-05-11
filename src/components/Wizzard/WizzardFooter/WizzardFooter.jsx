@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { ArrowRightOutlined, ArrowLeftOutlined, CheckOutlined } from '@ant-design/icons';
@@ -6,7 +5,7 @@ import styles from './wizzardFooter.module.scss';
 
 const WizzardFooter = (props) => {
   const {
-    setStepper, stepper, stepOneForm, stepTwoForm, stepThreeForm, stepFourForm, /* isFirstStepDone */
+    setStepper, stepper, stepOneForm, stepTwoForm, stepThreeForm, stepFourForm,
   } = props;
   const checkStepper = () => {
     switch (stepper) {

@@ -1,21 +1,41 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-console */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Alert, Checkbox, Divider, Form,
 } from 'antd';
+import PropTypes from 'prop-types';
 import styles from './wizzardStepThree.module.scss';
 import { ReactComponent as Dairy } from '../../../../images/wizzard/step3/dairy.svg';
 import { ReactComponent as Meat } from '../../../../images/wizzard/step3/meats.svg';
 
 const WizzardStepThree = (props) => {
-  const { stepThreeForm, setStepper, setWizzardSubmission } = props;
+  const {
+    // eslint-disable-next-line react/prop-types
+    stepThreeForm, setStepper, setWizzardSubmission, initialWizzardValues,
+  } = props;
   const alertDescription = 'Mauris velit quam, dignissim vel ullamcorper vitae, egestas eu massa. Sed nibh ante, vehicula eget consequat fermentum, Mauris velit quam, dignissim vel ullamcorper vitae, ';
   const CheckboxGroup = Checkbox.Group;
 
-  const meatOption = ['Chicken', 'Fish', 'Turkey', 'Beef', 'Pork'];
-  const dairyOption = ['Milk', 'Yogurt', 'Low fat cheese', 'High fat cheese', 'Eggs'];
-  const otherOption = ['Peanuts', 'Pasta'];
+  const [meatOptions, setmeatOptions] = useState([]);
+  const [diaryOptions, setdiaryOptions] = useState([]);
+  const [otherOptions, setotherOptions] = useState([]);
+
+  useEffect(() => {
+    if (initialWizzardValues) {
+      const { foodstuffs } = initialWizzardValues;
+      setmeatOptions(foodstuffs.filter((food) => food.category === 'meats_and_dairy').map((obj) => ({
+        label: obj.name,
+        value: obj.id,
+      })));
+      setdiaryOptions(foodstuffs.filter((food) => food.category === 'diary_products').map((obj) => ({
+        label: obj.name,
+        value: obj.id,
+      })));
+      setotherOptions(foodstuffs.filter((food) => food.category === 'other').map((obj) => ({
+        label: obj.name,
+        value: obj.id,
+      })));
+    }
+  }, []);
 
   /*  MEAT CHECKLIST */
   const [meatCheckedList, setMeatCheckedList] = useState([]);
@@ -24,12 +44,12 @@ const WizzardStepThree = (props) => {
 
   const onChangeMeat = (list) => {
     setMeatCheckedList(list);
-    setMeatIndeterminate(!!list.length && list.length < meatOption.length);
-    setMeatCheckAll(list.length === meatOption.length);
+    setMeatIndeterminate(!!list.length && list.length < meatOptions.length);
+    setMeatCheckAll(list.length === meatOptions.length);
   };
 
   const onCheckAllMeatChange = (e) => {
-    setMeatCheckedList(e.target.checked ? meatOption : []);
+    setMeatCheckedList(e.target.checked ? meatOptions.map((obj) => obj.value) : []);
     setMeatIndeterminate(false);
     setMeatCheckAll(e.target.checked);
   };
@@ -40,14 +60,13 @@ const WizzardStepThree = (props) => {
   const [dairyCheckAll, setDairyCheckAll] = useState(false);
 
   const onChangeDairy = (list) => {
-    console.log(list);
     setDairyCheckedList(list);
-    setDairyIndeterminate(!!list.length && list.length < dairyOption.length);
-    setDairyCheckAll(list.length === dairyOption.length);
+    setDairyIndeterminate(!!list.length && list.length < diaryOptions.length);
+    setDairyCheckAll(list.length === diaryOptions.length);
   };
 
   const onCheckAllDairyChange = (e) => {
-    setDairyCheckedList(e.target.checked ? dairyOption : []);
+    setDairyCheckedList(e.target.checked ? diaryOptions.map((obj) => obj.value) : []);
     setDairyIndeterminate(false);
     setDairyCheckAll(e.target.checked);
   };
@@ -59,12 +78,12 @@ const WizzardStepThree = (props) => {
 
   const onChangeOther = (list) => {
     setOtherCheckedList(list);
-    setOtherIndeterminate(!!list.length && list.length < otherOption.length);
-    setOtherCheckAll(list.length === otherOption.length);
+    setOtherIndeterminate(!!list.length && list.length < otherOptions.length);
+    setOtherCheckAll(list.length === otherOptions.length);
   };
 
   const onCheckAllOther = (e) => {
-    setOtherCheckedList(e.target.checked ? otherOption : []);
+    setOtherCheckedList(e.target.checked ? otherOptions.map((obj) => obj.value) : []);
     setOtherIndeterminate(false);
     setOtherCheckAll(e.target.checked);
   };
@@ -73,13 +92,9 @@ const WizzardStepThree = (props) => {
     const excludedMeals = meatCheckedList.concat(dairyCheckedList).concat(otherCheckedList);
     setWizzardSubmission((prevStateVal) => ({
       ...prevStateVal,
-      excluded_meals:excludedMeals,
+      excluded_ingredients: excludedMeals,
     }));
     setStepper(4);
-  };
-
-  const onFinishFailedStepThree = (errorInfo) => {
-    console.log('Failed:', errorInfo);
   };
 
   return (
@@ -92,7 +107,6 @@ const WizzardStepThree = (props) => {
       <Form
         form={stepThreeForm}
         onFinish={onFinishStepThree}
-        onFinishFailed={onFinishFailedStepThree}
       >
         <div className="d-flex flex-wrap mb-3 justify-content-between checkbox-wrapper">
           <div className="mt-3">
@@ -112,7 +126,7 @@ const WizzardStepThree = (props) => {
             </Checkbox>
             <CheckboxGroup
               value={meatCheckedList}
-              options={meatOption}
+              options={meatOptions}
               onChange={onChangeMeat}
             />
           </div>
@@ -133,7 +147,7 @@ const WizzardStepThree = (props) => {
             </Checkbox>
             <CheckboxGroup
               value={dairyCheckedList}
-              options={dairyOption}
+              options={diaryOptions}
               onChange={onChangeDairy}
             />
           </div>
@@ -154,7 +168,7 @@ const WizzardStepThree = (props) => {
             </Checkbox>
             <CheckboxGroup
               value={otherCheckedList}
-              options={otherOption}
+              options={otherOptions}
               onChange={onChangeOther}
             />
           </div>
@@ -162,6 +176,22 @@ const WizzardStepThree = (props) => {
       </Form>
     </div>
   );
+};
+
+const {
+  shape, array, func, string,
+} = PropTypes;
+WizzardStepThree.propTypes = {
+  initialWizzardValues: shape({
+    email: string.isRequired,
+    // eslint-disable-next-line react/forbid-prop-types
+    foodstuffs: array.isRequired,
+    name: string,
+    registration_type: string.isRequired,
+    token_valid_until: string.isRequired,
+  }).isRequired,
+  setStepper: func.isRequired,
+  setWizzardSubmission: func.isRequired,
 };
 
 export default WizzardStepThree;

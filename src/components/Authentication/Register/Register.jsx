@@ -1,13 +1,12 @@
-/* eslint-disable no-console */
-/* eslint-disable array-callback-return */
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import { Form, Input } from 'antd';
 import { ReactComponent as GoogleLogo } from '../../../images/login/google-logo.svg';
 import Logo from '../../../images/Logo-colored.png';
 import styles from '../auth.module.scss';
 import { BASE_URL } from '../../../utils/constants';
+import { loginRoute } from '../../../utils/pathsHelper';
 
 const Register = ({ actions }) => {
   const [emailSelected, setEmailSelected] = useState(false);
@@ -29,7 +28,6 @@ const Register = ({ actions }) => {
   }, [timeLeft]);
 
   const onFinishLogin = (values) => {
-    console.log('Values', values);
     const { email } = values;
     actions.registerUserEmail(email);
     setisRegisterDisabled(true);
@@ -39,9 +37,6 @@ const Register = ({ actions }) => {
     }, 30000);
   };
 
-  const onFinishFailedLogin = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
   return (
     <div className={styles.loginContainer}>
       <div className={styles.logoPlaceholder}>
@@ -58,7 +53,6 @@ const Register = ({ actions }) => {
       <Form
         name="Login"
         onFinish={onFinishLogin}
-        onFinishFailed={onFinishFailedLogin}
       >
         {
             emailSelected
@@ -133,8 +127,16 @@ const Register = ({ actions }) => {
         </div>
 
         <div className={`${styles.loginInputField} text-center`}>
-          Already Have An Account
-          <span>Log In</span>
+          Already Have An Account?
+          <NavLink
+            to={loginRoute}
+          >
+            <span
+              className={styles.signUpNow}
+            >
+              Log In
+            </span>
+          </NavLink>
         </div>
       </Form>
     </div>

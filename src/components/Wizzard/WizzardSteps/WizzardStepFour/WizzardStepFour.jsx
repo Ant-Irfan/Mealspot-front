@@ -1,9 +1,8 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-console */
 import React, { useState } from 'react';
 import {
   Form, Radio,
 } from 'antd';
+import PropTypes from 'prop-types';
 import { ReactComponent as GymHover } from '../../../../images/wizzard/step4/home_hover.svg';
 import { ReactComponent as Home } from '../../../../images/wizzard/step4/home_env.svg';
 import { ReactComponent as GymHoverReal } from '../../../../images/wizzard/step4/Group.svg';
@@ -12,26 +11,19 @@ import styles from '../WizzardStepTwo/wizzardSteptwo.module.scss';
 import stylesStepFour from './wizzardStepFour.module.scss';
 
 const WizzardStepFour = (props) => {
-  const { stepFourForm, setWizzardSubmission } = props;
+  // eslint-disable-next-line react/prop-types
+  const { stepFourForm, wizzardSubmission, actions } = props;
   const [level, setLevel] = useState(null);
   const [environment, setEnvironment] = useState(null);
 
-  const finalRegisterSubmission = () => {
-    console.log('heello');
-  };
-
   const onFinishStepFour = (values) => {
-    setWizzardSubmission((prevStateVal) => ({
-      ...prevStateVal,
+    const finalFormSubmission = {
+      ...wizzardSubmission,
       environment: values.environment,
       workout_level: values.level,
-    }), () => {
-      finalRegisterSubmission();
-    });
-  };
-
-  const onFinishFailedStepFour = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+      token: sessionStorage.getItem('token'),
+    };
+    actions.wizzardUserRegistration(finalFormSubmission);
   };
 
   return (
@@ -39,7 +31,6 @@ const WizzardStepFour = (props) => {
       className="w-100"
       form={stepFourForm}
       onFinish={onFinishStepFour}
-      onFinishFailed={onFinishFailedStepFour}
     >
       <div className={`${stylesStepFour.wizzardStepFourContainer} wizzard-step4-container`}>
         <Form.Item
@@ -62,14 +53,14 @@ const WizzardStepFour = (props) => {
               className={`${stylesStepFour.environmentPadding} step4-card-wrapper`}
             >
               <Radio.Button
-                value="gym"
+                value="home"
                 style={{ height: '100%' }}
               >
                 <div
                   style={{ width: '100%', textAlign: 'center', minHeight: 120 }}
-                  className={environment === 'gym' ? styles.borderSelected : styles.borderNotSelected}
+                  className={environment === 'home' ? styles.borderSelected : styles.borderNotSelected}
                 >
-                  {environment === 'gym' ? <GymHover /> : <Gym /> }
+                  {environment === 'home' ? <GymHover /> : <Gym /> }
                 </div>
                 <div>
                   <div
@@ -80,20 +71,20 @@ const WizzardStepFour = (props) => {
                   <div
                     className={stylesStepFour.typeDescription}
                   >
-                    Little or no equipment, indoor or outdoor. equipment may include pull-up bar,
-                    lightweight dumbbells, elastic bands...
+                    Training in public or in home/private gym with decent
+                    amount of free weights and plates, benches, racks, machines
                   </div>
                 </div>
               </Radio.Button>
               <Radio.Button
-                value="home"
+                value="gym"
                 style={{ height: '100%' }}
               >
                 <div
                   style={{ width: '100%', textAlign: 'center', minHeight: 120 }}
-                  className={environment === 'home' ? styles.borderSelected : styles.borderNotSelected}
+                  className={environment === 'gym' ? styles.borderSelected : styles.borderNotSelected}
                 >
-                  {environment === 'home' ? <GymHoverReal /> : <Home /> }
+                  {environment === 'gym' ? <GymHoverReal /> : <Home /> }
                 </div>
                 <div>
                   <div
@@ -104,8 +95,8 @@ const WizzardStepFour = (props) => {
                   <div
                     className={stylesStepFour.typeDescription}
                   >
-                    Training in public or in home/private gym with decent
-                    amount of free weights and plates, benches, racks, machines
+                    Little or no equipment, indoor or outdoor. equipment may include pull-up bar,
+                    lightweight dumbbells, elastic bands...
                   </div>
                 </div>
               </Radio.Button>
@@ -133,7 +124,7 @@ const WizzardStepFour = (props) => {
               style={{ gap: 20 }}
             >
               <Radio.Button
-                value="average"
+                value="beginner"
                 style={{ height: '100%' }}
               >
                 <div
@@ -148,7 +139,7 @@ const WizzardStepFour = (props) => {
               </Radio.Button>
 
               <Radio.Button
-                value="fat"
+                value="experienced"
                 style={{ height: '100%' }}
               >
                 <div
@@ -167,6 +158,13 @@ const WizzardStepFour = (props) => {
       </div>
     </Form>
   );
+};
+
+const { shape, func } = PropTypes;
+WizzardStepFour.propTypes = {
+  actions: shape({
+    wizzardUserRegistration: func.isRequired,
+  }).isRequired,
 };
 
 export default WizzardStepFour;

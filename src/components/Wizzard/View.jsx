@@ -1,6 +1,7 @@
-/* eslint-disable no-console */
 import React, { useRef, useState, useEffect } from 'react';
 import { Form } from 'antd';
+import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 import WizzardHeader from './WizzardHeader/WizzardHeader';
 import WizzardStepper from './WizzardStepper/WizzardStepper';
 import WizzardFooter from './WizzardFooter/WizzardFooter';
@@ -10,7 +11,13 @@ import WizzardStepThree from './WizzardSteps/WizzardStepThree/WizzardStepThree';
 import WizzardStepFour from './WizzardSteps/WizzardStepFour/WizzardStepFour';
 import styles from './wizzard.module.scss';
 
-const Wizzard = () => {
+const Wizzard = (props) => {
+  const {
+    actions,
+    initialWizzardValues,
+    wizzardEnabled,
+  } = props;
+
   const headerRef = useRef(null);
   const mainContent = useRef(null);
   const [titleWidth, settitleWidth] = useState(null);
@@ -35,7 +42,7 @@ const Wizzard = () => {
     target_weight_grams: null,
     height_milli_meters: null,
     date_of_birth: null,
-    excluded_meals: [],
+    excluded_ingredients: [],
     environment: null,
     workout_level: null,
   });
@@ -48,43 +55,63 @@ const Wizzard = () => {
     window.addEventListener('resize', handleResize, false);
   }, []);
 
+  useEffect(() => {
+    if (initialWizzardValues) {
+      stepOneForm.setFieldsValue({
+        email: initialWizzardValues.email,
+        fullName: initialWizzardValues.name,
+      });
+    }
+  }, [initialWizzardValues]);
+
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname.split('/')[2]) {
+      actions.registrationEmailConfirmation(location.pathname.split('/')[2]);
+    }
+  }, [location]);
+
   return (
-    <div className={`${styles.wizzardContainer} container`}>
-      <div
-        ref={headerRef}
-      >
-        <WizzardHeader
-          titleWidth={titleWidth}
-          settitleWidth={settitleWidth}
-        />
-      </div>
-      <div>
-        <div className={`${styles.wizzardStepperWrapper} d-flex my-4`}>
-          <div
-            className={styles.allignWithHeaderTitle}
-            style={{ width: titleWidth }}
-          />
-          <WizzardStepper
-            stepper={stepper}
-            widthOfSteps={mainContentWidth}
-          />
-          <div
-            className={styles.allignWithHeaderTitle}
-            style={{ width: titleWidth }}
+    <div>
+      {
+      wizzardEnabled
+      && (
+      <div className={`${styles.wizzardContainer} container`}>
+        <div
+          ref={headerRef}
+        >
+          <WizzardHeader
+            titleWidth={titleWidth}
+            settitleWidth={settitleWidth}
           />
         </div>
-        <div
-          ref={mainContent}
-          className="d-flex mt-4"
-        >
+        <div>
+          <div className={`${styles.wizzardStepperWrapper} d-flex my-4`}>
+            <div
+              className={styles.allignWithHeaderTitle}
+              style={{ width: titleWidth }}
+            />
+            <WizzardStepper
+              stepper={stepper}
+              widthOfSteps={mainContentWidth}
+            />
+            <div
+              className={styles.allignWithHeaderTitle}
+              style={{ width: titleWidth }}
+            />
+          </div>
           <div
-            className={styles.allignWithHeaderTitle}
-            style={{ width: titleWidth }}
-          />
-          <div
-            style={{ width: '100%', maxWidth: mainContentWidth }}
+            ref={mainContent}
+            className="d-flex mt-4"
           >
-            {
+            <div
+              className={styles.allignWithHeaderTitle}
+              style={{ width: titleWidth }}
+            />
+            <div
+              style={{ width: '100%', maxWidth: mainContentWidth }}
+            >
+              {
               stepper === 1
               && (
               <WizzardStepOne
@@ -92,10 +119,11 @@ const Wizzard = () => {
                 setStepper={setStepper}
                 setWizzardSubmission={setWizzardSubmission}
                 wizzardSubmission={wizzardSubmission}
+                initialWizzardValues={initialWizzardValues}
               />
               )
             }
-            {
+              {
               stepper === 2
               && (
               <WizzardStepTwo
@@ -105,45 +133,69 @@ const Wizzard = () => {
               />
               )
             }
-            {
+              {
               stepper === 3 && (
                 <WizzardStepThree
                   stepThreeForm={stepThreeForm}
                   setStepper={setStepper}
                   setWizzardSubmission={setWizzardSubmission}
+                  initialWizzardValues={initialWizzardValues}
                 />
               )
             }
-            {
+              {
               stepper === 4 && (
                 <WizzardStepFour
                   stepFourForm={stepFourForm}
                   setStepper={setStepper}
                   setWizzardSubmission={setWizzardSubmission}
+                  wizzardSubmission={wizzardSubmission}
+                  actions={actions}
                 />
               )
             }
+            </div>
+            <div
+              style={{ width: titleWidth }}
+              className={styles.allignWithHeaderTitle}
+            />
           </div>
-          <div
-            style={{ width: titleWidth }}
-            className={styles.allignWithHeaderTitle}
+        </div>
+        <div className="mt-auto">
+          <WizzardFooter
+            stepper={stepper}
+            stepOneForm={stepOneForm}
+            stepTwoForm={stepTwoForm}
+            stepThreeForm={stepThreeForm}
+            stepFourForm={stepFourForm}
+            setStepper={setStepper}
+            wizzardSubmission={wizzardSubmission}
+            setWizzardSubmission={setWizzardSubmission}
           />
         </div>
       </div>
-      <div className="mt-auto">
-        <WizzardFooter
-          stepper={stepper}
-          stepOneForm={stepOneForm}
-          stepTwoForm={stepTwoForm}
-          stepThreeForm={stepThreeForm}
-          stepFourForm={stepFourForm}
-          setStepper={setStepper}
-          wizzardSubmission={wizzardSubmission}
-          setWizzardSubmission={setWizzardSubmission}
-        />
-      </div>
+      )
+      }
     </div>
   );
+};
+
+const {
+  shape, func, bool, array, string,
+} = PropTypes;
+Wizzard.propTypes = {
+  actions: shape({
+    registrationEmailConfirmation: func.isRequired,
+  }).isRequired,
+  initialWizzardValues: shape({
+    email: string.isRequired,
+    // eslint-disable-next-line react/forbid-prop-types
+    foodstuffs: array.isRequired,
+    name: string,
+    registration_type: string.isRequired,
+    token_valid_until: string.isRequired,
+  }).isRequired,
+  wizzardEnabled: bool.isRequired,
 };
 
 export default Wizzard;

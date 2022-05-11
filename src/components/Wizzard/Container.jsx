@@ -3,10 +3,12 @@ import { bindActionCreators } from 'redux';
 import {
   registerUserEmail,
   registrationEmailConfirmation,
+  wizzardUserRegistration,
 } from '../Authentication/modules/actions';
 
-const mapStateToProps = () => ({
-
+const mapStateToProps = (state) => ({
+  initialWizzardValues: state.authReducer.initialFormValues,
+  wizzardEnabled: state.authReducer.wizzardEnabled,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -14,6 +16,7 @@ const mapDispatchToProps = (dispatch) => ({
     {
       registerUserEmail,
       registrationEmailConfirmation,
+      wizzardUserRegistration,
     },
     dispatch,
   ),
