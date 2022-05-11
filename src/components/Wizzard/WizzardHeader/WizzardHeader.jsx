@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import styles from './wizzardHeader.module.scss';
 
 const WizzardHeader = (props) => {
@@ -27,6 +28,11 @@ const WizzardHeader = (props) => {
       </div>
     </div>
   );
+};
+
+const { func } = PropTypes;
+WizzardHeader.propTypes = {
+  settitleWidth: func.isRequired,
 };
 
 export default WizzardHeader;

@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { Steps } from 'antd';
+import PropTypes from 'prop-types';
 import styles from './wizzardStepper.module.scss';
 
 const { Step } = Steps;
@@ -35,5 +35,11 @@ const WizzardStepper = ({ widthOfSteps, stepper }) => (
     </Steps>
   </div>
 );
+
+const { number } = PropTypes;
+WizzardStepper.propTypes = {
+  widthOfSteps: number.isRequired,
+  stepper: number.isRequired,
+};
 
 export default WizzardStepper;

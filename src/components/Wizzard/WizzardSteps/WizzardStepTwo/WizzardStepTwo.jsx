@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-console */
 import React, { useState } from 'react';
+import moment from 'moment';
+import func from 'prop-types';
 import {
   Form, Radio, Switch, Input, DatePicker,
 } from 'antd';
@@ -16,6 +16,7 @@ import styles from './wizzardSteptwo.module.scss';
 import stepOneStyles from '../WizzardStepOne/wizzardStepOne.module.scss';
 
 const WizzardStepTwo = (props) => {
+  // eslint-disable-next-line react/prop-types
   const { setStepper, stepTwoForm, setWizzardSubmission } = props;
   const [bodyShape, setbodyShape] = useState(null);
   const [isMetric, setisMetric] = useState(true);
@@ -32,28 +33,26 @@ const WizzardStepTwo = (props) => {
       weight_unit: isMetric ? 'metric' : 'imperial',
       height_unit: isMetric ? 'metric' : 'imperial',
       nutrition_unit: isMetric ? 'metric' : 'imperial',
-      height_milli_meters: height,
-      target_weight_grams: willingWeight,
-      weight_grams: weight,
-      date_of_birth: dateOfBirth,
+      height_milli_meters: Number(height),
+      target_weight_grams: Number(willingWeight),
+      weight_grams: Number(weight),
+      date_of_birth: moment(dateOfBirth).format('YYYY-MM-DD'),
       body_shape: shape,
     }));
     setStepper(3);
   };
 
-  const onFinishFailedStepTwo = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
-
   const onChangeUnits = () => {
     setisMetric(!isMetric);
   };
+
+  const disabledDate = (current) => current && current > moment().endOf('day');
+
   return (
     <Form
       className="w-100"
       form={stepTwoForm}
       onFinish={onFinishStepTwo}
-      onFinishFailed={onFinishFailedStepTwo}
     >
       <div
         className={`h6 mb-3 ${styles.bodyShapesHeader}`}
@@ -100,14 +99,14 @@ const WizzardStepTwo = (props) => {
             </Radio.Button>
 
             <Radio.Button
-              value="skinnyFat"
+              value="skinny_fat"
               style={{ height: '100%' }}
             >
               <div
                 style={{ width: '100%', textAlign: 'center' }}
-                className={bodyShape === 'skinnyFat' ? styles.borderSelected : styles.borderNotSelected}
+                className={bodyShape === 'skinny_fat' ? styles.borderSelected : styles.borderNotSelected}
               >
-                {bodyShape === 'skinnyFat' ? <SkinnyFatHover /> : <SkinnyFat /> }
+                {bodyShape === 'skinny_fat' ? <SkinnyFatHover /> : <SkinnyFat /> }
               </div>
               <div>
                 <div
@@ -122,14 +121,14 @@ const WizzardStepTwo = (props) => {
             </Radio.Button>
 
             <Radio.Button
-              value="average"
+              value="average_built"
               style={{ height: '100%' }}
             >
               <div
                 style={{ width: '100%', textAlign: 'center' }}
-                className={bodyShape === 'average' ? styles.borderSelected : styles.borderNotSelected}
+                className={bodyShape === 'average_built' ? styles.borderSelected : styles.borderNotSelected}
               >
-                {bodyShape === 'average' ? <AverageHover /> : <Average /> }
+                {bodyShape === 'average_built' ? <AverageHover /> : <Average /> }
               </div>
               <div>
                 <div className={styles.typeTitle}>
@@ -248,7 +247,9 @@ const WizzardStepTwo = (props) => {
 
                 ]}
               >
-                <DatePicker />
+                <DatePicker
+                  disabledDate={disabledDate}
+                />
               </Form.Item>
             </div>
             <div className="w-100 margin-right-antd-override">
@@ -260,13 +261,6 @@ const WizzardStepTwo = (props) => {
               <Form.Item
                 className="mb-4"
                 name="willingWeight"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please input your Willing Weight!',
-                  },
-
-                ]}
               >
                 <Input
                   className={`${styles.loginInputField} ${stepOneStyles.marginRightItems} px-3 py-2`}
@@ -280,6 +274,11 @@ const WizzardStepTwo = (props) => {
       </div>
     </Form>
   );
+};
+
+WizzardStepTwo.propTypes = {
+  setStepper: func.isRequired,
+  setWizzardSubmission: func.isRequired,
 };
 
 export default WizzardStepTwo;

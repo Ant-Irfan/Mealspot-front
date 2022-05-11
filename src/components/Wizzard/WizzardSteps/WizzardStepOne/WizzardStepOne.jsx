@@ -1,6 +1,5 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-console */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Form, Input, Radio } from 'antd';
 import { ReactComponent as Male } from '../../../../images/wizzard/step1/male.svg';
 import { ReactComponent as Female } from '../../../../images/wizzard/step1/female.svg';
@@ -9,8 +8,12 @@ import stepOneStyles from './wizzardStepOne.module.scss';
 
 const WizzardStepOne = (props) => {
   const {
-    setStepper, stepOneForm, setWizzardSubmission,
+    // eslint-disable-next-line react/prop-types
+    setStepper, stepOneForm,
+    setWizzardSubmission, initialWizzardValues,
   } = props;
+
+  const [isGoogleRegistration, setisGoogleRegistration] = useState(false);
   const onFinishStepOne = (values) => {
     const {
       email,
@@ -23,20 +26,23 @@ const WizzardStepOne = (props) => {
       full_name: fullName,
       email,
       gender,
-      password,
+      password: password || null,
     }));
     setStepper(2);
   };
 
-  const onFinishFailedStepOne = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+  useEffect(() => {
+    if (initialWizzardValues
+      && initialWizzardValues.registration_type === 'OAUTH2_GOOGLE') {
+      setisGoogleRegistration(true);
+    }
+  }, [initialWizzardValues]);
+
   return (
     <Form
       className={`${stepOneStyles.wizzardStepOneFormContainer} w-100`}
       form={stepOneForm}
       onFinish={onFinishStepOne}
-      onFinishFailed={onFinishFailedStepOne}
     >
       <div className={stepOneStyles.wizzardStepOneFlexContainer}>
         <div className="w-100">
@@ -90,6 +96,9 @@ const WizzardStepOne = (props) => {
           </Form.Item>
         </div>
       </div>
+      {
+        !isGoogleRegistration
+      && (
       <div className={stepOneStyles.wizzardStepOneFlexContainer}>
         <div className="w-100">
           <div
@@ -105,6 +114,7 @@ const WizzardStepOne = (props) => {
                 required: true,
                 message: 'Please input your Password!',
               },
+              { min: 6, message: 'Password must be minimum 6 characters.' },
             ]}
           >
             <Input.Password
@@ -146,6 +156,8 @@ const WizzardStepOne = (props) => {
           </Form.Item>
         </div>
       </div>
+      )
+      }
       <div className="d-flex">
         <div className="w-100">
           <div
@@ -195,6 +207,22 @@ const WizzardStepOne = (props) => {
       </div>
     </Form>
   );
+};
+
+const {
+  shape, array, func, string,
+} = PropTypes;
+WizzardStepOne.propTypes = {
+  initialWizzardValues: shape({
+    email: string.isRequired,
+    // eslint-disable-next-line react/forbid-prop-types
+    foodstuffs: array.isRequired,
+    name: string,
+    registration_type: string.isRequired,
+    token_valid_until: string.isRequired,
+  }).isRequired,
+  setStepper: func.isRequired,
+  setWizzardSubmission: func.isRequired,
 };
 
 export default WizzardStepOne;
