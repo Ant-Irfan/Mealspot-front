@@ -1,5 +1,5 @@
 import axios from 'axios';
-// import uuidv4 from 'react-uuid';
+import uuidv4 from 'react-uuid';
 import { BASE_URL } from '../utils/constants';
 
 const defaultOptions = (url) => ({
@@ -12,16 +12,16 @@ const defaultOptions = (url) => ({
 
 export const ApiService = axios.create(defaultOptions(BASE_URL));
 
-const getToken = () => `Bearer ${localStorage.getItem('token')}`;
-
-// WILL BE USED WHEN AUTHORIZED API COMES
-// const getDeviceID = () => (localStorage.getItem('deviceId') ? localStorage.getItem('deviceId') : localStorage.setItem('deviceId', uuidv4()));
+const getToken = () => `${localStorage.getItem('token')}`;
+const getDeviceID = () => (localStorage.getItem('deviceId') ? localStorage.getItem('deviceId') : localStorage.setItem('deviceId', uuidv4()));
 
 export const AuthorizedApiService = axios.create(defaultOptions(BASE_URL));
 
 AuthorizedApiService.interceptors.request.use(
   (req) => {
     req.headers.Authorization = getToken();
+    req.headers['x-request-id'] = getDeviceID();
+    req.headers['User-Agent'] = window.navigator.userAgent;
     return req;
   },
 );

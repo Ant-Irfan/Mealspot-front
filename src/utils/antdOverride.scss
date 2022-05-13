@@ -224,3 +224,30 @@
 .ant-checkbox:hover::after, .ant-checkbox-wrapper:hover .ant-checkbox::after {
     visibility: hidden;
 }
+
+.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background-color: #FFFFFF1A;
+}
+
+.ant-tooltip-content {
+    .ant-tooltip-inner {
+        img {
+            display: none
+        }
+    }
+}
+.ant-layout {
+    background-color: #ffffff;
+}
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+    height: 40px;
+    padding: 5px 11px;
+}
+.ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    height: 40px;
+}
+.ant-select-selection-item-remove {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
