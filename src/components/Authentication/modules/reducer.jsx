@@ -2,11 +2,13 @@
 import {
   SET_WIZZARD_INITIAL_VALUES,
   SET_WIZZARD_ENABLED,
+  SET_CURRENT_USER,
 } from './types';
 
 const defaultState = {
   initialFormValues : null,
   wizzardEnabled: false,
+  user: null,
 };
 
 export default (state = defaultState, action) => {
@@ -20,6 +22,11 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         wizzardEnabled: action.isEnabled,
+      };
+    case SET_CURRENT_USER:
+      return {
+        ...state,
+        user: action.user,
       };
     default:
       return state;

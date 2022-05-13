@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import axios from 'axios';
 import { notification } from 'antd';
 import history from '../../../history';
@@ -5,7 +6,7 @@ import {
   SET_WIZZARD_INITIAL_VALUES,
   SET_WIZZARD_ENABLED,
 } from './types';
-import { ApiService } from '../../../services/apiService';
+import { ApiService, AuthorizedApiService } from '../../../services/apiService';
 import { parseError } from '../../../utils/errorParseHelper';
 import { BASE_URL } from '../../../utils/constants';
 
@@ -157,16 +158,48 @@ export const loginUser = (username, password) => async (/* dispatch */) => {
       const { data, success } = res.data;
       if (success) {
         const { token } = data;
-        localStorage.setItem('token', token);
-        history.push('/home');
-        notification.success({
-          message: 'Logged In!',
-        });
+        const { user_type } = data.user;
+        if (user_type === 'admin') {
+          localStorage.setItem('adminToken', token);
+          history.push('/admin/exercises');
+          notification.success({
+            message: 'Admin Logged In!',
+          });
+        } else {
+          localStorage.setItem('token', token);
+          history.push('/home');
+          notification.success({
+            message: 'Logged In!',
+          });
+        }
       } else {
         notification.error({
           message: 'Invalid User Login!',
         });
       }
+    })
+    .catch((err) => {
+      const error = parseError(err);
+      notification.error({
+        message: error,
+      });
+    });
+};
+
+export const getCurrentActiveUser = () => async (/* dispatch */) => {
+  AuthorizedApiService.get('api/user/whoami')
+    .then((res) => {
+      // eslint-disable-next-line no-console
+      console.log(res.data);
+      /*
+      const { data, success } = res.data;
+      if (data && success) {
+
+      } else {
+        notification.error({
+          message: 'Password Reset Error!',
+        });
+      } */
     })
     .catch((err) => {
       const error = parseError(err);
