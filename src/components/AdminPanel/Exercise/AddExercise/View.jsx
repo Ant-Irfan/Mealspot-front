@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Form, Input, Select, Upload, Button,
 } from 'antd';
@@ -34,16 +34,20 @@ const complexityOptions = [
   </>,
 ];
 
-const alternativeExercises = [
-  <Option value="exercise1">Exercise1</Option>,
-  <Option value="exercise2">Exercise2</Option>,
-];
-
 const AdminAddExercise = (props) => {
-  const { actions } = props;
+  const { actions, exercises } = props;
+
+  useEffect(() => {
+    if (exercises.length === 0) {
+      actions.getExercises();
+    }
+  }, []);
+
   const [addExerciseForm] = Form.useForm();
   const [richTextEditorValue, setRichTextEditorValue] = useState('');
   const normFile = (e) => {
+    // eslint-disable-next-line no-console
+    console.log(e);
     if (Array.isArray(e)) {
       return e;
     }
@@ -51,10 +55,10 @@ const AdminAddExercise = (props) => {
   };
   const onWorkoutDoneForm = (values) => {
     const exerciseToAdd = {
-      male_photo_start: values.male_photo_start[0].thumbUrl,
-      male_photo_end: values.male_photo_end[0].thumbUrl,
-      female_photo_start: values.female_photo_start[0].thumbUrl,
-      female_photo_end: values.female_photo_end[0].thumbUrl,
+      male_photo_start: values.male_photo_start[0].originFileObj,
+      male_photo_end: values.male_photo_end[0].originFileObj,
+      female_photo_start: values.female_photo_start[0].originFileObj,
+      female_photo_end: values.female_photo_end[0].originFileObj,
       data: {
         name: values.name,
         complexity: values.complexity,
@@ -65,6 +69,7 @@ const AdminAddExercise = (props) => {
         female_video_url: values.female_video_url,
         alternate_exercises: values.alternate_exercises,
         instructions:richTextEditorValue,
+        active: true,
       },
     };
     actions.addExercise(exerciseToAdd);
@@ -179,7 +184,12 @@ const AdminAddExercise = (props) => {
                     getValueFromEvent={normFile}
                     extra="Male Photo Start"
                   >
-                    <Upload name="logo" action="/upload.do" listType="picture">
+                    <Upload
+                      name="logo"
+                      action="/upload.do"
+                      listType="picture"
+                      beforeUpload={() => false}
+                    >
                       <Button icon={<UploadOutlined />}>Click to upload</Button>
                     </Upload>
                   </Form.Item>
@@ -191,7 +201,12 @@ const AdminAddExercise = (props) => {
                     getValueFromEvent={normFile}
                     extra="Male Photo End"
                   >
-                    <Upload name="logo" action="/upload.do" listType="picture">
+                    <Upload
+                      beforeUpload={() => false}
+                      name="logo"
+                      action="/upload.do"
+                      listType="picture"
+                    >
                       <Button icon={<UploadOutlined />}>Click to upload</Button>
                     </Upload>
                   </Form.Item>
@@ -202,7 +217,12 @@ const AdminAddExercise = (props) => {
                       getValueFromEvent={normFile}
                       extra="Female Photo Start"
                     >
-                      <Upload name="logo" action="/upload.do" listType="picture">
+                      <Upload
+                        beforeUpload={() => false}
+                        name="logo"
+                        action="/upload.do"
+                        listType="picture"
+                      >
                         <Button icon={<UploadOutlined />}>Click to upload</Button>
                       </Upload>
                     </Form.Item>
@@ -214,7 +234,12 @@ const AdminAddExercise = (props) => {
                       getValueFromEvent={normFile}
                       extra="Female Photo Start"
                     >
-                      <Upload name="logo" action="/upload.do" listType="picture">
+                      <Upload
+                        beforeUpload={() => false}
+                        name="logo"
+                        action="/upload.do"
+                        listType="picture"
+                      >
                         <Button icon={<UploadOutlined />}>Click to upload</Button>
                       </Upload>
                     </Form.Item>
@@ -362,7 +387,11 @@ const AdminAddExercise = (props) => {
                         mode="multiple"
                         placeholder="Select alternative exercises"
                       >
-                        {alternativeExercises}
+                        {
+                          exercises.map((exercise) => (
+                            <Option value={exercise.id}>{exercise.name}</Option>
+                          ))
+                        }
                       </Select>
                     </Form.Item>
                   </div>
@@ -387,11 +416,14 @@ const AdminAddExercise = (props) => {
   );
 };
 
-const { shape, func } = PropTypes;
+const { shape, func, array } = PropTypes;
 AdminAddExercise.propTypes = {
   actions: shape({
     addExercise: func.isRequired,
+    getExercises: func.isRequired,
   }).isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  exercises: array.isRequired,
 };
 
 export default AdminAddExercise;

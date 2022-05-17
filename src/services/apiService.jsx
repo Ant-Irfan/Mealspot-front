@@ -10,6 +10,14 @@ const defaultOptions = (url) => ({
   },
 });
 
+const defaultFormDataOptions = (url) => ({
+  timeout: 30000,
+  baseURL: `${url}`,
+  headers: {
+    'Content-Type': 'multipart/form-data',
+  },
+});
+
 export const ApiService = axios.create(defaultOptions(BASE_URL));
 
 const getToken = () => `${localStorage.getItem('token')}`;
@@ -17,15 +25,30 @@ const getDeviceID = () => (localStorage.getItem('deviceId') ? localStorage.getIt
 
 export const AuthorizedApiService = axios.create(defaultOptions(BASE_URL));
 
+export const AuthorizedApiFormDataService = axios.create(defaultFormDataOptions(BASE_URL));
+
 AuthorizedApiService.interceptors.request.use(
   (req) => {
     req.headers.Authorization = getToken();
-    req.headers['x-request-id'] = getDeviceID();
-    req.headers['User-Agent'] = window.navigator.userAgent;
+    req.headers['X-DEVICE-ID'] = getDeviceID();
     return req;
   },
 );
 AuthorizedApiService.interceptors
+  .response
+  .use(
+    (res) => res,
+    (err) => err,
+  );
+
+AuthorizedApiFormDataService.interceptors.request.use(
+  (req) => {
+    req.headers.Authorization = getToken();
+    req.headers['X-DEVICE-ID'] = getDeviceID();
+    return req;
+  },
+);
+AuthorizedApiFormDataService.interceptors
   .response
   .use(
     (res) => res,
