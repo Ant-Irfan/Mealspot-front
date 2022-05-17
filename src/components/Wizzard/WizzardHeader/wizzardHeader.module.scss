@@ -1,0 +1,39 @@
+@import '../../../variables.scss';
+@import '../../../utils/breakpointsHelper.scss';
+
+.wizzardHeaderContainer {
+    padding-bottom: 30px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    border-bottom: 1px solid $light-gray;
+    padding: 0 30px;
+    @include tablet {
+        align-items: center;
+        flex-direction: row;
+        padding: 0;
+        padding-bottom: 30px;
+    }
+    .wizzardHeaderHeading {
+        font-size: 26px;
+        margin: 0;
+        padding-right: 20px;
+        padding-bottom: 10px;
+        @include tablet {
+            border-right: 1px solid $light-gray;
+            padding-bottom: 0;
+        }
+    }
+    .wizzardHeaderDescription {
+        font-size: 14px;
+        color: $gray;
+        width: 100%;
+        max-width: 500px;
+        padding-left: 0px;
+        padding-bottom: 20px;
+        @include tablet {
+            padding-left: 20px;
+            padding-bottom: 0;
+        }
+    }
+}

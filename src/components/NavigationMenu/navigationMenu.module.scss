@@ -1,0 +1,44 @@
+@import '../../variables.scss';
+
+.logoPlaceholderContainer {
+    background-color: $primary-color;  
+}
+.imageContainer {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+.dividerLine {
+    border: 1px solid #FFFFFF1F;
+    width: 80%;
+    margin: 0 auto 25px;
+}
+.paddingMenuItems {
+    padding-left: 24px;
+}
+.mealspotHeader {
+    font-size: 16px;
+    color: white;
+    padding-top: 24px;
+}
+.mealspotHeaderDescription {
+    font-size: 12px;
+    color: #FFFFFF80;
+    padding-bottom: 24px;
+}
+.MenuHeading {
+    padding-left: 24px;
+    margin-bottom: 20px;
+    color: #FFFFFF33;
+    font-size: 10px;
+    font-weight: 500;
+}
+.ant-tooltip-content {
+    .ant-tooltip-inner {
+        .imageContainer {
+            img {
+                display: none
+            }
+        }
+    }
+}

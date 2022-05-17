@@ -1,0 +1,2 @@
+export const SET_EXERCISES = 'SET_EXERCISES';
+export const SET_WORKOUTS = 'SET_WORKOUTS';

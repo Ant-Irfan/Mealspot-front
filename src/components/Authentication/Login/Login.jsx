@@ -1,19 +1,21 @@
-/* eslint-disable no-console */
-/* eslint-disable array-callback-return */
-/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { Form, Input, Checkbox } from 'antd';
+import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import { ReactComponent as GoogleLogo } from '../../../images/login/google-logo.svg';
 import Logo from '../../../images/Logo-colored.png';
 import styles from '../auth.module.scss';
+import { BASE_URL } from '../../../utils/constants';
+import { resetPasswordRoute, registerRoute } from '../../../utils/pathsHelper';
 
-const Login = () => {
+const Login = ({ actions }) => {
   const onFinishLogin = (values) => {
-    console.log('Values', values);
+    const { email, password } = values;
+    actions.loginUser(email, password);
   };
 
-  const onFinishFailedLogin = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+  const leadToGoogleRegistration = () => {
+    window.location.href = `${BASE_URL}/ext/login/google`;
   };
   return (
     <div className={styles.loginContainer}>
@@ -31,7 +33,6 @@ const Login = () => {
       <Form
         name="Login"
         onFinish={onFinishLogin}
-        onFinishFailed={onFinishFailedLogin}
       >
         <div>
           <div
@@ -88,10 +89,16 @@ const Login = () => {
               name="remember"
               valuePropName="checked"
             >
-              <Checkbox>Remember</Checkbox>
+              <Checkbox>
+                Remember
+              </Checkbox>
             </Form.Item>
           </div>
-          <div className="mt-1">Forgot Password</div>
+          <NavLink
+            to={resetPasswordRoute}
+          >
+            <div className="mt-1">Forgot Password</div>
+          </NavLink>
         </div>
 
         <div>
@@ -104,6 +111,7 @@ const Login = () => {
         </div>
         <div>
           <button
+            onClick={leadToGoogleRegistration}
             type="button"
             className={`${styles.loginGoogleButton} btn btn-light py-2`}
           >
@@ -116,11 +124,22 @@ const Login = () => {
 
         <div className={`${styles.loginInputField} text-center`}>
           Don´t have an Account?
-          <span>Sign up now.</span>
+          <NavLink
+            to={registerRoute}
+          >
+            <span className={styles.signUpNow}>Sign up now.</span>
+          </NavLink>
         </div>
       </Form>
     </div>
   );
+};
+
+const { shape, func } = PropTypes;
+Login.propTypes = {
+  actions: shape({
+    loginUser: func.isRequired,
+  }).isRequired,
 };
 
 export default Login;

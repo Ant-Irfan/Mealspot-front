@@ -3,28 +3,87 @@ import PropTypes from 'prop-types';
 import { Switch, withRouter } from 'react-router-dom';
 import {
   RouteWithoutNavbar,
+  PrivateNavigationMenuRoute,
 } from './routing/routes';
 import {
   loginRoute,
   registerRoute,
   registerConfirmedRoute,
+  wizzardRoute,
+  resetPasswordRoute,
+  adminTrainingRoute,
+  adminAddExerciseRoute,
+  adminExercisesRoute,
+  adminTrainingTableRoute,
+  adminRoutinesTableRoute,
+  adminAddRoutineRoute,
 } from './utils/pathsHelper';
-import Authentication from './components/Authentication/View';
+import Authentication from './components/Authentication';
 import RegisterConfirmed from './components/Authentication/RegisterConfirmed/RegisterConfirmed';
+import Wizzard from './components/Wizzard';
+import AdminTraining from './components/AdminPanel/Training/AddTraining';
+import AdminAddExercise from './components/AdminPanel/Exercise/AddExercise';
+import AdminExercises from './components/AdminPanel/Exercise/TableExercises';
+import AdminTrainingTable from './components/AdminPanel/Training/TableTraining';
+import AdminAddRoutine from './components/AdminPanel/Routines/AddRoutine';
+import AdminRoutinesTable from './components/AdminPanel/Routines/RoutinesTable';
 
 const AppContainer = ({ location }) => (
   <Switch location={location}>
     <RouteWithoutNavbar
       path={loginRoute}
+      exact
       component={Authentication}
     />
     <RouteWithoutNavbar
       path={registerRoute}
+      exact
+      component={Authentication}
+    />
+    <RouteWithoutNavbar
+      path={resetPasswordRoute}
+      exact
       component={Authentication}
     />
     <RouteWithoutNavbar
       path={registerConfirmedRoute}
+      exact
       component={RegisterConfirmed}
+    />
+    <RouteWithoutNavbar
+      path={wizzardRoute}
+      exact
+      component={Wizzard}
+    />
+    <PrivateNavigationMenuRoute
+      path={adminTrainingRoute}
+      exact
+      component={AdminTraining}
+    />
+    <PrivateNavigationMenuRoute
+      path={adminAddExerciseRoute}
+      exact
+      component={AdminAddExercise}
+    />
+    <PrivateNavigationMenuRoute
+      path={adminExercisesRoute}
+      exact
+      component={AdminExercises}
+    />
+    <PrivateNavigationMenuRoute
+      path={adminTrainingTableRoute}
+      exact
+      component={AdminTrainingTable}
+    />
+    <PrivateNavigationMenuRoute
+      path={adminAddRoutineRoute}
+      exact
+      component={AdminAddRoutine}
+    />
+    <PrivateNavigationMenuRoute
+      path={adminRoutinesTableRoute}
+      exact
+      component={AdminRoutinesTable}
     />
   </Switch>
 );

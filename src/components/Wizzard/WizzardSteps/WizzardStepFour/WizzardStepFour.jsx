@@ -1,0 +1,170 @@
+import React, { useState } from 'react';
+import {
+  Form, Radio,
+} from 'antd';
+import PropTypes from 'prop-types';
+import { ReactComponent as GymHover } from '../../../../images/wizzard/step4/home_hover.svg';
+import { ReactComponent as Home } from '../../../../images/wizzard/step4/home_env.svg';
+import { ReactComponent as GymHoverReal } from '../../../../images/wizzard/step4/Group.svg';
+import { ReactComponent as Gym } from '../../../../images/wizzard/step4/gym.svg';
+import styles from '../WizzardStepTwo/wizzardSteptwo.module.scss';
+import stylesStepFour from './wizzardStepFour.module.scss';
+
+const WizzardStepFour = (props) => {
+  // eslint-disable-next-line react/prop-types
+  const { stepFourForm, wizzardSubmission, actions } = props;
+  const [level, setLevel] = useState(null);
+  const [environment, setEnvironment] = useState(null);
+
+  const onFinishStepFour = (values) => {
+    const finalFormSubmission = {
+      ...wizzardSubmission,
+      environment: values.environment,
+      workout_level: values.level,
+      token: sessionStorage.getItem('token'),
+    };
+    actions.wizzardUserRegistration(finalFormSubmission);
+  };
+
+  return (
+    <Form
+      className="w-100"
+      form={stepFourForm}
+      onFinish={onFinishStepFour}
+    >
+      <div className={`${stylesStepFour.wizzardStepFourContainer} wizzard-step4-container`}>
+        <Form.Item
+          name="environment"
+          className="margin-right-antd-override-environment"
+          rules={[
+            {
+              required: true,
+              message: 'Please select Environment!',
+            },
+          ]}
+        >
+          <Radio.Group
+            onChange={(e) => setEnvironment(e.target.value)}
+            value={environment}
+            className="step4-radio-group-with-images"
+          >
+            <div className={stylesStepFour.stepFourCardEnvironmentHeading}>Select Environment</div>
+            <div
+              className={`${stylesStepFour.environmentPadding} step4-card-wrapper`}
+            >
+              <Radio.Button
+                value="home"
+                style={{ height: '100%' }}
+              >
+                <div
+                  style={{ width: '100%', textAlign: 'center', minHeight: 120 }}
+                  className={environment === 'home' ? styles.borderSelected : styles.borderNotSelected}
+                >
+                  {environment === 'home' ? <GymHover /> : <Gym /> }
+                </div>
+                <div>
+                  <div
+                    className={stylesStepFour.typeTitle}
+                  >
+                    Home
+                  </div>
+                  <div
+                    className={stylesStepFour.typeDescription}
+                  >
+                    Training in public or in home/private gym with decent
+                    amount of free weights and plates, benches, racks, machines
+                  </div>
+                </div>
+              </Radio.Button>
+              <Radio.Button
+                value="gym"
+                style={{ height: '100%' }}
+              >
+                <div
+                  style={{ width: '100%', textAlign: 'center', minHeight: 120 }}
+                  className={environment === 'gym' ? styles.borderSelected : styles.borderNotSelected}
+                >
+                  {environment === 'gym' ? <GymHoverReal /> : <Home /> }
+                </div>
+                <div>
+                  <div
+                    className={stylesStepFour.typeTitle}
+                  >
+                    Gym
+                  </div>
+                  <div
+                    className={stylesStepFour.typeDescription}
+                  >
+                    Little or no equipment, indoor or outdoor. equipment may include pull-up bar,
+                    lightweight dumbbells, elastic bands...
+                  </div>
+                </div>
+              </Radio.Button>
+            </div>
+          </Radio.Group>
+        </Form.Item>
+        <Form.Item
+          name="level"
+          className="margin-right-antd-override-level"
+          rules={[
+            {
+              required: true,
+              message: 'Please select Level!',
+            },
+          ]}
+        >
+          <Radio.Group
+            onChange={(e) => setLevel(e.target.value)}
+            value={level}
+            className="step4-radio-group-without-images"
+          >
+            <div className={stylesStepFour.stepFourCardHeading}>Select Level</div>
+            <div
+              className={`${stylesStepFour.levelPadding} step4-card-wrapper`}
+              style={{ gap: 20 }}
+            >
+              <Radio.Button
+                value="beginner"
+                style={{ height: '100%' }}
+              >
+                <div
+                  className={stylesStepFour.typeTitle}
+                >
+                  Beginner
+                </div>
+                <div className={stylesStepFour.typeDescription}>
+                  Very little or no experience in training. Under 6 months of training of any kind.
+                  Not able to do a single pull-up, at least 12 push-ups in one set...
+                </div>
+              </Radio.Button>
+
+              <Radio.Button
+                value="experienced"
+                style={{ height: '100%' }}
+              >
+                <div
+                  className={stylesStepFour.typeTitle}
+                >
+                  Experienced
+                </div>
+                <div className={stylesStepFour.typeDescription}>
+                  Over 6 months of consistent training. Able to perform at least one proper pull-up
+                  and over 12 pull-ups in a single set...
+                </div>
+              </Radio.Button>
+            </div>
+          </Radio.Group>
+        </Form.Item>
+      </div>
+    </Form>
+  );
+};
+
+const { shape, func } = PropTypes;
+WizzardStepFour.propTypes = {
+  actions: shape({
+    wizzardUserRegistration: func.isRequired,
+  }).isRequired,
+};
+
+export default WizzardStepFour;

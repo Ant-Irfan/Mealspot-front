@@ -1,9 +1,16 @@
 $desktop: 1024px;
+$desktop-m: 1200px;
 $tablet-min: 768px;
 $mobile-lg: 500px;
 
 @mixin desktop {
     @media (min-width: #{$desktop}) {
+        @content;
+    }
+}
+
+@mixin desktop-m {
+    @media (min-width: #{$desktop-m}) {
         @content;
     }
 }

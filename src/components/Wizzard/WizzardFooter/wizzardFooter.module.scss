@@ -1,0 +1,71 @@
+@import '../../../variables.scss';
+@import '../../../utils/breakpointsHelper.scss';
+.wizzardFooterContainer {
+    padding-top: 30px;
+    border-top: 1px solid $light-gray;
+    padding-right: 25px;
+    padding-left: 25px;
+    gap: 20px;
+    @include tablet {
+        padding-right: 0;
+        padding-left: 0;
+        gap: 0;
+    }
+}
+.nextButton {
+    color: white;
+    background-color: $primary-color;
+    font-weight: 500;
+    max-width: 180px;
+    width: 100%;
+    svg {
+        display: flex;
+    }
+    &:hover {
+        color: #fff;
+        background-color: #3884a0;
+        border-color: #3884a0;
+    }
+    &:active {
+        color: #fff;
+        background-color: #3884a0;
+        border-color: #3884a0;
+    }
+    &:focus {
+        color: #fff;
+        background-color: #3884a0;
+        border-color: #3884a0;
+    }
+    &.btn-light {
+        border-color: #3884a0;
+        background-color: #3884a0;
+    }
+}
+.backButton {
+    font-weight: 500;
+    background-color: $light-gray;
+    max-width: 180px;
+    width: 100%;
+    svg {
+        display: flex;
+    }
+    &:hover {
+        color: #000;
+        background-color: #D2D2D2;
+        border-color: #D2D2D2;
+    }
+    &:active {
+        color: #000;
+        background-color: #D2D2D2;
+        border-color: #D2D2D2;
+    }
+    &:focus {
+        color: #000;
+        background-color: #D2D2D2;
+        border-color: #D2D2D2;
+    }
+    &.btn-light {
+        border-color: #D2D2D2;
+        background-color: #D2D2D2;
+    }
+}

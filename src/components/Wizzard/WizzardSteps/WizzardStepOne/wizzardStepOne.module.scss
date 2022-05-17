@@ -1,0 +1,26 @@
+@import '../../../../variables.scss';
+@import '../../../../utils/breakpointsHelper.scss';
+
+.wizzardStepOneFlexContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    @include tablet {
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+}
+
+.marginRightItems {
+    margin-left: 0px;
+    @include tablet {
+        margin-left: 20px;
+    }
+}
+
+.wizzardStepOneFormContainer {
+    padding: 0 25px;
+    @include tablet {
+        padding: 0;
+    }
+}

@@ -1,0 +1,53 @@
+@import '../../../../variables.scss';
+@import '../../../../utils/breakpointsHelper.scss';
+
+.wizzardStepFourContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+.verticalLine {
+    height: 270px;
+    border-right: 1px solid $light-gray;
+}
+.stepFourCardHeading {
+    font-size: 19px;
+    color: $dark-color;
+    margin-left: 15px;
+    margin-bottom: 30px;
+    font-weight: 500;
+    @include tablet {
+        margin-left: 30px;
+    }
+}
+.stepFourCardEnvironmentHeading {
+    font-size: 19px;
+    color: $dark-color;
+    margin-left: 15px;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+.typeTitle {
+    font-size: 16px;
+    color: $dark-color;
+    margin-top: 15px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.typeDescription {
+    font-size: 12px;
+    color: $gray;
+    line-height: 16px;
+    padding-bottom: 20px;
+}
+.environmentPadding {
+    padding-right: 0;
+    @include tablet {
+        padding-right: 15px;
+    }
+}
+.levelPadding {
+    padding-left: 15px;
+    @include tablet {
+        padding-left: 25px;
+    }
+}
