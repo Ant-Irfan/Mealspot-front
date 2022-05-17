@@ -1,10 +1,22 @@
-import React from 'react';
+/* eslint-disable no-return-assign */
+/* eslint-disable max-len */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable no-undef */
+import React, { useEffect } from 'react';
 import { DeleteTwoTone } from '@ant-design/icons';
+import PropTypes from 'prop-types';
 import styles from '../../adminPanel.module.scss';
 import history from '../../../../history';
 import { adminAddExerciseRoute } from '../../../../utils/pathsHelper';
 
-const AdminExercises = () => {
+const AdminExercises = (props) => {
+  const { actions, exercises } = props;
+
+  useEffect(() => {
+    actions.getExercises();
+  }, []);
+
   const toAddExercisePage = () => {
     history.push(adminAddExerciseRoute);
   };
@@ -34,40 +46,64 @@ const AdminExercises = () => {
                 <th scope="col">ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
+                <th scope="col">Active</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>123456789</td>
-                <td>Name of Exercise</td>
-                <td>Description of Exercise</td>
-                <td>
-                  <DeleteTwoTone
-                    twoToneColor="#D11A2A"
-                    style={{ fontSize: 20, marginLeft: 15 }}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>123456789</td>
-                <td>Name of Exercise</td>
-                <td>Description of Exercise</td>
-                <td>
-                  <DeleteTwoTone
-                    twoToneColor="#D11A2A"
-                    style={{ fontSize: 20, marginLeft: 15 }}
-                  />
-                </td>
-              </tr>
+              {
+                exercises.map((exercise, i) => (
+                  <tr>
+                    <th scope="row">{i}</th>
+                    <td>{exercise.id}</td>
+                    <td>{exercise.name}</td>
+                    <td>{exercise.description}</td>
+                    {
+                      exercise.active
+                        ? (
+                          <td
+                            onClick={() => actions.changeIsActiveExercise(exercise, false)}
+                            style={{ color: 'green' }}
+                          >
+                            Active
+                          </td>
+                        )
+                        : (
+                          <td
+                            onClick={() => actions.changeIsActiveExercise(exercise, true)}
+                            style={{ color: 'red' }}
+                          >
+                            Not Active
+                          </td>
+                        )
+                    }
+                    <td>
+                      <DeleteTwoTone
+                        twoToneColor="#D11A2A"
+                        style={{ fontSize: 20, marginLeft: 15 }}
+                        onClick={() => actions.deleteExercise(exercise.id)}
+                      />
+                    </td>
+                  </tr>
+                ))
+              }
             </tbody>
           </table>
         </div>
       </div>
     </div>
   );
+};
+
+const { shape, func, array } = PropTypes;
+AdminExercises.propTypes = {
+  actions: shape({
+    getExercises: func.isRequired,
+    deleteExercise: func.isRequired,
+    changeIsActiveExercise: func.isRequired,
+  }).isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  exercises: array.isRequired,
 };
 
 export default AdminExercises;

@@ -15,6 +15,8 @@ import {
   adminAddExerciseRoute,
   adminExercisesRoute,
   adminTrainingTableRoute,
+  adminRoutinesTableRoute,
+  adminAddRoutineRoute,
 } from './utils/pathsHelper';
 import Authentication from './components/Authentication';
 import RegisterConfirmed from './components/Authentication/RegisterConfirmed/RegisterConfirmed';
@@ -23,6 +25,8 @@ import AdminTraining from './components/AdminPanel/Training/AddTraining';
 import AdminAddExercise from './components/AdminPanel/Exercise/AddExercise';
 import AdminExercises from './components/AdminPanel/Exercise/TableExercises';
 import AdminTrainingTable from './components/AdminPanel/Training/TableTraining';
+import AdminAddRoutine from './components/AdminPanel/Routines/AddRoutine';
+import AdminRoutinesTable from './components/AdminPanel/Routines/RoutinesTable';
 
 const AppContainer = ({ location }) => (
   <Switch location={location}>
@@ -70,6 +74,16 @@ const AppContainer = ({ location }) => (
       path={adminTrainingTableRoute}
       exact
       component={AdminTrainingTable}
+    />
+    <PrivateNavigationMenuRoute
+      path={adminAddRoutineRoute}
+      exact
+      component={AdminAddRoutine}
+    />
+    <PrivateNavigationMenuRoute
+      path={adminRoutinesTableRoute}
+      exact
+      component={AdminRoutinesTable}
     />
   </Switch>
 );

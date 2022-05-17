@@ -1,16 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Form, Input, Select,
 } from 'antd';
+import PropTypes from 'prop-types';
 import styles from '../../adminPanel.module.scss';
 
 const { Option } = Select;
 
-const AdminTraining = () => {
+const AdminTraining = (props) => {
+  const { actions, exercises } = props;
   const [addTrainingForm] = Form.useForm();
+
+  useEffect(() => {
+    actions.getExercises();
+  }, []);
+
   const onWorkoutDoneForm = (values) => {
-    // eslint-disable-next-line no-console
-    console.log(values);
+    const workout = {
+      name: values.name,
+      description: values.description,
+      exercises: values.exercises,
+      training_time: values.training_time,
+      active: true,
+    };
+    actions.addWorkouts(workout);
   };
 
   return (
@@ -54,33 +67,6 @@ const AdminTraining = () => {
                 />
               </Form.Item>
             </div>
-            {/*  <div
-              style={{ width: '100%', maxWidth: 500 }}
-            >
-              <p
-                className="mb-1"
-              >
-                Nivo
-              </p>
-              <Form.Item
-                className="mb-3"
-                name="level"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please select level of workout!',
-                  },
-
-                ]}
-              >
-                <Select
-                  placeholder="Select level of workout"
-                >
-                  <Option value="beginner">Beginner</Option>
-                  <Option value="experienced">Experienced</Option>
-                </Select>
-              </Form.Item>
-            </div> */}
             <div
               style={{ width: '100%', maxWidth: 500 }}
             >
@@ -91,7 +77,7 @@ const AdminTraining = () => {
               </p>
               <Form.Item
                 className="mb-3"
-                name="name"
+                name="description"
                 rules={[
                   {
                     required: true,
@@ -106,33 +92,6 @@ const AdminTraining = () => {
                 />
               </Form.Item>
             </div>
-            {/* <div
-              style={{ width: '100%', maxWidth: 500 }}
-            >
-              <p
-                className="mb-1"
-              >
-                Flag
-              </p>
-              <Form.Item
-                className="mb-3"
-                name="flag"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please Select Flag!',
-                  },
-
-                ]}
-              >
-                <Select
-                  placeholder="Select level of workout"
-                >
-                  <Option value="home">Home</Option>
-                  <Option value="gym">Gym</Option>
-                </Select>
-              </Form.Item>
-            </div> */}
             <div
               style={{ width: '100%', maxWidth: 500 }}
             >
@@ -143,21 +102,24 @@ const AdminTraining = () => {
               </p>
               <Form.Item
                 className="mb-3"
-                name="flag"
+                name="exercises"
                 rules={[
                   {
                     required: true,
-                    message: 'Please Select Flag!',
+                    message: 'Please Select Exercises!',
                   },
 
                 ]}
               >
                 <Select
                   mode="multiple"
-                  placeholder="Select exercises for workout"
+                  placeholder="Select alternative exercises"
                 >
-                  <Option value="home">exercise 1</Option>
-                  <Option value="gym">exercise 2</Option>
+                  {
+                    exercises.map((exercise) => (
+                      <Option value={exercise.id}>{exercise.name}</Option>
+                    ))
+                  }
                 </Select>
               </Form.Item>
             </div>
@@ -203,6 +165,15 @@ const AdminTraining = () => {
       </div>
     </div>
   );
+};
+
+const { shape, func, array } = PropTypes;
+AdminTraining.propTypes = {
+  actions: shape({
+    addWorkouts: func.isRequired,
+  }).isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  exercises: array.isRequired,
 };
 
 export default AdminTraining;
