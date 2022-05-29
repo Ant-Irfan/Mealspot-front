@@ -12,10 +12,14 @@ import {
   SET_WORKOUT,
   SET_ROUTINE,
   SET_EXERCISE,
+  SET_FOODSTUFF,
 } from './types';
 
 const setExercises = (exercises) => (
   { type: SET_EXERCISES, exercises }
+);
+const setFoodstuffs = (foodstuff) => (
+  { type: SET_FOODSTUFF, foodstuff }
 );
 const setWorkouts = (workouts) => (
   { type: SET_WORKOUTS, workouts }
@@ -325,6 +329,73 @@ export const deleteRoutine = (routineId) => async (dispatch) => {
       } else {
         notification.error({
           message: 'Invalid Delete Routine!',
+        });
+      }
+    })
+    .catch((err) => {
+      const error = parseError(err);
+      notification.error({
+        message: error,
+      });
+    });
+};
+
+// FOODSTUFF CONTROLLER
+export const getFoodstuff = () => async (dispatch) => {
+  AuthorizedApiService.get('api/admin/meal/foodstuff')
+    .then((res) => {
+      const { success, data } = res.data;
+      if (success) {
+        dispatch(setFoodstuffs(data.data));
+      } else {
+        notification.error({
+          message: 'Invalid Foodstuff Fetch!',
+        });
+      }
+    })
+    .catch((err) => {
+      const error = parseError(err);
+      notification.error({
+        message: error,
+      });
+    });
+};
+
+export const addFoodstuff = (foodstuff) => async (/* dispatch */) => {
+  AuthorizedApiService.post('api/admin/meal/foodstuff', foodstuff)
+    .then((res) => {
+      const { success } = res.data;
+      if (success) {
+        history.push('/admin/foodstuff');
+        notification.success({
+          message: 'Foodstuff Added!',
+        });
+      } else {
+        notification.error({
+          message: 'Invalid Add Foodstuff!',
+        });
+      }
+    })
+    .catch((err) => {
+      const error = parseError(err);
+      notification.error({
+        message: error,
+      });
+    });
+};
+
+export const deleteFoodstuff = (foodstuffId) => async (dispatch) => {
+  AuthorizedApiService.delete(`api/admin/meal/foodstuff/${foodstuffId}`)
+    .then((res) => {
+      const { success } = res.data;
+      if (success) {
+        dispatch(getFoodstuff());
+        notification.success({
+          message: 'Delete Foodstuff success!',
+        });
+      } else {
+        notification.error({
+          message: 'Invalid Delete Foodstuff!',
         });
       }
     })

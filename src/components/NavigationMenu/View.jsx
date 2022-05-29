@@ -6,6 +6,7 @@ import {
   adminExercisesRoute,
   adminTrainingTableRoute,
   adminRoutinesTableRoute,
+  adminTableFoodstuff,
 } from '../../utils/pathsHelper';
 import styles from './navigationMenu.module.scss';
 import UserMocked from '../../images/navigationMenu/userMocked.png';
@@ -133,6 +134,16 @@ const NavigationMenu = (props) => {
             to={adminRoutinesTableRoute}
           >
             Training
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item
+          key="adminItem9"
+          icon={<Exercise />}
+        >
+          <NavLink
+            to={adminTableFoodstuff}
+          >
+            Foodstuff
           </NavLink>
         </Menu.Item>
         <Menu.Item key="adminItem8" icon={<Logout />}>

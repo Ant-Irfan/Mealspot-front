@@ -21,6 +21,8 @@ import {
   adminViewRoutine,
   adminViewExercise,
   wizzardRouteWithToken,
+  adminAddFoodstuff,
+  adminTableFoodstuff,
 } from './utils/pathsHelper';
 import Authentication from './components/Authentication';
 import RegisterConfirmed from './components/Authentication/RegisterConfirmed/RegisterConfirmed';
@@ -34,6 +36,8 @@ import AdminRoutinesTable from './components/AdminPanel/Routines/RoutinesTable';
 import AdminViewWorkout from './components/AdminPanel/Training/ViewTraining';
 import AdminViewRoutine from './components/AdminPanel/Routines/ViewRoutine';
 import AdminViewExercise from './components/AdminPanel/Exercise/ViewExercise';
+import AdminAddFoodstuff from './components/AdminPanel/Foodstuff/AddFoodstuff';
+import AdminFoodstuffTable from './components/AdminPanel/Foodstuff/TableFoodstuff';
 
 const AppContainer = ({ location }) => (
   <Switch location={location}>
@@ -111,6 +115,16 @@ const AppContainer = ({ location }) => (
       path={adminViewExercise}
       exact
       component={AdminViewExercise}
+    />
+    <PrivateNavigationMenuRoute
+      path={adminAddFoodstuff}
+      exact
+      component={AdminAddFoodstuff}
+    />
+    <PrivateNavigationMenuRoute
+      path={adminTableFoodstuff}
+      exact
+      component={AdminFoodstuffTable}
     />
   </Switch>
 );

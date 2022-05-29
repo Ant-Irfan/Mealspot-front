@@ -17,3 +17,6 @@ export const adminViewExercise = '/admin/exercises/:id';
 export const adminRoutinesTableRoute = '/admin/routines';
 export const adminAddRoutineRoute = '/admin/add-routine';
 export const adminViewRoutine = '/admin/routines/:id';
+
+export const adminAddFoodstuff = '/admin/add-foodstuff';
+export const adminTableFoodstuff = '/admin/foodstuff';
