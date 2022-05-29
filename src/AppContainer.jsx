@@ -20,6 +20,7 @@ import {
   adminViewTraining,
   adminViewRoutine,
   adminViewExercise,
+  wizzardRouteWithToken,
 } from './utils/pathsHelper';
 import Authentication from './components/Authentication';
 import RegisterConfirmed from './components/Authentication/RegisterConfirmed/RegisterConfirmed';
@@ -58,6 +59,11 @@ const AppContainer = ({ location }) => (
     />
     <RouteWithoutNavbar
       path={wizzardRoute}
+      exact
+      component={Wizzard}
+    />
+    <RouteWithoutNavbar
+      path={wizzardRouteWithToken}
       exact
       component={Wizzard}
     />

@@ -4,6 +4,7 @@ export const registerConfirmedRoute = '/register-confirmed';
 export const resetPasswordRoute = '/reset-password';
 
 export const wizzardRoute = '/wizard';
+export const wizzardRouteWithToken = '/wizard/:token';
 
 export const adminTrainingTableRoute = '/admin/workout';
 export const adminViewTraining = '/admin/workout/:id';
