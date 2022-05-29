@@ -6,12 +6,14 @@ import {
   SET_WORKOUT,
   SET_ROUTINE,
   SET_EXERCISE,
+  SET_FOODSTUFF,
 } from './types';
 
 const defaultState = {
   exercises: [],
   workouts: [],
   routines: [],
+  foodstuffs: [],
   workout: null,
   routine: null,
   exercise: null,
@@ -48,6 +50,11 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         routine: action.routine,
+      };
+    case SET_FOODSTUFF:
+      return {
+        ...state,
+        foodstuffs: action.foodstuff,
       };
     default:
       return state;
