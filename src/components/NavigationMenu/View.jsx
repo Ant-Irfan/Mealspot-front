@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Menu } from 'antd';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {
   adminExercisesRoute,
   adminTrainingTableRoute,
+  adminRoutinesTableRoute,
 } from '../../utils/pathsHelper';
 import styles from './navigationMenu.module.scss';
 import UserMocked from '../../images/navigationMenu/userMocked.png';
@@ -108,23 +109,33 @@ const NavigationMenu = (props) => {
           Meals
         </Menu.Item>
         <Menu.Item key="adminItem4" icon={<Workout />}>
-          <Link
+          <NavLink
             to={adminTrainingTableRoute}
           >
             Workout
-          </Link>
+          </NavLink>
         </Menu.Item>
         <Menu.Item
           key="adminItem5"
           icon={<Exercise />}
         >
-          <Link
+          <NavLink
             to={adminExercisesRoute}
           >
             Exercises
-          </Link>
+          </NavLink>
         </Menu.Item>
-        <Menu.Item key="adminItem6" icon={<Logout />}>
+        <Menu.Item
+          key="adminItem6"
+          icon={<Exercise />}
+        >
+          <NavLink
+            to={adminRoutinesTableRoute}
+          >
+            Training
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="adminItem8" icon={<Logout />}>
           Logout
         </Menu.Item>
       </Menu>

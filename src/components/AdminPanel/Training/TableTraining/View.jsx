@@ -1,19 +1,22 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect } from 'react';
 import { DeleteTwoTone } from '@ant-design/icons';
 import PropTypes from 'prop-types';
+import { NavLink, withRouter } from 'react-router-dom';
 import styles from '../../adminPanel.module.scss';
-import history from '../../../../history';
 import { adminTrainingRoute } from '../../../../utils/pathsHelper';
 
 const AdminTrainingTable = (props) => {
-  const { actions, workouts } = props;
+  const { actions, workouts, history } = props;
 
   useEffect(() => {
     actions.getWorkouts();
   }, []);
 
-  const toAddWorkoutPage = () => {
-    history.push(adminTrainingRoute);
+  const toViewWorkout = (id) => {
+    history.push(`workout/${id}`);
   };
   return (
     <div>
@@ -24,14 +27,17 @@ const AdminTrainingTable = (props) => {
           >
             Workouts
           </h1>
-          <button
-            type="button"
-            onClick={toAddWorkoutPage}
-            className="primary-color-button btn btn-light"
-            style={{ height: 42 }}
+          <NavLink
+            to={adminTrainingRoute}
           >
-            ADD WORKOUT
-          </button>
+            <button
+              type="button"
+              className="primary-color-button btn btn-light"
+              style={{ height: 42 }}
+            >
+              ADD WORKOUT
+            </button>
+          </NavLink>
         </div>
         <div className="container-content">
           <table className="table">
@@ -48,9 +54,13 @@ const AdminTrainingTable = (props) => {
             <tbody>
               {
                 workouts.map((workout, i) => (
-                  <tr>
+                  <tr
+                    onClick={() => toViewWorkout(workout.id)}
+                  >
                     <th scope="row">{i}</th>
-                    <td>{workout.name}</td>
+                    <td>
+                      {workout.name}
+                    </td>
                     <td>{workout.description}</td>
                     <td>{workout.training_time}</td>
                     {
@@ -77,6 +87,7 @@ const AdminTrainingTable = (props) => {
                         onClick={() => actions.deleteWorkout(workout.id)}
                       />
                     </td>
+
                   </tr>
                 ))
               }
@@ -98,4 +109,4 @@ AdminTrainingTable.propTypes = {
   workouts: array.isRequired,
 };
 
-export default AdminTrainingTable;
+export default withRouter(AdminTrainingTable);

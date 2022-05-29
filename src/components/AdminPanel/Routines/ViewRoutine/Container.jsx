@@ -1,19 +1,17 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
-  getWorkouts,
-  addTrainingRoutine,
+  getSingleTrainingRoutine,
 } from '../../modules/actions';
 
 const mapStateToProps = (state) => ({
-  workouts: state.adminReducer.workouts,
+  routine: state.adminReducer.routine,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(
     {
-      getWorkouts,
-      addTrainingRoutine,
+      getSingleTrainingRoutine,
     },
     dispatch,
   ),

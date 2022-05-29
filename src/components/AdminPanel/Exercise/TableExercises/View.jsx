@@ -6,19 +6,21 @@
 import React, { useEffect } from 'react';
 import { DeleteTwoTone } from '@ant-design/icons';
 import PropTypes from 'prop-types';
+import { NavLink, withRouter } from 'react-router-dom';
 import styles from '../../adminPanel.module.scss';
-import history from '../../../../history';
 import { adminAddExerciseRoute } from '../../../../utils/pathsHelper';
 
 const AdminExercises = (props) => {
-  const { actions, exercises } = props;
+  // eslint-disable-next-line react/prop-types
+  const { actions, exercises, history } = props;
 
   useEffect(() => {
     actions.getExercises();
   }, []);
 
-  const toAddExercisePage = () => {
-    history.push(adminAddExerciseRoute);
+  const toViewExercise = (id) => {
+    // eslint-disable-next-line react/prop-types
+    history.push(`exercises/${id}`);
   };
   return (
     <div>
@@ -29,14 +31,17 @@ const AdminExercises = (props) => {
           >
             Exercises
           </h1>
-          <button
-            type="button"
-            onClick={toAddExercisePage}
-            className="primary-color-button btn btn-light"
-            style={{ height: 42 }}
+          <NavLink
+            to={adminAddExerciseRoute}
           >
-            ADD EXERCISE
-          </button>
+            <button
+              type="button"
+              className="primary-color-button btn btn-light"
+              style={{ height: 42 }}
+            >
+              ADD EXERCISE
+            </button>
+          </NavLink>
         </div>
         <div className="container-content">
           <table className="table">
@@ -53,10 +58,14 @@ const AdminExercises = (props) => {
             <tbody>
               {
                 exercises.map((exercise, i) => (
-                  <tr>
+                  <tr
+                    onClick={() => toViewExercise(exercise.id)}
+                  >
                     <th scope="row">{i}</th>
                     <td>{exercise.id}</td>
-                    <td>{exercise.name}</td>
+                    <td>
+                      {exercise.name}
+                    </td>
                     <td>{exercise.description}</td>
                     {
                       exercise.active
@@ -106,4 +115,4 @@ AdminExercises.propTypes = {
   exercises: array.isRequired,
 };
 
-export default AdminExercises;
+export default withRouter(AdminExercises);

@@ -2,11 +2,19 @@
 import {
   SET_EXERCISES,
   SET_WORKOUTS,
+  SET_ROUTINES,
+  SET_WORKOUT,
+  SET_ROUTINE,
+  SET_EXERCISE,
 } from './types';
 
 const defaultState = {
-  exercises : [],
+  exercises: [],
   workouts: [],
+  routines: [],
+  workout: null,
+  routine: null,
+  exercise: null,
 };
 
 export default (state = defaultState, action) => {
@@ -16,10 +24,30 @@ export default (state = defaultState, action) => {
         ...state,
         exercises: action.exercises,
       };
+    case SET_EXERCISE:
+      return {
+        ...state,
+        exercise: action.exercise,
+      };
     case SET_WORKOUTS:
       return {
         ...state,
         workouts: action.workouts,
+      };
+    case SET_WORKOUT:
+      return {
+        ...state,
+        workout: action.workout,
+      };
+    case SET_ROUTINES:
+      return {
+        ...state,
+        routines: action.routines,
+      };
+    case SET_ROUTINE:
+      return {
+        ...state,
+        routine: action.routine,
       };
     default:
       return state;
