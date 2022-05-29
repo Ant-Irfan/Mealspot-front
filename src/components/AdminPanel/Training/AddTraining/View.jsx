@@ -16,6 +16,8 @@ const AdminTraining = (props) => {
   }, []);
 
   const onWorkoutDoneForm = (values) => {
+    // eslint-disable-next-line no-console
+    console.log(values.description);
     const workout = {
       name: values.name,
       description: values.description,

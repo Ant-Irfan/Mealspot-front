@@ -8,6 +8,10 @@ import { parseError } from '../../../utils/errorParseHelper';
 import {
   SET_EXERCISES,
   SET_WORKOUTS,
+  SET_ROUTINES,
+  SET_WORKOUT,
+  SET_ROUTINE,
+  SET_EXERCISE,
 } from './types';
 
 const setExercises = (exercises) => (
@@ -15,6 +19,18 @@ const setExercises = (exercises) => (
 );
 const setWorkouts = (workouts) => (
   { type: SET_WORKOUTS, workouts }
+);
+const setSingleWorkout = (workout) => (
+  { type: SET_WORKOUT, workout }
+);
+const setTrainingRoutines = (routines) => (
+  { type: SET_ROUTINES, routines }
+);
+const setSingleTrainingRoutine = (routine) => (
+  { type: SET_ROUTINE, routine }
+);
+const setSingleExercise = (exercise) => (
+  { type: SET_EXERCISE, exercise }
 );
 
 // EXERCISES CONTROLLER
@@ -27,6 +43,27 @@ export const getExercises = () => async (dispatch) => {
       } else {
         notification.error({
           message: 'Invalid Exercises Fetch!',
+        });
+      }
+    })
+    .catch((err) => {
+      const error = parseError(err);
+      notification.error({
+        message: error,
+      });
+    });
+};
+
+export const getSingleExercise = (id) => async (dispatch) => {
+  AuthorizedApiService.get(`api/admin/exercise/${id}`)
+    .then((res) => {
+      const { success, data } = res.data;
+      if (success) {
+        console.log(data);
+        dispatch(setSingleExercise(data));
+      } else {
+        notification.error({
+          message: 'Invalid Exercise Fetch!',
         });
       }
     })
@@ -143,8 +180,28 @@ export const getWorkouts = () => async (dispatch) => {
     });
 };
 
+export const getSingleWorkout = (id) => async (dispatch) => {
+  AuthorizedApiService.get(`api/admin/training/${id}`)
+    .then((res) => {
+      const { success, data } = res.data;
+      if (success) {
+        console.log(data);
+        dispatch(setSingleWorkout(data));
+      } else {
+        notification.error({
+          message: 'Invalid Workout Fetch!',
+        });
+      }
+    })
+    .catch((err) => {
+      const error = parseError(err);
+      notification.error({
+        message: error,
+      });
+    });
+};
+
 export const addWorkouts = (workout) => async (/* dispatch */) => {
-  console.log(workout);
   AuthorizedApiService.post('api/admin/training', workout)
     .then((res) => {
       const { success } = res.data;
@@ -179,6 +236,95 @@ export const deleteWorkout = (workoutId) => async (dispatch) => {
       } else {
         notification.error({
           message: 'Invalid Delete Workout!',
+        });
+      }
+    })
+    .catch((err) => {
+      const error = parseError(err);
+      notification.error({
+        message: error,
+      });
+    });
+};
+
+// TRAINING ROUTINES CONTROLLER
+export const addTrainingRoutine = (trainingRoutine) => async (/* dispatch */) => {
+  AuthorizedApiService.post('api/admin/training-routine', trainingRoutine)
+    .then((res) => {
+      const { success } = res.data;
+      if (success) {
+        history.push('/admin/routines');
+        notification.success({
+          message: 'Training Routine Added!',
+        });
+      } else {
+        notification.error({
+          message: 'Invalid Trainig Routine!',
+        });
+      }
+    })
+    .catch((err) => {
+      const error = parseError(err);
+      notification.error({
+        message: error,
+      });
+    });
+};
+
+export const getTrainingRoutines = () => async (dispatch) => {
+  AuthorizedApiService.get('api/admin/training-routine')
+    .then((res) => {
+      const { success, data } = res.data;
+      console.log(data);
+      if (success) {
+        dispatch(setTrainingRoutines(data.data));
+      } else {
+        notification.error({
+          message: 'Invalid Trainig Routines fetch Fetch!',
+        });
+      }
+    })
+    .catch((err) => {
+      const error = parseError(err);
+      notification.error({
+        message: error,
+      });
+    });
+};
+
+export const getSingleTrainingRoutine = (id) => async (dispatch) => {
+  AuthorizedApiService.get(`api/admin/training-routine/${id}`)
+    .then((res) => {
+      const { success, data } = res.data;
+      console.log(data);
+      if (success) {
+        dispatch(setSingleTrainingRoutine(data));
+      } else {
+        notification.error({
+          message: 'Invalid Trainig Routine Fetch!',
+        });
+      }
+    })
+    .catch((err) => {
+      const error = parseError(err);
+      notification.error({
+        message: error,
+      });
+    });
+};
+
+export const deleteRoutine = (routineId) => async (dispatch) => {
+  AuthorizedApiService.delete(`api/admin/training-routine/${routineId}`)
+    .then((res) => {
+      const { success } = res.data;
+      if (success) {
+        dispatch(getTrainingRoutines());
+        notification.success({
+          message: 'Delete Routine success!',
+        });
+      } else {
+        notification.error({
+          message: 'Invalid Delete Routine!',
         });
       }
     })

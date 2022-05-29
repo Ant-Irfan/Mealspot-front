@@ -17,6 +17,9 @@ import {
   adminTrainingTableRoute,
   adminRoutinesTableRoute,
   adminAddRoutineRoute,
+  adminViewTraining,
+  adminViewRoutine,
+  adminViewExercise,
 } from './utils/pathsHelper';
 import Authentication from './components/Authentication';
 import RegisterConfirmed from './components/Authentication/RegisterConfirmed/RegisterConfirmed';
@@ -27,6 +30,9 @@ import AdminExercises from './components/AdminPanel/Exercise/TableExercises';
 import AdminTrainingTable from './components/AdminPanel/Training/TableTraining';
 import AdminAddRoutine from './components/AdminPanel/Routines/AddRoutine';
 import AdminRoutinesTable from './components/AdminPanel/Routines/RoutinesTable';
+import AdminViewWorkout from './components/AdminPanel/Training/ViewTraining';
+import AdminViewRoutine from './components/AdminPanel/Routines/ViewRoutine';
+import AdminViewExercise from './components/AdminPanel/Exercise/ViewExercise';
 
 const AppContainer = ({ location }) => (
   <Switch location={location}>
@@ -85,11 +91,31 @@ const AppContainer = ({ location }) => (
       exact
       component={AdminRoutinesTable}
     />
+    <PrivateNavigationMenuRoute
+      path={adminViewTraining}
+      exact
+      component={AdminViewWorkout}
+    />
+    <PrivateNavigationMenuRoute
+      path={adminViewRoutine}
+      exact
+      component={AdminViewRoutine}
+    />
+    <PrivateNavigationMenuRoute
+      path={adminViewExercise}
+      exact
+      component={AdminViewExercise}
+    />
   </Switch>
 );
 AppContainer.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
-  }).isRequired,
+  }),
+};
+AppContainer.defaultProps = {
+  location: {
+    pathname: '',
+  },
 };
 export default withRouter(AppContainer);
