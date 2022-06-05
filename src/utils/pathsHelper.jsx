@@ -2,6 +2,7 @@ export const loginRoute = '/login';
 export const registerRoute = '/register';
 export const registerConfirmedRoute = '/register-confirmed';
 export const resetPasswordRoute = '/reset-password';
+export const resetPasswordRouteWithId = '/reset-password/:id';
 
 export const wizzardRoute = '/wizard';
 export const wizzardRouteWithToken = '/wizard/:token';
@@ -20,3 +21,6 @@ export const adminViewRoutine = '/admin/routines/:id';
 
 export const adminAddFoodstuff = '/admin/add-foodstuff';
 export const adminTableFoodstuff = '/admin/foodstuff';
+
+export const userProfileRoute = '/profile';
+export const userPricingRoute = '/pricing';

@@ -44,3 +44,41 @@ export const PrivateNavigationMenuRoute = ({ component: Component, ...rest }) =>
     )}
   />
 );
+
+export const PrivateNavigationMenuUserRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    component={(props) => (
+      localStorage.getItem('userToken')
+        ? (
+          <Layout style={{ minHeight: '100vh' }}>
+            <NavigationMenu />
+            <Layout className="site-layout">
+              <Content
+                className="site-layout-background admin-panel-content-container"
+              >
+                <Component {...props} />
+              </Content>
+            </Layout>
+          </Layout>
+        )
+        : (
+          <Redirect to={loginRoute} />
+        )
+    )}
+  />
+);
+export const PrivateNoNavigationMenuUserRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    component={(props) => (
+      localStorage.getItem('userToken')
+        ? (
+          <Component {...props} />
+        )
+        : (
+          <Redirect to={loginRoute} />
+        )
+    )}
+  />
+);

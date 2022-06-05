@@ -5,6 +5,7 @@ import history from '../../../history';
 import {
   SET_WIZZARD_INITIAL_VALUES,
   SET_WIZZARD_ENABLED,
+  SET_CURRENT_USER,
 } from './types';
 import { ApiService, AuthorizedApiService } from '../../../services/apiService';
 import { parseError } from '../../../utils/errorParseHelper';
@@ -15,6 +16,9 @@ const setWizzardInitialFormValues = (wizzardValues) => (
 );
 const setWizzardEnabled = (isEnabled) => (
   { type: SET_WIZZARD_ENABLED, isEnabled }
+);
+const setCurrentUser = (user) => (
+  { type: SET_CURRENT_USER, user }
 );
 
 export const registerUserEmail = (email) => async (/* dispatch, getState */) => {
@@ -168,7 +172,8 @@ export const loginUser = (username, password) => async (/* dispatch */) => {
           });
         } else {
           localStorage.setItem('token', token);
-          history.push('/home');
+          localStorage.setItem('userToken', token);
+          history.push('/profile');
           notification.success({
             message: 'Logged In!',
           });
@@ -187,20 +192,17 @@ export const loginUser = (username, password) => async (/* dispatch */) => {
     });
 };
 
-export const getCurrentActiveUser = () => async (/* dispatch */) => {
+export const getCurrentActiveUser = () => async (dispatch) => {
   AuthorizedApiService.get('api/user/whoami')
     .then((res) => {
-      // eslint-disable-next-line no-console
-      console.log(res.data);
-      /*
       const { data, success } = res.data;
       if (data && success) {
-
+        dispatch(setCurrentUser(data));
       } else {
         notification.error({
-          message: 'Password Reset Error!',
+          message: 'Invalid Current User Fetch!',
         });
-      } */
+      }
     })
     .catch((err) => {
       const error = parseError(err);
