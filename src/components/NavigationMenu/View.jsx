@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { Layout, Menu } from 'antd';
 import PropTypes from 'prop-types';
@@ -7,6 +8,7 @@ import {
   adminTrainingTableRoute,
   adminRoutinesTableRoute,
   adminTableFoodstuff,
+  userProfileRoute,
 } from '../../utils/pathsHelper';
 import styles from './navigationMenu.module.scss';
 import UserMocked from '../../images/navigationMenu/userMocked.png';
@@ -20,7 +22,8 @@ import { ReactComponent as Exercise } from '../../images/navigationMenu/exercise
 const { Sider } = Layout;
 
 const NavigationMenu = (props) => {
-  const { actions } = props;
+  // eslint-disable-next-line react/prop-types
+  const { actions, user } = props;
   const [collapsed, setcollapsed] = useState(false);
   const onCollapse = () => {
     setcollapsed(!collapsed);
@@ -29,6 +32,8 @@ const NavigationMenu = (props) => {
   useEffect(() => {
     actions.getCurrentActiveUser();
   }, []);
+  // eslint-disable-next-line no-console
+  console.log(user);
 
   const collapseStyles = {
     Active: {
@@ -70,12 +75,15 @@ const NavigationMenu = (props) => {
                 )
           }
       </div>
+      {
+          user
+      && (
       <Menu
         theme="dark"
         mode="inline"
       >
         <Menu.Item
-          style={{ height: 80 }}
+          style={user.plan === 'free' && !collapsed ? { height: 130 } : { height: 80 }}
           key="adminItem7"
         >
           <div className={styles.imageContainer}>
@@ -89,8 +97,24 @@ const NavigationMenu = (props) => {
                 paddingRight: 25, display: 'flex', justifyContent: 'center', alignItems: 'center',
               }}
             >
-              John Doe
+              {user.full_name}
             </div>
+          </div>
+          <div>
+            {
+              user.plan === 'free' && !collapsed
+            && (
+            <button
+              type="button"
+              style={{
+                backgroundColor: '#FBBC05', border: 'none', fontSize: 12, color: 'black',
+              }}
+              className="primary-color-button btn btn-light mt-3 py-2"
+            >
+              UPGRADE PLAN
+            </button>
+            )
+            }
           </div>
         </Menu.Item>
         <div className={styles.dividerLine} />
@@ -100,56 +124,77 @@ const NavigationMenu = (props) => {
           MENU
 
         </div>
-        <Menu.Item key="adminItem1" icon={<User />}>
-          Users
-        </Menu.Item>
-        <Menu.Item key="adminItem2" icon={<Transaction />}>
-          Transactions
-        </Menu.Item>
-        <Menu.Item key="adminItem3" icon={<Meal />}>
-          Meals
-        </Menu.Item>
-        <Menu.Item key="adminItem4" icon={<Workout />}>
-          <NavLink
-            to={adminTrainingTableRoute}
-          >
-            Workout
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item
-          key="adminItem5"
-          icon={<Exercise />}
-        >
-          <NavLink
-            to={adminExercisesRoute}
-          >
-            Exercises
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item
-          key="adminItem6"
-          icon={<Exercise />}
-        >
-          <NavLink
-            to={adminRoutinesTableRoute}
-          >
-            Training
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item
-          key="adminItem9"
-          icon={<Exercise />}
-        >
-          <NavLink
-            to={adminTableFoodstuff}
-          >
-            Foodstuff
-          </NavLink>
-        </Menu.Item>
+        {
+          user.user_type === 'admin'
+            ? (
+              <>
+                <Menu.Item key="adminItem1" icon={<User />}>
+                  Users
+                </Menu.Item>
+                <Menu.Item key="adminItem2" icon={<Transaction />}>
+                  Transactions
+                </Menu.Item>
+                <Menu.Item key="adminItem3" icon={<Meal />}>
+                  Meals
+                </Menu.Item>
+                <Menu.Item key="adminItem4" icon={<Workout />}>
+                  <NavLink
+                    to={adminTrainingTableRoute}
+                  >
+                    Workout
+                  </NavLink>
+                </Menu.Item>
+                <Menu.Item
+                  key="adminItem5"
+                  icon={<Exercise />}
+                >
+                  <NavLink
+                    to={adminExercisesRoute}
+                  >
+                    Exercises
+                  </NavLink>
+                </Menu.Item>
+                <Menu.Item
+                  key="adminItem6"
+                  icon={<Exercise />}
+                >
+                  <NavLink
+                    to={adminRoutinesTableRoute}
+                  >
+                    Training
+                  </NavLink>
+                </Menu.Item>
+                <Menu.Item
+                  key="adminItem9"
+                  icon={<Exercise />}
+                >
+                  <NavLink
+                    to={adminTableFoodstuff}
+                  >
+                    Foodstuff
+                  </NavLink>
+                </Menu.Item>
+              </>
+            )
+            : (
+              <Menu.Item
+                key="adminItem10"
+                icon={<User />}
+              >
+                <NavLink
+                  to={userProfileRoute}
+                >
+                  Profile
+                </NavLink>
+              </Menu.Item>
+            )
+        }
         <Menu.Item key="adminItem8" icon={<Logout />}>
           Logout
         </Menu.Item>
       </Menu>
+      )
+        }
     </Sider>
   );
 };

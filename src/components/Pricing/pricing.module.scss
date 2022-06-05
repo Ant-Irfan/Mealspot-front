@@ -1,0 +1,148 @@
+@import '../../variables.scss';
+@import '../../utils/breakpointsHelper.scss';
+
+.featuresContainer {
+    background-color: #F8F8F8;
+    padding: 20px;
+    border-radius: 10px;
+    min-height: 395px;
+    .featuresHeading {
+        color: $dark-color;
+        font-size: 20px;
+        font-weight: 500;
+    }
+    .featuresDescription {
+        margin-top: 20px;
+        margin-bottom: 40px;
+        color: $gray;
+        font-size: 14px;
+    }
+    .featuresListItem {
+        color: $dark-color;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+}
+.freePlanContainer {
+    border: 1px solid #EAEAEA;
+    border-radius: 10px;
+    padding: 20px;
+    .freePlanHeading {
+        color: $dark-color;
+        font-size: 20px;
+        font-weight: 500;
+    }
+    .freePlanListItem {
+        color: $dark-color;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+    .freePlanPrice {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+.priceDollar {
+    color: $primary-color;
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.buyPlanContainer {
+    border: 1px solid $primary-color;
+    border-radius: 10px;
+    padding: 20px 30px;
+    .buyPlanHeading {
+        color: $dark-color;
+        font-size: 20px;
+        font-weight: 500;
+    }
+    .freePlanPrice {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .freePlanListItem {
+        color: $dark-color;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+}
+.proceedButton {
+    color: white;
+    background-color: $primary-color;
+    margin-bottom: 8px;
+    font-weight: 500;
+    width: 100%;
+}
+.faqContainer {
+    padding-bottom: 50px;
+    margin: 0 auto;
+    width: 100%;
+    @include desktop {
+        width: 70%;
+    }
+    .faqHeader {
+        margin-top: 40px;
+        margin-bottom: 5px;
+        font-size: 36px;
+        color: $dark-color;
+        font-weight: 500;
+        text-align: left;
+        @include tablet {
+            text-align: center;
+        }
+    }
+    .faqDescription {
+        width: 100%;
+        text-align: left;
+        margin: 0 auto;
+        margin-bottom: 40px;
+        color: $gray;
+        @include tablet {
+            text-align: center;
+            width: 70%;
+        }
+    }
+}
+
+a {
+    color: $gray;
+    display: flex;
+    align-items: center;
+}
+
+.pricingPageHeading {
+    font-size: 34px;
+    color: $dark-color;
+    font-weight: 500;
+}
+.pricingPageDescription {
+    font-size: 14px;
+    color: $gray;
+    margin-bottom: 40px;
+}
+.testimonialDescription {
+    font-size: 18px;
+    color: $dark-color;
+    margin-top: 10px;
+}
+.testimonialName {
+    font-size: 18px;
+    color: $dark-color;
+    margin-right: 15px;
+    font-weight: 500;
+    margin-top: 5px;
+}
+.billingDescription {
+ font-size: 10px;
+ color: $gray;
+ margin-top: -10px;
+}
+.sales {
+    background-color: #FFBE0B;
+    color: white;
+    width: 55px;
+    text-align: center;
+    border-radius: 3px;
+}

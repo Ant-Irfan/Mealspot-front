@@ -4,6 +4,8 @@ import { Switch, withRouter } from 'react-router-dom';
 import {
   RouteWithoutNavbar,
   PrivateNavigationMenuRoute,
+  PrivateNavigationMenuUserRoute,
+  PrivateNoNavigationMenuUserRoute,
 } from './routing/routes';
 import {
   loginRoute,
@@ -11,6 +13,7 @@ import {
   registerConfirmedRoute,
   wizzardRoute,
   resetPasswordRoute,
+  resetPasswordRouteWithId,
   adminTrainingRoute,
   adminAddExerciseRoute,
   adminExercisesRoute,
@@ -23,6 +26,8 @@ import {
   wizzardRouteWithToken,
   adminAddFoodstuff,
   adminTableFoodstuff,
+  userProfileRoute,
+  userPricingRoute,
 } from './utils/pathsHelper';
 import Authentication from './components/Authentication';
 import RegisterConfirmed from './components/Authentication/RegisterConfirmed/RegisterConfirmed';
@@ -38,6 +43,8 @@ import AdminViewRoutine from './components/AdminPanel/Routines/ViewRoutine';
 import AdminViewExercise from './components/AdminPanel/Exercise/ViewExercise';
 import AdminAddFoodstuff from './components/AdminPanel/Foodstuff/AddFoodstuff';
 import AdminFoodstuffTable from './components/AdminPanel/Foodstuff/TableFoodstuff';
+import UserProfile from './components/User';
+import PricingPage from './components/Pricing';
 
 const AppContainer = ({ location }) => (
   <Switch location={location}>
@@ -53,6 +60,11 @@ const AppContainer = ({ location }) => (
     />
     <RouteWithoutNavbar
       path={resetPasswordRoute}
+      exact
+      component={Authentication}
+    />
+    <RouteWithoutNavbar
+      path={resetPasswordRouteWithId}
       exact
       component={Authentication}
     />
@@ -125,6 +137,16 @@ const AppContainer = ({ location }) => (
       path={adminTableFoodstuff}
       exact
       component={AdminFoodstuffTable}
+    />
+    <PrivateNavigationMenuUserRoute
+      path={userProfileRoute}
+      exact
+      component={UserProfile}
+    />
+    <PrivateNoNavigationMenuUserRoute
+      path={userPricingRoute}
+      exact
+      component={PricingPage}
     />
   </Switch>
 );
