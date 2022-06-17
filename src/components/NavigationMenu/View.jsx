@@ -9,6 +9,7 @@ import {
   adminRoutinesTableRoute,
   adminTableFoodstuff,
   userProfileRoute,
+  userPricingRoute,
 } from '../../utils/pathsHelper';
 import styles from './navigationMenu.module.scss';
 import UserMocked from '../../images/navigationMenu/userMocked.png';
@@ -104,15 +105,19 @@ const NavigationMenu = (props) => {
             {
               user.plan === 'free' && !collapsed
             && (
-            <button
-              type="button"
-              style={{
-                backgroundColor: '#FBBC05', border: 'none', fontSize: 12, color: 'black',
-              }}
-              className="primary-color-button btn btn-light mt-3 py-2"
-            >
-              UPGRADE PLAN
-            </button>
+              <NavLink
+                to={userPricingRoute}
+              >
+                <button
+                  type="button"
+                  style={{
+                    backgroundColor: '#FBBC05', border: 'none', fontSize: 12, color: 'black',
+                  }}
+                  className="primary-color-button btn btn-light mt-3 py-2"
+                >
+                  UPGRADE PLAN
+                </button>
+              </NavLink>
             )
             }
           </div>

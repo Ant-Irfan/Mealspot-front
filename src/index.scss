@@ -59,6 +59,13 @@ table {
 }
 
 .pricing-testimonial-container {
+    margin-bottom: 50px;
+    @include tablet {
+        margin-bottom: 60px;
+    }
+    @include desktop-s {
+        margin-bottom: 0;
+    }
     .slick-dots {
         text-align: left;
         bottom: -25px;
@@ -73,4 +80,19 @@ table {
         margin: 0;
         font-size: 10px;
     }
+}
+.mobile-pricing-cards-container {
+    .slick-dots {
+        bottom: -15px;
+    }
+    .slick-dots li.slick-active button:before {
+        color: $primary-color;
+    }
+    .slick-dots li button:before {
+        color: #00000033; 
+    }
+}
+
+b {
+    font-weight: 600;
 }

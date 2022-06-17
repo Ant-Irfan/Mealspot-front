@@ -297,3 +297,8 @@
     font-weight: 500;
     color: $dark-color;
 }
+.ant-collapse-item.ant-collapse-item-active {
+    .ant-collapse-header {
+        color: $primary-color;
+    }
+}
