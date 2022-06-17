@@ -12,8 +12,8 @@ import {
   Collapse,
 } from 'antd';
 import headerStyles from '../Wizzard/WizzardHeader/wizzardHeader.module.scss';
-import { ReactComponent as FatHover } from '../../images/wizzard/step2/fatHover.svg';
-import { ReactComponent as AverageHover } from '../../images/wizzard/step2/averageHover.svg';
+import { ReactComponent as FreePlan } from '../../images/pricing/free.svg';
+import { ReactComponent as PaidPlan } from '../../images/pricing/paid.svg';
 import styles from './pricing.module.scss';
 import { userProfileRoute } from '../../utils/pathsHelper';
 
@@ -21,7 +21,7 @@ const { Panel } = Collapse;
 const sliderSettings = {
   dots: true,
   infinite: true,
-  autoplay: true,
+  autoplay: false,
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,
@@ -60,8 +60,12 @@ const PricingPage = () => {
 
   return (
     <div className="container mt-4">
-      <div className={headerStyles.wizzardHeaderContainer}>
+      <div
+        style={{ paddingLeft: 0 }}
+        className={headerStyles.wizzardHeaderContainer}
+      >
         <div
+          style={{ paddingLeft: 0 }}
           className={`${headerStyles.wizzardHeaderDescription}`}
         >
           <NavLink
@@ -76,7 +80,7 @@ const PricingPage = () => {
         </div>
       </div>
       <div className="row mt-4">
-        <div className="col-6">
+        <div className="col-sm-12 col-md-6">
           <h1
             className={styles.pricingPageHeading}
           >
@@ -89,7 +93,7 @@ const PricingPage = () => {
             Sed nibh ante, vehicula eget consequat fermentum
           </div>
         </div>
-        <div className="col-6 pricing-testimonial-container">
+        <div className="col-sm-12 col-md-6 pricing-testimonial-container">
           <Slider
             {...sliderSettings}
           >
@@ -122,9 +126,193 @@ const PricingPage = () => {
           </Slider>
         </div>
       </div>
-      <div className="row mt-3">
+      <div
+        className={`${styles.mobilePricingCards} mobile-pricing-cards-container`}
+      >
+        <Slider
+          {...sliderSettings}
+        >
+          <div
+            className={styles.freePlanWrapper}
+          >
+            <div className={styles.freePlanContainerMobile}>
+              <div className={styles.freePlanHeading}>
+                Features
+              </div>
+              <div className="d-flex align-items-center">
+                <div className={`${styles.priceDollar} ${styles.freePlanPrice}`}>
+                  $0
+                </div>
+                <div className="mx-2">per month</div>
+              </div>
+              <div className={`mt-2 ${styles.freePlanFeatureDescription}`}>
+                Weekly plan update
+              </div>
+              <div className={`${styles.freePlanListItem}`}>
+                Based on weight only
+              </div>
+              <div className={styles.freePlanFeatureDescription}>
+                Progress tracking
+              </div>
+              <div className={styles.freePlanListItem}>
+                Weight only
+              </div>
+              <div className={styles.freePlanFeatureDescription}>
+                Meal plan customisation
+              </div>
+              <div className={styles.freePlanListItem}>
+                Limited
+              </div>
+              <div className={styles.freePlanFeatureDescription}>
+                Number of recipes
+              </div>
+              <div className={styles.freePlanListItem}>
+                20
+              </div>
+              <div className={styles.freePlanFeatureDescription}>
+                Workout customisation
+              </div>
+              <div className={styles.freePlanListItem}>
+                Limited
+              </div>
+              <div className={styles.freePlanFeatureDescription}>
+                Number of exercises
+              </div>
+              <div className={styles.freePlanListItem}>
+                30
+              </div>
+              <div>
+                <FreePlan
+                  className={styles.freeCardImage}
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            className={`${styles.pricePlanWrapper} pricing-buy-plan`}
+          >
+            <div className={styles.buyPlanContainer}>
+              <div className="d-flex justify-content-between">
+                <div className={styles.buyPlanHeading}>
+                  Paid Plan
+                </div>
+                <div>
+                  <span
+                    style={isFreePlan ? { color: '#152233' } : { color: '#1522334D' }}
+                    className={`${styles.monthlyLifetimeHeading}`}
+                  >
+                    Monthly
+                  </span>
+                  <Switch onChange={onChangePlan} />
+                  <span
+                    style={!isFreePlan ? { color: '#152233' } : { color: '#1522334D' }}
+                    className={`${styles.monthlyLifetimeHeading}`}
+                  >
+                    Lifetime
+                  </span>
+                </div>
+              </div>
+              <div className="d-flex justify-content-between">
+                <div>
+                  <div className="d-flex align-items-center">
+                    <div className={`${styles.priceDollar} ${styles.freePlanPrice}`}>
+                      $24
+                    </div>
+                    <div className="mx-2">per month</div>
+                  </div>
+                  <div className={styles.billingDescription}>billed monthly</div>
+                </div>
+                <div>
+                  <div className="d-flex align-items-center">
+                    <div className={`${styles.priceDollar} ${styles.freePlanPrice}`}>
+                      $24
+                    </div>
+                    <div className="mx-2">
+                      <div
+                        className={styles.sales}
+                      >
+                        -20%
+                      </div>
+                      per month
+                    </div>
+                  </div>
+                  <div
+                    className={styles.billingDescription}
+                  >
+                    billed quarterly (charged upfront)
+                  </div>
+                </div>
+              </div>
+              <div className={`mt-4 ${styles.freePlanFeatureDescription}`}>
+                Weekly plan update
+              </div>
+              <div className={`${styles.freePlanListItem}`}>
+                <b>
+                  Based on multiple factors
+                </b>
+              </div>
+              <div className={styles.freePlanFeatureDescription}>
+                Progress tracking
+              </div>
+              <div className={styles.freePlanListItem}>
+                <b>
+                  Weight, chest circumference,
+                  <br />
+                  hips...
+                </b>
+              </div>
+              <div className={styles.freePlanFeatureDescription}>
+                Meal plan customisation
+              </div>
+              <div className={styles.freePlanListItem}>
+                <b>
+                  Your opinion matters
+                </b>
+              </div>
+              <div className={styles.freePlanFeatureDescription}>
+                Number of recipes
+              </div>
+              <div className={styles.freePlanListItem}>
+                <b>
+                  40 (adding more regularly)
+                </b>
+              </div>
+              <div className={styles.freePlanFeatureDescription}>
+                Workout customisation
+              </div>
+              <div className={styles.freePlanListItem}>
+                <b>
+                  More configurable
+                </b>
+              </div>
+              <div className={styles.freePlanFeatureDescription}>
+                Number of exercises
+              </div>
+              <div className={styles.freePlanListItem}>
+                <b>
+                  60
+                </b>
+              </div>
+              <div>
+                <PaidPlan
+                  className={styles.paidCardImage}
+                />
+              </div>
+            </div>
+            <div className="text-center">
+              <button
+                type="submit"
+                className={`${styles.proceedButton} btn btn-light py-2 mt-1`}
+              >
+                PROCEED
+              </button>
+            </div>
+          </div>
+        </Slider>
+      </div>
+      <div className={`row mt-3 ${styles.desktopPricingCards}`}>
         <div
-          style={{ width: '30%' }}
+          className={styles.freePlanWrapper}
         >
           <div className={styles.featuresContainer}>
             <div className={styles.featuresHeading}>
@@ -154,7 +342,7 @@ const PricingPage = () => {
           </div>
         </div>
         <div
-          style={{ width: '30%' }}
+          className={styles.freePlanWrapper}
         >
           <div className={styles.freePlanContainer}>
             <div className={styles.freePlanHeading}>
@@ -185,17 +373,14 @@ const PricingPage = () => {
               30
             </div>
             <div>
-              <FatHover
-                style={{
-                  position: 'relative', bottom: '150px', left: '150px', marginBottom: '-150px',
-                }}
+              <FreePlan
+                className={styles.freePlanDesktop}
               />
             </div>
           </div>
         </div>
         <div
-          className="pricing-buy-plan"
-          style={{ width: '40%' }}
+          className={`${styles.pricePlanWrapper} pricing-buy-plan`}
         >
           <div className={styles.buyPlanContainer}>
             <div className="d-flex justify-content-between">
@@ -252,38 +437,49 @@ const PricingPage = () => {
             <div className={`mt-4 ${styles.freePlanListItem}`}>
               <CheckOutlined />
               {' '}
-              Based on weight only
+              <b>
+                Based on multiple factors
+              </b>
             </div>
             <div className={styles.freePlanListItem}>
               <CheckOutlined />
               {' '}
-              Weight only
+              <b>
+                Weight, chest circumference,
+                <br />
+                <span style={{ marginLeft: 35 }}>
+                  hips...
+                </span>
+              </b>
             </div>
             <div className={styles.freePlanListItem}>
               <CheckOutlined />
               {' '}
-              Limited
+              <b>
+                Your opinion matters
+              </b>
             </div>
             <div className={styles.freePlanListItem}>
               <CheckOutlined />
-              20
+              <b>
+                40 (adding more regularly)
+              </b>
             </div>
             <div className={styles.freePlanListItem}>
               <CheckOutlined />
-              Limited
+              <b>
+                More configurable
+              </b>
             </div>
             <div className={styles.freePlanListItem}>
               <CheckOutlined />
-              30
+              <b>
+                60
+              </b>
             </div>
             <div>
-              <AverageHover
-                style={{
-                  position: 'relative',
-                  bottom: '150px',
-                  left: '200px',
-                  marginBottom: '-150px',
-                }}
+              <PaidPlan
+                className={styles.paidPlanDesktop}
               />
             </div>
           </div>

@@ -5,7 +5,19 @@
     background-color: #F8F8F8;
     padding: 20px;
     border-radius: 10px;
-    min-height: 395px;
+    min-height: 415px;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    @include desktop-s {
+        min-height: 454px; 
+    }
+    @include desktop-m {
+        min-height: 405px;
+    }
+    @include desktop-l {
+        min-height: 415px;
+    }
     .featuresHeading {
         color: $dark-color;
         font-size: 20px;
@@ -27,6 +39,18 @@
     border: 1px solid #EAEAEA;
     border-radius: 10px;
     padding: 20px;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    @include desktop-s {
+        min-height: 454px; 
+    }
+    @include desktop-m {
+        min-height: 405px;
+    }
+    @include desktop-l {
+        min-height: 415px;
+    }
     .freePlanHeading {
         color: $dark-color;
         font-size: 20px;
@@ -52,7 +76,16 @@
 .buyPlanContainer {
     border: 1px solid $primary-color;
     border-radius: 10px;
-    padding: 20px 30px;
+    padding: 20px 10px;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    @include mobile-m {
+        padding: 20px 20px;
+    }
+    @include desktop-s {
+        padding: 20px 30px;
+    }
     .buyPlanHeading {
         color: $dark-color;
         font-size: 20px;
@@ -74,6 +107,7 @@
     margin-bottom: 8px;
     font-weight: 500;
     width: 100%;
+    max-width: 500px;
 }
 .faqContainer {
     padding-bottom: 50px;
@@ -83,14 +117,18 @@
         width: 70%;
     }
     .faqHeader {
-        margin-top: 40px;
+        margin-top: 15px;
         margin-bottom: 5px;
         font-size: 36px;
         color: $dark-color;
         font-weight: 500;
         text-align: left;
         @include tablet {
+            margin-top: 30px;
             text-align: center;
+        }
+        @include desktop-s {
+            margin-top: 40px;
         }
     }
     .faqDescription {
@@ -113,14 +151,20 @@ a {
 }
 
 .pricingPageHeading {
-    font-size: 34px;
+    font-size: 26px;
     color: $dark-color;
     font-weight: 500;
+    @include desktop-s {
+        font-size: 34px;
+    }
 }
 .pricingPageDescription {
     font-size: 14px;
     color: $gray;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
+    @include desktop-s {
+        margin-bottom: 40px;
+    }
 }
 .testimonialDescription {
     font-size: 18px;
@@ -128,11 +172,14 @@ a {
     margin-top: 10px;
 }
 .testimonialName {
-    font-size: 18px;
+    font-size: 16px;
     color: $dark-color;
     margin-right: 15px;
     font-weight: 500;
     margin-top: 5px;
+    @include desktop-s {
+        font-size: 18px;
+    }
 }
 .billingDescription {
  font-size: 10px;
@@ -145,4 +192,112 @@ a {
     width: 55px;
     text-align: center;
     border-radius: 3px;
+}
+.freePlanWrapper {
+    width: 30%;
+}
+.pricePlanWrapper {
+    width: 40%;
+}
+.mobilePricingCards {
+    display: block;
+    @include desktop-s {
+        display: none;
+    }
+}
+.desktopPricingCards {
+    display: none;
+    @include desktop-s {
+        display: flex;
+    }
+}
+
+.paidCardImage {
+    display: none;
+    position: relative;
+    bottom: 225px;
+    left: 140px;
+    margin-bottom: -245px;
+    @include mobile-m {
+        left: 200px;
+    }
+    @include mobile-lg {
+        display: block;
+        left: 270px;
+    }
+}
+.freeCardImage {
+    display: none;
+    position: relative;
+    bottom: 170px;
+    left: 140px;
+    margin-bottom: -245px;
+    @include mobile-m {
+        left: 200px;
+    }
+    @include mobile-lg {
+        display: block;
+        left: 290px;
+    }
+}
+
+.monthlyLifetimeHeading {
+    font-size: 12px;
+    margin: 0 10px;
+    @include mobile-lg {
+        margin: 0 15px;
+        font-size: 14px;
+    }
+}
+
+.paidPlanDesktop {
+    display: none;
+    position: relative;
+    bottom: 215px;
+    left: 260px;
+    margin-bottom: -235px;
+    @include desktop-l {
+        display: block;
+    } 
+}
+.freePlanDesktop {
+    display: none;
+    position: relative;
+    bottom: 170px;
+    left: 175px;
+    margin-bottom: -190px;
+    @include desktop-l {
+        display: block;
+    } 
+}
+
+.freePlanFeatureDescription {
+    font-size: 12px;
+    color: $gray;
+    margin-bottom: -12px;
+    margin-top: 10px;
+}
+
+.freePlanContainerMobile {
+    border: 1px solid #EAEAEA;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    min-height: 500px;
+    .freePlanHeading {
+        color: $dark-color;
+        font-size: 20px;
+        font-weight: 500;
+    }
+    .freePlanListItem {
+        color: $dark-color;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+    .freePlanPrice {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
 }
