@@ -55,7 +55,7 @@ export const PrivateNavigationMenuUserRoute = ({ component: Component, ...rest }
             <NavigationMenu />
             <Layout className="site-layout">
               <Content
-                className="site-layout-background admin-panel-content-container"
+                className="site-layout-background user-content-container"
               >
                 <Component {...props} />
               </Content>

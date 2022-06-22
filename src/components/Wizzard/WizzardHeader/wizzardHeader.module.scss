@@ -37,3 +37,43 @@
         }
     }
 }
+
+.userHeaderContainer {
+    padding-top: 10px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    border-bottom: 1px solid $light-gray;
+    @include tablet {
+        align-items: center;
+        flex-direction: row;
+        padding: 0;
+        padding-bottom: 30px;
+        padding-top: 30px;
+    }
+    @include desktop-s {
+        padding-top: 0px;
+    }
+    .userHeaderHeading {
+        font-size: 26px;
+        margin: 0;
+        padding-right: 20px;
+        padding-bottom: 10px;
+        @include tablet {
+            border-right: 1px solid $light-gray;
+            padding-bottom: 0;
+        }
+    }
+    .userHeaderDescription {
+        font-size: 14px;
+        color: $gray;
+        width: 100%;
+        max-width: 500px;
+        padding-left: 0px;
+        padding-bottom: 10px;
+        @include tablet {
+            padding-left: 20px;
+            padding-bottom: 0;
+        }
+    }
+}
