@@ -1,0 +1,67 @@
+@import '../../../variables.scss';
+@import '../../../utils/breakpointsHelper.scss';
+
+.datesContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column-reverse;
+    @include desktop-s {
+        justify-content: space-between;
+    }
+    @include tablet {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+.pickerHeading {
+    font-size: 13px;
+    color: $dark-color;
+    margin-right: 10px;
+    @include mobile-lg {
+        margin-right: 20px;
+        font-size: 16px;
+    }
+    @include tablet {
+        margin-right: 10px;
+    }
+    @include desktop-s {
+        margin-right: 20px;
+    }
+    
+}
+.dayWeekContainerSelected {
+    color: $primary-color;
+    border: 1px solid $primary-color;
+    border-radius: 4px;
+    height: 40px;
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+}
+.dayWeekContainerNotSelected {
+    color: $gray;
+    border: 1px solid $light-gray;
+    border-radius: 4px;
+    height: 40px;
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+}
+
+.leftAndRightArrows {
+    display: none;
+    @include mobile-lg {
+        display: inline;
+    }
+}
+
+.weekOrDateSelector {
+    margin-top: 10px;
+    @include tablet {
+        margin-top: 0;
+    }
+}

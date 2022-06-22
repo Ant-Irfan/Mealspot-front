@@ -302,3 +302,18 @@
         color: $primary-color;
     }
 }
+.meal-container {
+    .ant-picker-suffix {
+        font-size: 18px;
+        color: $dark-color;
+    }
+    .anticon.anticon-right {
+        color: $gray;
+    }
+    .anticon.anticon-left {
+        color: $gray;
+    }
+    .ant-progress-text {
+        color: white;
+    }
+}

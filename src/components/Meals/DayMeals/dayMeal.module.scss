@@ -1,0 +1,100 @@
+@import '../../../variables.scss';
+
+.dayContainer {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid $light-gray;
+    padding-top: 20px;
+    flex-wrap: wrap;
+}
+.day {
+    font-size: 32px;
+    color: $dark-color;
+    margin-right: 20px;
+}
+.nutritionBox {
+    margin-right: 10px;
+    padding: 15px;
+    background-color: #F3F3F3;
+    color: $dark-color;
+    border-radius: 5px;
+    min-width: 70px;
+}
+.nutrition {
+    font-size: 10px;
+}
+.nutritionValue {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.nutritionContainer {
+    display: flex;
+    margin: 10px 0px;
+}
+
+.cardTitle {
+    font-size: 20px;
+    color: $dark-color;
+    font-weight: 500;
+    line-height: 27px;
+}
+.mealType {
+    background-color: #FFD60A;
+    padding: 0px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.calories {
+    font-size: 14px;
+    color: $dark-color;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.progressRings {
+    display: none;
+    justify-content: space-around;
+    position: relative;
+    bottom: 70px;
+    margin-bottom: -55px;
+}
+
+.mealImage {
+    height: 190px;
+    width: 100%;
+    background:url('../../../images/meals/test.png');
+}
+
+.cardContainer:hover {
+    .progressRings {
+        display: flex;
+    }
+    .mealImage {
+        height: 190px;
+        width: 100%;
+        background:linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.72) 76.56%), url('../../../images/meals/test.png');
+    }
+}
+
+.singleMealHeading {
+    color: $dark-color;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.singleMealListHeading {
+    color: $dark-color;
+    font-size: 16px;
+    font-weight: 500;
+}
+.listContainer {
+    li {
+        color: $gray;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+}
