@@ -47,6 +47,12 @@ body {
 .admin-panel-content-container {
     padding: 40px 30px 30px;
 }
+.user-content-container {
+    padding: 0px;
+    @include desktop-s {
+        padding: 40px 30px 30px;
+    }
+}
 table { 
     color: $dark-color;
 }
