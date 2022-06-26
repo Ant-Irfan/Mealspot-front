@@ -30,6 +30,8 @@ import {
   userPricingRoute,
   userMealsRoute,
   singleMealRoute,
+  adminUsers,
+  adminSingleUser,
 } from './utils/pathsHelper';
 import Authentication from './components/Authentication';
 import RegisterConfirmed from './components/Authentication/RegisterConfirmed/RegisterConfirmed';
@@ -45,6 +47,8 @@ import AdminViewRoutine from './components/AdminPanel/Routines/ViewRoutine';
 import AdminViewExercise from './components/AdminPanel/Exercise/ViewExercise';
 import AdminAddFoodstuff from './components/AdminPanel/Foodstuff/AddFoodstuff';
 import AdminFoodstuffTable from './components/AdminPanel/Foodstuff/TableFoodstuff';
+import AdminSingleUser from './components/AdminPanel/Users/EditUser';
+import AdminUsers from './components/AdminPanel/Users/TableUsers';
 import UserProfile from './components/User';
 import PricingPage from './components/Pricing';
 import UserMeals from './components/Meals';
@@ -141,6 +145,16 @@ const AppContainer = ({ location }) => (
       path={adminTableFoodstuff}
       exact
       component={AdminFoodstuffTable}
+    />
+    <PrivateNavigationMenuRoute
+      path={adminUsers}
+      exact
+      component={AdminUsers}
+    />
+    <PrivateNavigationMenuRoute
+      path={adminSingleUser}
+      exact
+      component={AdminSingleUser}
     />
     <PrivateNavigationMenuUserRoute
       path={userProfileRoute}

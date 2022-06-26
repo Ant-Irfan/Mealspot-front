@@ -13,6 +13,9 @@ import {
   SET_ROUTINE,
   SET_EXERCISE,
   SET_FOODSTUFF,
+  SET_USERS,
+  SET_USER,
+  SET_NUMBER_OF_USERS,
 } from './types';
 
 const setExercises = (exercises) => (
@@ -35,6 +38,15 @@ const setSingleTrainingRoutine = (routine) => (
 );
 const setSingleExercise = (exercise) => (
   { type: SET_EXERCISE, exercise }
+);
+const setUsers = (users) => (
+  { type: SET_USERS, users }
+);
+const setSingleUser = (user) => (
+  { type: SET_USER, user }
+);
+const setNumberOfUsers = (number, page) => (
+  { type: SET_NUMBER_OF_USERS, number, page }
 );
 
 // EXERCISES CONTROLLER
@@ -396,6 +408,70 @@ export const deleteFoodstuff = (foodstuffId) => async (dispatch) => {
       } else {
         notification.error({
           message: 'Invalid Delete Foodstuff!',
+        });
+      }
+    })
+    .catch((err) => {
+      const error = parseError(err);
+      notification.error({
+        message: error,
+      });
+    });
+};
+
+export const getUsers = (page) => async (dispatch) => {
+  AuthorizedApiService.get(`api/admin/user?per_page=10&page=${page}`)
+    .then((res) => {
+      console.log(res);
+      const { success, data } = res.data;
+      if (success) {
+        dispatch(setUsers(data.data));
+        dispatch(setNumberOfUsers(data.total, data.page));
+      } else {
+        notification.error({
+          message: 'Invalid Users Fetch!',
+        });
+      }
+    })
+    .catch((err) => {
+      const error = parseError(err);
+      notification.error({
+        message: error,
+      });
+    });
+};
+
+export const getSingleUser = (id) => async (dispatch) => {
+  AuthorizedApiService.get(`api/admin/user/${id}`)
+    .then((res) => {
+      const { success, data } = res.data;
+      if (success) {
+        console.log(data);
+        dispatch(setSingleUser(data));
+      } else {
+        notification.error({
+          message: 'Invalid User Fetch!',
+        });
+      }
+    })
+    .catch((err) => {
+      const error = parseError(err);
+      notification.error({
+        message: error,
+      });
+    });
+};
+
+export const getUsersByFilter = (filter, value) => async (dispatch) => {
+  AuthorizedApiService.get(`api/admin/user?filter=${filter} : '${value}'`)
+    .then((res) => {
+      console.log(res);
+      const { success, data } = res.data;
+      if (success) {
+        dispatch(setUsers(data.data));
+      } else {
+        notification.error({
+          message: 'Invalid Users Fetch!',
         });
       }
     })

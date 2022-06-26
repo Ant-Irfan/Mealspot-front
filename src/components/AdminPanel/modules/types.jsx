@@ -5,3 +5,6 @@ export const SET_WORKOUT = 'SET_WORKOUT';
 export const SET_ROUTINE = 'SET_ROUTINE';
 export const SET_EXERCISE = 'SET_EXERCISE';
 export const SET_FOODSTUFF = 'SET_FOODSTUFF';
+export const SET_USERS = 'SET_USERS';
+export const SET_USER = 'SET_USER';
+export const SET_NUMBER_OF_USERS = 'SET_NUMBER_OF_USERS';

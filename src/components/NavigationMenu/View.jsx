@@ -11,6 +11,7 @@ import {
   userProfileRoute,
   userPricingRoute,
   userMealsRoute,
+  adminUsers,
 } from '../../utils/pathsHelper';
 import styles from './navigationMenu.module.scss';
 import UserMocked from '../../images/navigationMenu/userMocked.png';
@@ -135,7 +136,11 @@ const NavigationMenu = (props) => {
             ? (
               <>
                 <Menu.Item key="adminItem1" icon={<User />}>
-                  Users
+                  <NavLink
+                    to={adminUsers}
+                  >
+                    Users
+                  </NavLink>
                 </Menu.Item>
                 <Menu.Item key="adminItem2" icon={<Transaction />}>
                   Transactions
