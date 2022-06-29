@@ -32,6 +32,7 @@ import {
   singleMealRoute,
   adminUsers,
   adminSingleUser,
+  progressUser,
 } from './utils/pathsHelper';
 import Authentication from './components/Authentication';
 import RegisterConfirmed from './components/Authentication/RegisterConfirmed/RegisterConfirmed';
@@ -52,6 +53,7 @@ import AdminUsers from './components/AdminPanel/Users/TableUsers';
 import UserProfile from './components/User';
 import PricingPage from './components/Pricing';
 import UserMeals from './components/Meals';
+import Progress from './components/Progress';
 import SingleMeal from './components/Meals/SingleMeal';
 
 const AppContainer = ({ location }) => (
@@ -175,6 +177,11 @@ const AppContainer = ({ location }) => (
       path={singleMealRoute}
       exact
       component={SingleMeal}
+    />
+    <PrivateNavigationMenuUserRoute
+      path={progressUser}
+      exact
+      component={Progress}
     />
   </Switch>
 );

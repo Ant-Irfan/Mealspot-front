@@ -12,6 +12,7 @@ import {
   userPricingRoute,
   userMealsRoute,
   adminUsers,
+  progressUser,
 } from '../../utils/pathsHelper';
 import styles from './navigationMenu.module.scss';
 import UserMocked from '../../images/navigationMenu/userMocked.png';
@@ -21,6 +22,7 @@ import { ReactComponent as Logout } from '../../images/navigationMenu/logout.svg
 import { ReactComponent as Transaction } from '../../images/navigationMenu/transaction.svg';
 import { ReactComponent as User } from '../../images/navigationMenu/user.svg';
 import { ReactComponent as Exercise } from '../../images/navigationMenu/exercise.svg';
+import { ReactComponent as Progress } from '../../images/navigationMenu/progress.svg';
 
 const { Sider } = Layout;
 
@@ -35,8 +37,6 @@ const NavigationMenu = (props) => {
   useEffect(() => {
     actions.getCurrentActiveUser();
   }, []);
-  // eslint-disable-next-line no-console
-  console.log(user);
 
   const collapseStyles = {
     Active: {
@@ -209,10 +209,24 @@ const NavigationMenu = (props) => {
                     Meals
                   </NavLink>
                 </Menu.Item>
+                <Menu.Item
+                  key="adminItem12"
+                  icon={<Progress />}
+                >
+                  <NavLink
+                    to={progressUser}
+                  >
+                    Progress
+                  </NavLink>
+                </Menu.Item>
               </>
             )
         }
-        <Menu.Item key="adminItem8" icon={<Logout />}>
+        <Menu.Item
+          onClick={actions.logoutUser}
+          key="adminItem8"
+          icon={<Logout />}
+        >
           Logout
         </Menu.Item>
       </Menu>
@@ -226,6 +240,7 @@ const { shape, func } = PropTypes;
 NavigationMenu.propTypes = {
   actions: shape({
     getCurrentActiveUser: func.isRequired,
+    logoutUser: func.isRequired,
   }).isRequired,
 };
 

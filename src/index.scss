@@ -44,6 +44,35 @@ body {
 
 }
 
+.gray-color-button {
+    font-weight: 500;
+    background-color: $light-gray;
+    max-width: 180px;
+    width: 100%;
+    svg {
+        display: flex;
+    }
+    &:hover {
+        color: #000;
+        background-color: #D2D2D2;
+        border-color: #D2D2D2;
+    }
+    &:active {
+        color: #000;
+        background-color: #D2D2D2;
+        border-color: #D2D2D2;
+    }
+    &:focus {
+        color: #000;
+        background-color: #D2D2D2;
+        border-color: #D2D2D2;
+    }
+    &.btn-light {
+        border-color: #D2D2D2;
+        background-color: #D2D2D2;
+    }
+}
+
 .admin-panel-content-container {
     padding: 40px 30px 30px;
 }

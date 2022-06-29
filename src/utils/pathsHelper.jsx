@@ -29,3 +29,5 @@ export const userProfileRoute = '/profile';
 export const userPricingRoute = '/pricing';
 export const userMealsRoute = '/meals';
 export const singleMealRoute = '/meals/:id';
+
+export const progressUser = '/progress';
