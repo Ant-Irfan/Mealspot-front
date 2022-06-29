@@ -1,0 +1,45 @@
+@import '../../variables.scss';
+
+.progressModalHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.modalTitle {
+    font-size: 20px;
+    border-right: 1px solid $light-gray;
+    padding-right: 20px;
+    font-weight: 500;
+
+}
+.modalDescription {
+    font-size: 14px;
+    color: $gray;
+    margin-left: 20px;
+    max-width: 300px;
+}
+.progressModalInput {
+    width: 100%;
+    max-width: 125px;
+    border: 1px solid $light-gray;
+    height: 36px;
+    color: $dark-color;
+}
+.progressModalFooter {
+    margin-top: 30px;
+    padding-top: 10px;
+    border-top: 1px solid #EDEDED;
+    display: flex;
+    justify-content: center;
+}
+
+.progressCancelButton {
+    width: 50%;
+    margin-right: 5px;
+    margin-left: 20px;
+}
+.progressAddButton {
+    width: 50%;
+    margin-left: 5px;
+    margin-right: 20px;
+}

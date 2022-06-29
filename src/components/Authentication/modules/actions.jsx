@@ -211,3 +211,42 @@ export const getCurrentActiveUser = () => async (dispatch) => {
       });
     });
 };
+
+export const changePassword = (old_password, new_password) => async (/* dispatch */) => {
+  const postData = {
+    old_password,
+    new_password,
+  };
+  AuthorizedApiService.patch('api/user/change-password', postData)
+    .then((res) => {
+      // eslint-disable-next-line no-console
+      console.log(res);
+      const { data, success } = res.data;
+      if (data && success) {
+        notification.success({
+          message: 'Password Change Success!',
+        });
+      } else {
+        notification.error({
+          message: 'Password Change Error!',
+        });
+      }
+    })
+    .catch((err) => {
+      const error = parseError(err);
+      notification.error({
+        message: error,
+      });
+    });
+};
+
+export const logoutUser = () => async (dispatch) => {
+  localStorage.removeItem('adminToken');
+  localStorage.removeItem('userToken');
+  localStorage.removeItem('token');
+  dispatch(setCurrentUser(null));
+  history.push('/login');
+  notification.success({
+    message: 'Logout success!',
+  });
+};
