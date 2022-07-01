@@ -43,3 +43,79 @@
     margin-left: 5px;
     margin-right: 20px;
 }
+
+.progressHeadingTable {
+    width: 130px;
+    height: 50px;
+    background-color: #F8F8F8;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    color: $dark-color;
+    font-size: 16px;
+    border: 1px solid $light-gray;
+    padding: 0 10px;
+}
+.progressItemsTable {
+    width: 130px;
+    height: 50px;
+    background-color:white;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    color: $dark-color;
+    font-size: 16px;
+    border-right: 1px solid $light-gray;
+    border-left: 1px solid $light-gray;
+    padding: 0 10px;
+}
+.progressItemsTable:last-child {
+    width: 130px;
+    height: 50px;
+    background-color:white;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    color: $dark-color;
+    font-size: 16px;
+    border-right: 1px solid $light-gray;
+    border-left: 1px solid $light-gray;
+    border-bottom: 1px solid $light-gray;
+}
+.noDataprogressItem {
+    border-right: 1px solid $light-gray;
+    border-bottom: 1px solid $light-gray;
+}
+.noDataprogressItem:hover {
+    border: 1px solid $primary-color;
+    background-color: #56A2BE0D;
+    .addWeekHeading {
+        display: block;
+    }
+    .addWeekSign {
+        display: inline;
+    }
+}
+.addButtonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 80%;
+}
+.addWeekHeading {
+    display: none;
+    margin-top: 5px;
+    color: $primary-color;
+    font-size: 16px;
+}
+.addWeekSign {
+    display: none;
+}
+
+.graphHeading {
+    font-size: 20px;
+    font-weight: 600;
+    color: $dark-color;
+    margin-bottom: 20px;
+}
