@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 import styles from '../../adminPanel.module.scss';
 
 const AdminSingleUser = (props) => {
-  const { actions, user } = props;
+  const { actions, user, transactions } = props;
   const location = useLocation();
   const [viewUserForm] = Form.useForm();
 
@@ -32,6 +32,7 @@ const AdminSingleUser = (props) => {
         workout_level: user.workout_level,
         id: user.id,
       });
+      actions.getTransactionsForUser(user.id);
     }
   }, [user]);
 
@@ -387,6 +388,44 @@ const AdminSingleUser = (props) => {
         </div>
         )
         }
+      </div>
+      <div className="container d-flex flex-column mt-5">
+        <div className="header-container d-flex justify-content-between">
+          <h1
+            className={styles.adminPanelHeading}
+          >
+            Transactions
+          </h1>
+        </div>
+      </div>
+      <div className="container ">
+        <table className="table">
+          <thead>
+            <tr className="table-secondary">
+              <th scope="col">#</th>
+              <th scope="col">User ID</th>
+              <th scope="col">Email</th>
+              <th scope="col">Date</th>
+              <th scope="col">Payment Method</th>
+              <th scope="col">Price</th>
+              <th scope="col">Currency</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+            transactions.map((transaction, i) => (
+              <tr>
+                <th scope="row">{i + 1}</th>
+                <td>{transaction.user_id}</td>
+                <td>{transaction.user_id}</td>
+                <td>{transaction.created_at}</td>
+                <td>{transaction.amount}</td>
+                <td>{transaction.currency}</td>
+              </tr>
+            ))
+        }
+          </tbody>
+        </table>
       </div>
     </div>
   );

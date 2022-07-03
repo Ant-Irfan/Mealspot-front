@@ -16,6 +16,8 @@ import {
   SET_USERS,
   SET_USER,
   SET_NUMBER_OF_USERS,
+  SET_TRANSACTONS,
+  SET_NUMBER_OF_TRANSACTIONS,
 } from './types';
 
 const setExercises = (exercises) => (
@@ -47,6 +49,12 @@ const setSingleUser = (user) => (
 );
 const setNumberOfUsers = (number, page) => (
   { type: SET_NUMBER_OF_USERS, number, page }
+);
+const setTransactions = (transactions) => (
+  { type: SET_TRANSACTONS, transactions }
+);
+const setNumberOfTransactions = (number, page) => (
+  { type: SET_NUMBER_OF_TRANSACTIONS, number, page }
 );
 
 // EXERCISES CONTROLLER
@@ -472,6 +480,71 @@ export const getUsersByFilter = (filter, value) => async (dispatch) => {
       } else {
         notification.error({
           message: 'Invalid Users Fetch!',
+        });
+      }
+    })
+    .catch((err) => {
+      const error = parseError(err);
+      notification.error({
+        message: error,
+      });
+    });
+};
+
+export const getTransactions = (page) => async (dispatch) => {
+  AuthorizedApiService.get(`api/admin/transaction?per_page=10&page=${page}`)
+    .then((res) => {
+      console.log(res);
+      const { success, data } = res.data;
+      if (success) {
+        dispatch(setTransactions(data.data));
+        dispatch(setNumberOfTransactions(data.total, data.page));
+      } else {
+        notification.error({
+          message: 'Invalid Transactions Fetch!',
+        });
+      }
+    })
+    .catch((err) => {
+      const error = parseError(err);
+      notification.error({
+        message: error,
+      });
+    });
+};
+
+export const getTransactionsByFilter = (filter, value) => async (dispatch) => {
+  AuthorizedApiService.get(`api/admin/transaction?filter=${filter} : '${value}'`)
+    .then((res) => {
+      console.log(res);
+      const { success, data } = res.data;
+      if (success) {
+        dispatch(setTransactions(data.data));
+      } else {
+        notification.error({
+          message: 'Invalid Transaction Fetch!',
+        });
+      }
+    })
+    .catch((err) => {
+      const error = parseError(err);
+      notification.error({
+        message: error,
+      });
+    });
+};
+
+export const getTransactionsForUser = (userId) => async (dispatch) => {
+  AuthorizedApiService.get('api/admin/transaction?per_page=1000')
+    .then((res) => {
+      console.log(res);
+      const { success, data } = res.data;
+      if (success) {
+        const filteredTransactions = data.data.filter((trans) => trans.user_id === userId);
+        dispatch(setTransactions(filteredTransactions));
+      } else {
+        notification.error({
+          message: 'Invalid Transactions Fetch!',
         });
       }
     })

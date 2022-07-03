@@ -65,8 +65,6 @@
     align-items: center;
     color: $dark-color;
     font-size: 16px;
-    border-right: 1px solid $light-gray;
-    border-left: 1px solid $light-gray;
     padding: 0 10px;
 }
 .progressItemsTable:last-child {
@@ -78,12 +76,9 @@
     align-items: center;
     color: $dark-color;
     font-size: 16px;
-    border-right: 1px solid $light-gray;
-    border-left: 1px solid $light-gray;
     border-bottom: 1px solid $light-gray;
 }
 .noDataprogressItem {
-    border-right: 1px solid $light-gray;
     border-bottom: 1px solid $light-gray;
 }
 .noDataprogressItem:hover {

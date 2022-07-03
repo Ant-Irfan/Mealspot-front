@@ -10,6 +10,8 @@ import {
   SET_USERS,
   SET_USER,
   SET_NUMBER_OF_USERS,
+  SET_TRANSACTONS,
+  SET_NUMBER_OF_TRANSACTIONS,
 } from './types';
 
 const defaultState = {
@@ -18,6 +20,7 @@ const defaultState = {
   routines: [],
   foodstuffs: [],
   users: [],
+  transactions: [],
   workout: null,
   routine: null,
   exercise: null,
@@ -25,6 +28,9 @@ const defaultState = {
   number_of_users: null,
   total_pages: null,
   current_page: null,
+  number_of_transactions: null,
+  total_pages_transactions: null,
+  current_page_transactions: null,
 };
 
 export default (state = defaultState, action) => {
@@ -80,6 +86,18 @@ export default (state = defaultState, action) => {
         number_of_users: action.number,
         total_pages: action.number < 10 ? 1 : action.number / 10,
         current_page: action.page,
+      };
+    case SET_TRANSACTONS:
+      return {
+        ...state,
+        transactions: action.transactions,
+      };
+    case SET_NUMBER_OF_TRANSACTIONS:
+      return {
+        ...state,
+        number_of_transactions: action.transactions,
+        total_pages_transactions: action.number < 10 ? 1 : action.number / 10,
+        current_page_transactions: action.page,
       };
     default:
       return state;

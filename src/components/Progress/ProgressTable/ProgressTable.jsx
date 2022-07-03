@@ -11,14 +11,60 @@ const ProgressTable = (props) => {
   return (
     <div className="d-flex overflow-auto">
       <div className="">
-        <div className={styles.progressHeadingTable}>Body</div>
-        <div className={styles.progressItemsTable}>Weight</div>
-        <div className={styles.progressItemsTable}>Waist</div>
-        <div className={styles.progressItemsTable}>Chest</div>
-        <div className={styles.progressItemsTable}>Upper Arm</div>
-        <div className={styles.progressItemsTable}>Hiph</div>
-        <div className={styles.progressItemsTable}>Thigh</div>
-        <div className={styles.progressItemsTable}>Calf</div>
+        <div
+          className={styles.progressHeadingTable}
+        >
+          Body
+        </div>
+        <div
+          style={{ borderRight: '1px solid #EAEAEA' }}
+          className={styles.progressItemsTable}
+        >
+          Weight
+
+        </div>
+        <div
+          style={{ borderRight: '1px solid #EAEAEA' }}
+          className={styles.progressItemsTable}
+        >
+          Waist
+
+        </div>
+        <div
+          style={{ borderRight: '1px solid #EAEAEA' }}
+          className={styles.progressItemsTable}
+        >
+          Chest
+
+        </div>
+        <div
+          style={{ borderRight: '1px solid #EAEAEA' }}
+          className={styles.progressItemsTable}
+        >
+          Upper Arm
+
+        </div>
+        <div
+          style={{ borderRight: '1px solid #EAEAEA' }}
+          className={styles.progressItemsTable}
+        >
+          Hiph
+
+        </div>
+        <div
+          style={{ borderRight: '1px solid #EAEAEA' }}
+          className={styles.progressItemsTable}
+        >
+          Thigh
+
+        </div>
+        <div
+          style={{ borderRight: '1px solid #EAEAEA' }}
+          className={styles.progressItemsTable}
+        >
+          Calf
+
+        </div>
       </div>
       {
         progress.map((data) => (

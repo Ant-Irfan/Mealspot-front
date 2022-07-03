@@ -33,6 +33,7 @@ import {
   adminUsers,
   adminSingleUser,
   progressUser,
+  AdminTransaction,
 } from './utils/pathsHelper';
 import Authentication from './components/Authentication';
 import RegisterConfirmed from './components/Authentication/RegisterConfirmed/RegisterConfirmed';
@@ -45,6 +46,7 @@ import AdminAddRoutine from './components/AdminPanel/Routines/AddRoutine';
 import AdminRoutinesTable from './components/AdminPanel/Routines/RoutinesTable';
 import AdminViewWorkout from './components/AdminPanel/Training/ViewTraining';
 import AdminViewRoutine from './components/AdminPanel/Routines/ViewRoutine';
+import AdminTransactions from './components/AdminPanel/Transactions/TableTransactions';
 import AdminViewExercise from './components/AdminPanel/Exercise/ViewExercise';
 import AdminAddFoodstuff from './components/AdminPanel/Foodstuff/AddFoodstuff';
 import AdminFoodstuffTable from './components/AdminPanel/Foodstuff/TableFoodstuff';
@@ -152,6 +154,11 @@ const AppContainer = ({ location }) => (
       path={adminUsers}
       exact
       component={AdminUsers}
+    />
+    <PrivateNavigationMenuRoute
+      path={AdminTransaction}
+      exact
+      component={AdminTransactions}
     />
     <PrivateNavigationMenuRoute
       path={adminSingleUser}

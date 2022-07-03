@@ -1,20 +1,21 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
-  getSingleUser,
-  getTransactionsForUser,
+  getTransactions,
+  getTransactionsByFilter,
 } from '../../modules/actions';
 
 const mapStateToProps = (state) => ({
-  user: state.adminReducer.user,
   transactions: state.adminReducer.transactions,
+  total_pages: state.adminReducer.total_pages_transactions,
+  current_page: state.adminReducer.current_page_transactions,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(
     {
-      getSingleUser,
-      getTransactionsForUser,
+      getTransactions,
+      getTransactionsByFilter,
     },
     dispatch,
   ),
