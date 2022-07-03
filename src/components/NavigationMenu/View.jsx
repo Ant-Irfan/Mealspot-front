@@ -13,6 +13,7 @@ import {
   userMealsRoute,
   adminUsers,
   progressUser,
+  AdminTransaction,
 } from '../../utils/pathsHelper';
 import styles from './navigationMenu.module.scss';
 import UserMocked from '../../images/navigationMenu/userMocked.png';
@@ -143,7 +144,11 @@ const NavigationMenu = (props) => {
                   </NavLink>
                 </Menu.Item>
                 <Menu.Item key="adminItem2" icon={<Transaction />}>
-                  Transactions
+                  <NavLink
+                    to={AdminTransaction}
+                  >
+                    Transactions
+                  </NavLink>
                 </Menu.Item>
                 <Menu.Item key="adminItem3" icon={<Meal />}>
                   Meals

@@ -22,6 +22,8 @@ export const adminViewRoutine = '/admin/routines/:id';
 export const adminAddFoodstuff = '/admin/add-foodstuff';
 export const adminTableFoodstuff = '/admin/foodstuff';
 
+export const AdminTransaction = '/admin/transactions';
+
 export const adminUsers = '/admin/users';
 export const adminSingleUser = '/admin/users/:id';
 
