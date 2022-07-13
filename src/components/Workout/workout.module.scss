@@ -1,0 +1,180 @@
+@import '../../variables.scss';
+@import "../../utils/breakpointsHelper.scss";
+
+.dayBox {
+    min-width: 150px;
+    width: 100%;
+    height: 50px;
+    background-color: #F8F8F8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $dark-color;
+    font-size: 16px;
+    border: 1px solid $light-gray;
+}
+
+.workoutBox {
+    width: 150px;
+    margin-top: 10px;
+}
+
+.workoutImageBox {
+    text-align: center;
+    border: 1px solid $light-gray;
+    border-radius: 6px;
+    padding: 5px 0px;
+}
+
+.weeklyReps {
+    color: $gray;
+    margin-top: 5px;
+    margin-bottom: 3px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.weeklyWorkoutTitle {
+    font-size: 14px;
+    color: $dark-color;
+    font-weight: 500;
+}
+
+.workoutBoxRestDay {
+    width: 150px;
+    margin-top: 10px;
+    height: 75px;
+    background-color: #56A2BE1A;
+    border: 1px solid $primary-color;
+    border-radius: 6px;
+}
+
+.restDayTitle {
+    color: $primary-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    height: 100%;
+}
+.dayContainer {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid $light-gray;
+    padding-top: 20px;
+    flex-wrap: wrap;
+}
+
+.day {
+    font-size: 32px;
+    color: $dark-color;
+    margin-right: 20px;
+}
+.nutritionBox {
+    margin-right: 10px;
+    padding: 15px;
+    background-color: #F3F3F3;
+    color: $dark-color;
+    border-radius: 5px;
+    min-width: 75px;
+}
+.nutrition {
+    font-size: 10px;
+}
+.nutritionValue {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.nutritionContainer {
+    display: flex;
+    margin: 10px 0px;
+}
+
+.cardContainer {
+
+}
+
+.cardImage {
+    text-align: center;
+    border: 1px solid $light-gray;
+    border-radius: 6px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    height: 170px;
+    background: url("../../images/workout/singleWorkoutTest.svg") no-repeat center;
+}
+
+.cardImagewithPlayButton {
+    text-align: center;
+    border: 1px solid $light-gray;
+    border-radius: 6px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    height: 170px;
+    background: #56A2BE4D url("../../images/workout/singleWorkoutTest.svg") no-repeat center;
+}
+
+.repeatWorkout {
+    text-align: right;
+    position: relative;
+    top: 40px;
+    right: 10px;
+    margin-top: -20px;
+}
+
+.workoutType {
+    border: 1px solid #FB5607;
+    color: #FB5607;
+    padding: 0px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    width: fit-content;
+}
+
+.cardTitle {
+    font-size: 20px;
+    color: $dark-color;
+    font-weight: 500;
+    line-height: 27px;
+    margin-bottom: 20px;
+}
+
+.colBorder {
+    @include tablet {
+        border-right: 1px solid $light-gray;
+    }
+}
+
+.cardTitleWithoutMargin {
+    font-size: 18px;
+    color: $dark-color;
+    font-weight: 500;
+}
+
+.workoutTypeYellow {
+    border: 1px solid #FBBC05;
+    color: #FBBC05;
+    padding: 0px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    width: fit-content;
+}
+
+.paddingOnCard {
+    padding-right: 30px;
+}
+.paddingOnCardLeft {
+    padding-top: 20px;
+    @include tablet {
+        padding-left: 30px;
+        padding-top: 0px;
+    }
+}

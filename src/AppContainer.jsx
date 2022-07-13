@@ -34,6 +34,8 @@ import {
   adminSingleUser,
   progressUser,
   AdminTransaction,
+  workoutsUser,
+  singleWorkoutsUser,
 } from './utils/pathsHelper';
 import Authentication from './components/Authentication';
 import RegisterConfirmed from './components/Authentication/RegisterConfirmed/RegisterConfirmed';
@@ -56,7 +58,9 @@ import UserProfile from './components/User';
 import PricingPage from './components/Pricing';
 import UserMeals from './components/Meals';
 import Progress from './components/Progress';
+import Workout from './components/Workout';
 import SingleMeal from './components/Meals/SingleMeal';
+import SingleWorkout from './components/Workout/SingleWorkout';
 
 const AppContainer = ({ location }) => (
   <Switch location={location}>
@@ -189,6 +193,16 @@ const AppContainer = ({ location }) => (
       path={progressUser}
       exact
       component={Progress}
+    />
+    <PrivateNavigationMenuUserRoute
+      path={workoutsUser}
+      exact
+      component={Workout}
+    />
+    <PrivateNavigationMenuUserRoute
+      path={singleWorkoutsUser}
+      exact
+      component={SingleWorkout}
     />
   </Switch>
 );

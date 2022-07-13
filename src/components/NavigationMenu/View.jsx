@@ -14,6 +14,7 @@ import {
   adminUsers,
   progressUser,
   AdminTransaction,
+  workoutsUser,
 } from '../../utils/pathsHelper';
 import styles from './navigationMenu.module.scss';
 import UserMocked from '../../images/navigationMenu/userMocked.png';
@@ -222,6 +223,16 @@ const NavigationMenu = (props) => {
                     to={progressUser}
                   >
                     Progress
+                  </NavLink>
+                </Menu.Item>
+                <Menu.Item
+                  key="adminItem13"
+                  icon={<Workout />}
+                >
+                  <NavLink
+                    to={workoutsUser}
+                  >
+                    Workouts
                   </NavLink>
                 </Menu.Item>
               </>
