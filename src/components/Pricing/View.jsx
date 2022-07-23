@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
@@ -48,14 +49,40 @@ const text = `
   it can be found as a welcome guest in many households across the world.
 `;
 
-const PricingPage = () => {
-  const [isFreePlan, setIsFreePlan] = useState(true);
+const PricingPage = ({ actions, history }) => {
+  const [isMonthly, setIsMonthly] = useState(true);
+  const [isQuarterly, setIsQuarterly] = useState(true);
+
   const onChangePlan = () => {
-    setIsFreePlan(!isFreePlan);
+    setIsMonthly(!isMonthly);
   };
+
+  const onChangeMonthlyPlan = () => {
+    setIsQuarterly(!isQuarterly);
+  };
+
   const onChange = (key) => {
     // eslint-disable-next-line no-console
     console.log(key);
+  };
+
+  const proceedToCheckout = () => {
+    if (!isMonthly) {
+      const plan = 'LIFETIME';
+      history.push('checkout');
+      return actions.setPlanToBuy(plan);
+    }
+    if (isMonthly && isQuarterly) {
+      const plan = 'MONTHLY';
+      history.push('checkout');
+      return actions.setPlanToBuy(plan);
+    }
+    if (isMonthly && !isQuarterly) {
+      const plan = 'QUARTERLY';
+      history.push('checkout');
+      return actions.setPlanToBuy(plan);
+    }
+    return null;
   };
 
   return (
@@ -198,14 +225,14 @@ const PricingPage = () => {
                 </div>
                 <div>
                   <span
-                    style={isFreePlan ? { color: '#152233' } : { color: '#1522334D' }}
+                    style={isMonthly ? { color: '#152233' } : { color: '#1522334D' }}
                     className={`${styles.monthlyLifetimeHeading}`}
                   >
                     Monthly
                   </span>
                   <Switch onChange={onChangePlan} />
                   <span
-                    style={!isFreePlan ? { color: '#152233' } : { color: '#1522334D' }}
+                    style={!isMonthly ? { color: '#152233' } : { color: '#1522334D' }}
                     className={`${styles.monthlyLifetimeHeading}`}
                   >
                     Lifetime
@@ -213,7 +240,10 @@ const PricingPage = () => {
                 </div>
               </div>
               <div className="d-flex justify-content-between">
-                <div>
+                <div
+                  onClick={onChangeMonthlyPlan}
+                  style={!isQuarterly ? { border: '1px solid #56A2BE', padding: '0px 10px 5px', borderRadius:'6px' } : { border : 'none' }}
+                >
                   <div className="d-flex align-items-center">
                     <div className={`${styles.priceDollar} ${styles.freePlanPrice}`}>
                       $24
@@ -222,7 +252,10 @@ const PricingPage = () => {
                   </div>
                   <div className={styles.billingDescription}>billed monthly</div>
                 </div>
-                <div>
+                <div
+                  onClick={onChangeMonthlyPlan}
+                  style={isQuarterly ? { border: '1px solid #56A2BE', padding: '0px 10px 5px', borderRadius:'6px' } : { border : 'none' }}
+                >
                   <div className="d-flex align-items-center">
                     <div className={`${styles.priceDollar} ${styles.freePlanPrice}`}>
                       $24
@@ -302,6 +335,7 @@ const PricingPage = () => {
             <div className="text-center">
               <button
                 type="submit"
+                onClick={proceedToCheckout}
                 className={`${styles.proceedButton} btn btn-light py-2 mt-1`}
               >
                 PROCEED
@@ -389,51 +423,77 @@ const PricingPage = () => {
               </div>
               <div>
                 <span
-                  style={isFreePlan ? { color: '#152233' } : { color: '#1522334D' }}
+                  style={isMonthly ? { color: '#152233' } : { color: '#1522334D' }}
                   className="mx-3"
                 >
                   Monthly
                 </span>
                 <Switch onChange={onChangePlan} />
                 <span
-                  style={!isFreePlan ? { color: '#152233' } : { color: '#1522334D' }}
+                  style={!isMonthly ? { color: '#152233' } : { color: '#1522334D' }}
                   className="mx-3"
                 >
                   Lifetime
                 </span>
               </div>
             </div>
-            <div className="d-flex justify-content-between">
-              <div>
-                <div className="d-flex align-items-center">
-                  <div className={`${styles.priceDollar} ${styles.freePlanPrice}`}>
-                    $24
-                  </div>
-                  <div className="mx-2">per month</div>
-                </div>
-                <div className={styles.billingDescription}>billed monthly</div>
-              </div>
-              <div>
-                <div className="d-flex align-items-center">
-                  <div className={`${styles.priceDollar} ${styles.freePlanPrice}`}>
-                    $24
-                  </div>
-                  <div className="mx-2">
+            {
+              isMonthly
+                ? (
+                  <div className="d-flex justify-content-between">
                     <div
-                      className={styles.sales}
+                      onClick={onChangeMonthlyPlan}
+                      style={isQuarterly ? { border: '1px solid #56A2BE', padding: '0px 10px 5px', borderRadius: '6px' } : { border : 'none' }}
                     >
-                      -20%
+                      <div className="d-flex align-items-center">
+                        <div className={`${styles.priceDollar} ${styles.freePlanPrice}`}>
+                          $24
+                        </div>
+                        <div className="mx-2">per month</div>
+                      </div>
+                      <div className={styles.billingDescription}>billed monthly</div>
                     </div>
-                    per month
+                    <div
+                      onClick={onChangeMonthlyPlan}
+                      style={!isQuarterly ? { border: '1px solid #56A2BE', padding: '0px 10px 5px', borderRadius: '6px' } : { border : 'none' }}
+                    >
+                      <div className="d-flex align-items-center">
+                        <div className={`${styles.priceDollar} ${styles.freePlanPrice}`}>
+                          $24
+                        </div>
+                        <div className="mx-2">
+                          <div
+                            className={styles.sales}
+                          >
+                            -20%
+                          </div>
+                          per month
+                        </div>
+                      </div>
+                      <div
+                        className={styles.billingDescription}
+                      >
+                        billed quarterly (charged upfront)
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div
-                  className={styles.billingDescription}
-                >
-                  billed quarterly (charged upfront)
-                </div>
-              </div>
-            </div>
+                )
+                : (
+                  <div className="d-flex justify-content-between">
+                    <div
+                      style={{ border: '1px solid #56A2BE', padding: '0px 10px 5px', borderRadius: '6px' }}
+                    >
+                      <div className="d-flex align-items-center">
+                        <div className={`${styles.priceDollar} ${styles.freePlanPrice}`}>
+                          $24
+                        </div>
+                        <div className="mx-2">per month</div>
+                      </div>
+                      <div className={styles.billingDescription}>billed once</div>
+                    </div>
+                  </div>
+                )
+            }
             <div className={`mt-4 ${styles.freePlanListItem}`}>
               <CheckOutlined />
               {' '}
@@ -486,6 +546,7 @@ const PricingPage = () => {
           <div>
             <button
               type="submit"
+              onClick={proceedToCheckout}
               className={`${styles.proceedButton} btn btn-light py-2 mt-2`}
             >
               PROCEED

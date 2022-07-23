@@ -1,16 +1,18 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getPaymentConfig, setPlanToBuy } from '../Checkout/modules/actions';
+import { getPaymentConfig, startCheckout } from './modules/actions';
 
 const mapStateToProps = (state) => ({
-  pricesConfig: state.paymentReducer.pricesConfig,
+  plan: state.paymentReducer.plan,
+  paymentConfig: state.paymentReducer.paymentConfig,
+  paymentSession: state.paymentReducer.paymentSession,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(
     {
       getPaymentConfig,
-      setPlanToBuy,
+      startCheckout,
     },
     dispatch,
   ),

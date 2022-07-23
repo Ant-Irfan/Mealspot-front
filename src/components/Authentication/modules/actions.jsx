@@ -196,6 +196,8 @@ export const getCurrentActiveUser = () => async (dispatch) => {
   AuthorizedApiService.get('api/user/whoami')
     .then((res) => {
       const { data, success } = res.data;
+      // eslint-disable-next-line no-console
+      console.log(data);
       if (data && success) {
         dispatch(setCurrentUser(data));
       } else {
