@@ -36,6 +36,7 @@ import {
   AdminTransaction,
   workoutsUser,
   singleWorkoutsUser,
+  userCheckoutPage,
 } from './utils/pathsHelper';
 import Authentication from './components/Authentication';
 import RegisterConfirmed from './components/Authentication/RegisterConfirmed/RegisterConfirmed';
@@ -59,6 +60,7 @@ import PricingPage from './components/Pricing';
 import UserMeals from './components/Meals';
 import Progress from './components/Progress';
 import Workout from './components/Workout';
+import Checkout from './components/Checkout';
 import SingleMeal from './components/Meals/SingleMeal';
 import SingleWorkout from './components/Workout/SingleWorkout';
 
@@ -183,6 +185,11 @@ const AppContainer = ({ location }) => (
       path={userPricingRoute}
       exact
       component={PricingPage}
+    />
+    <PrivateNoNavigationMenuUserRoute
+      path={userCheckoutPage}
+      exact
+      component={Checkout}
     />
     <PrivateNavigationMenuUserRoute
       path={singleMealRoute}

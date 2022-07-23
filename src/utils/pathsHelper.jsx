@@ -35,3 +35,5 @@ export const singleMealRoute = '/meals/:id';
 export const progressUser = '/progress';
 export const workoutsUser = '/workout';
 export const singleWorkoutsUser = '/workout/:id';
+
+export const userCheckoutPage = '/checkout';
