@@ -1,0 +1,21 @@
+@import '../../../variables.scss';
+@import "../../../utils/breakpointsHelper.scss";
+
+.imageContainer {
+    text-align: center;
+    @include desktop {
+        margin-bottom: 150px;
+    }
+}
+.checkoutSuccessHeading {
+    color: $dark-color;
+    font-size: 34px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.checkoutSuccessDescription {
+    color: $gray;
+    font-size: 16px;
+    max-width: 500px;
+}

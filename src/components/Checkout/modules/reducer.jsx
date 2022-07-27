@@ -9,6 +9,7 @@ const defaultState = {
   paymentConfig: null,
   plan: null,
   paymentSession: null,
+  paymentPrices: null,
 };
 
 export default (state = defaultState, action) => {
@@ -17,6 +18,11 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         paymentConfig: action.paymentConfig,
+        paymentPrices: {
+          monthly: `$${action.paymentConfig.paypal.prices[0].unit_amount / 100}`,
+          quarterly: `$${action.paymentConfig.paypal.prices[1].unit_amount / 100}`,
+          lifetime: `$${action.paymentConfig.paypal.prices[2].unit_amount / 100}`,
+        },
       };
     case SET_PLAN_TO_BUY:
       return {

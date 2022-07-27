@@ -6,6 +6,7 @@ const mapStateToProps = (state) => ({
   plan: state.paymentReducer.plan,
   paymentConfig: state.paymentReducer.paymentConfig,
   paymentSession: state.paymentReducer.paymentSession,
+  paymentPrices: state.paymentReducer.paymentPrices,
 });
 
 const mapDispatchToProps = (dispatch) => ({

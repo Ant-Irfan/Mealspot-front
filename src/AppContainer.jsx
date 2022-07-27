@@ -37,6 +37,7 @@ import {
   workoutsUser,
   singleWorkoutsUser,
   userCheckoutPage,
+  checkoutSuccessPage,
 } from './utils/pathsHelper';
 import Authentication from './components/Authentication';
 import RegisterConfirmed from './components/Authentication/RegisterConfirmed/RegisterConfirmed';
@@ -63,6 +64,7 @@ import Workout from './components/Workout';
 import Checkout from './components/Checkout';
 import SingleMeal from './components/Meals/SingleMeal';
 import SingleWorkout from './components/Workout/SingleWorkout';
+import CheckoutSuccess from './components/Checkout/CheckoutSuccess/CheckoutSuccess';
 
 const AppContainer = ({ location }) => (
   <Switch location={location}>
@@ -210,6 +212,11 @@ const AppContainer = ({ location }) => (
       path={singleWorkoutsUser}
       exact
       component={SingleWorkout}
+    />
+    <PrivateNoNavigationMenuUserRoute
+      path={checkoutSuccessPage}
+      exact
+      component={CheckoutSuccess}
     />
   </Switch>
 );

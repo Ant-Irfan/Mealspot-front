@@ -37,3 +37,4 @@ export const workoutsUser = '/workout';
 export const singleWorkoutsUser = '/workout/:id';
 
 export const userCheckoutPage = '/checkout';
+export const checkoutSuccessPage = '/checkout-success';
