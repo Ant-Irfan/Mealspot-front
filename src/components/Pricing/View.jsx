@@ -1,16 +1,19 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import { NavLink, withRouter } from 'react-router-dom';
 import {
   StarFilled,
   CheckOutlined, LeftOutlined,
+  LoadingOutlined,
 } from '@ant-design/icons';
 import {
   Switch,
   Collapse,
+  Spin,
 } from 'antd';
 import headerStyles from '../Wizzard/WizzardHeader/wizzardHeader.module.scss';
 import { ReactComponent as FreePlan } from '../../images/pricing/free.svg';
@@ -49,9 +52,14 @@ const text = `
   it can be found as a welcome guest in many households across the world.
 `;
 
-const PricingPage = ({ actions, history }) => {
+// eslint-disable-next-line no-unused-vars
+const PricingPage = ({ actions, history, paymentPrices }) => {
   const [isMonthly, setIsMonthly] = useState(true);
   const [isQuarterly, setIsQuarterly] = useState(true);
+
+  useEffect(() => {
+    actions.getPaymentConfig();
+  }, []);
 
   const onChangePlan = () => {
     setIsMonthly(!isMonthly);
@@ -246,7 +254,7 @@ const PricingPage = ({ actions, history }) => {
                 >
                   <div className="d-flex align-items-center">
                     <div className={`${styles.priceDollar} ${styles.freePlanPrice}`}>
-                      $24
+                      {paymentPrices?.monthly}
                     </div>
                     <div className="mx-2">per month</div>
                   </div>
@@ -258,7 +266,7 @@ const PricingPage = ({ actions, history }) => {
                 >
                   <div className="d-flex align-items-center">
                     <div className={`${styles.priceDollar} ${styles.freePlanPrice}`}>
-                      $24
+                      {paymentPrices?.quarterly}
                     </div>
                     <div className="mx-2">
                       <div
@@ -416,28 +424,47 @@ const PricingPage = ({ actions, history }) => {
         <div
           className={`${styles.pricePlanWrapper} pricing-buy-plan`}
         >
-          <div className={styles.buyPlanContainer}>
-            <div className="d-flex justify-content-between">
-              <div className={styles.buyPlanHeading}>
-                Paid Plan
-              </div>
-              <div>
-                <span
-                  style={isMonthly ? { color: '#152233' } : { color: '#1522334D' }}
-                  className="mx-3"
-                >
-                  Monthly
-                </span>
-                <Switch onChange={onChangePlan} />
-                <span
-                  style={!isMonthly ? { color: '#152233' } : { color: '#1522334D' }}
-                  className="mx-3"
-                >
-                  Lifetime
-                </span>
-              </div>
-            </div>
-            {
+          {
+            !paymentPrices
+              ? (
+                <Spin
+                  style={{
+                    height: '100%', display:'flex', justifyContent:'center', alignItems:'center',
+                  }}
+                  indicator={(
+                    <LoadingOutlined
+                      style={{
+                        fontSize: 66,
+                        color: '#56A2BE',
+                      }}
+                      spin
+                    />
+                  )}
+                />
+              )
+              : (
+                <div className={styles.buyPlanContainer}>
+                  <div className="d-flex justify-content-between">
+                    <div className={styles.buyPlanHeading}>
+                      Paid Plan
+                    </div>
+                    <div>
+                      <span
+                        style={isMonthly ? { color: '#152233' } : { color: '#1522334D' }}
+                        className="mx-3"
+                      >
+                        Monthly
+                      </span>
+                      <Switch onChange={onChangePlan} />
+                      <span
+                        style={!isMonthly ? { color: '#152233' } : { color: '#1522334D' }}
+                        className="mx-3"
+                      >
+                        Lifetime
+                      </span>
+                    </div>
+                  </div>
+                  {
               isMonthly
                 ? (
                   <div className="d-flex justify-content-between">
@@ -447,7 +474,7 @@ const PricingPage = ({ actions, history }) => {
                     >
                       <div className="d-flex align-items-center">
                         <div className={`${styles.priceDollar} ${styles.freePlanPrice}`}>
-                          $24
+                          {paymentPrices?.monthly}
                         </div>
                         <div className="mx-2">per month</div>
                       </div>
@@ -459,7 +486,7 @@ const PricingPage = ({ actions, history }) => {
                     >
                       <div className="d-flex align-items-center">
                         <div className={`${styles.priceDollar} ${styles.freePlanPrice}`}>
-                          $24
+                          {paymentPrices?.quarterly}
                         </div>
                         <div className="mx-2">
                           <div
@@ -485,7 +512,7 @@ const PricingPage = ({ actions, history }) => {
                     >
                       <div className="d-flex align-items-center">
                         <div className={`${styles.priceDollar} ${styles.freePlanPrice}`}>
-                          $24
+                          {paymentPrices?.lifetime}
                         </div>
                         <div className="mx-2">per month</div>
                       </div>
@@ -494,55 +521,57 @@ const PricingPage = ({ actions, history }) => {
                   </div>
                 )
             }
-            <div className={`mt-4 ${styles.freePlanListItem}`}>
-              <CheckOutlined />
-              {' '}
-              <b>
-                Based on multiple factors
-              </b>
-            </div>
-            <div className={styles.freePlanListItem}>
-              <CheckOutlined />
-              {' '}
-              <b>
-                Weight, chest circumference,
-                <br />
-                <span style={{ marginLeft: 35 }}>
-                  hips...
-                </span>
-              </b>
-            </div>
-            <div className={styles.freePlanListItem}>
-              <CheckOutlined />
-              {' '}
-              <b>
-                Your opinion matters
-              </b>
-            </div>
-            <div className={styles.freePlanListItem}>
-              <CheckOutlined />
-              <b>
-                40 (adding more regularly)
-              </b>
-            </div>
-            <div className={styles.freePlanListItem}>
-              <CheckOutlined />
-              <b>
-                More configurable
-              </b>
-            </div>
-            <div className={styles.freePlanListItem}>
-              <CheckOutlined />
-              <b>
-                60
-              </b>
-            </div>
-            <div>
-              <PaidPlan
-                className={styles.paidPlanDesktop}
-              />
-            </div>
-          </div>
+                  <div className={`mt-4 ${styles.freePlanListItem}`}>
+                    <CheckOutlined />
+                    {' '}
+                    <b>
+                      Based on multiple factors
+                    </b>
+                  </div>
+                  <div className={styles.freePlanListItem}>
+                    <CheckOutlined />
+                    {' '}
+                    <b>
+                      Weight, chest circumference,
+                      <br />
+                      <span style={{ marginLeft: 35 }}>
+                        hips...
+                      </span>
+                    </b>
+                  </div>
+                  <div className={styles.freePlanListItem}>
+                    <CheckOutlined />
+                    {' '}
+                    <b>
+                      Your opinion matters
+                    </b>
+                  </div>
+                  <div className={styles.freePlanListItem}>
+                    <CheckOutlined />
+                    <b>
+                      40 (adding more regularly)
+                    </b>
+                  </div>
+                  <div className={styles.freePlanListItem}>
+                    <CheckOutlined />
+                    <b>
+                      More configurable
+                    </b>
+                  </div>
+                  <div className={styles.freePlanListItem}>
+                    <CheckOutlined />
+                    <b>
+                      60
+                    </b>
+                  </div>
+                  <div>
+                    <PaidPlan
+                      className={styles.paidPlanDesktop}
+                    />
+                  </div>
+                </div>
+              )
+          }
           <div>
             <button
               type="submit"

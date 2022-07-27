@@ -4,6 +4,7 @@ import { getPaymentConfig, setPlanToBuy } from '../Checkout/modules/actions';
 
 const mapStateToProps = (state) => ({
   pricesConfig: state.paymentReducer.pricesConfig,
+  paymentPrices: state.paymentReducer.paymentPrices,
 });
 
 const mapDispatchToProps = (dispatch) => ({

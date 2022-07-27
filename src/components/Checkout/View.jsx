@@ -3,6 +3,7 @@
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import {
   PayPalScriptProvider,
   PayPalButtons,
@@ -14,19 +15,25 @@ import pricingStyles from '../Pricing/pricing.module.scss';
 import { ReactComponent as PaidPlan } from '../../images/pricing/paid.svg';
 import { ReactComponent as Paypal } from '../../images/pricing/paypal.svg';
 import StripeForm from './StripeForm/StripeForm';
+import Loader from '../helpers/Loader/Loader';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_CLIENT_KEY);
 const Checkout = (props) => {
   const {
-    plan, actions, paymentConfig, paymentSession,
+    plan, actions, paymentConfig, paymentSession, history, paymentPrices,
   } = props;
   // eslint-disable-next-line no-unused-vars
   const [activePaymentMethod, setactivePaymentMethod] = useState(null);
   const [stripeOptions, setStripeOptions] = useState(null);
 
   useEffect(() => {
+    if (!plan) {
+      history.push('pricing');
+    }
+  });
+
+  useEffect(() => {
     if (paymentSession) {
-      console.log('paaa', paymentSession);
       setStripeOptions({
         clientSecret: paymentSession.client_secret,
       });
@@ -80,56 +87,64 @@ const Checkout = (props) => {
 
   return (
     <div>
-      <div className={styles.checkoutBg}>
-        <div className={styles.checkoutCardContainer}>
-          <div className="row">
-            <div className="col-7">
-              <div
-                className={`${pricingStyles.pricePlanWrapper} pricing-buy-plan w-100`}
-                style={{ padding: 20 }}
-              >
-                <div className={pricingStyles.buyPlanContainer}>
-                  <div className="d-flex justify-content-between">
-                    <div className={pricingStyles.buyPlanHeading}>
-                      Paid Plan
-                    </div>
-                  </div>
-                  <div className="d-flex justify-content-between">
-                    <div>
-                      {
+      {
+        !paymentConfig
+          ? (
+            <Loader
+              size={124}
+            />
+          )
+          : (
+            <div className={styles.checkoutBg}>
+              <div className={styles.checkoutCardContainer}>
+                <div className="row">
+                  <div className="col-7">
+                    <div
+                      className={`${pricingStyles.pricePlanWrapper} pricing-buy-plan w-100`}
+                      style={{ padding: 20 }}
+                    >
+                      <div className={pricingStyles.buyPlanContainer}>
+                        <div className="d-flex justify-content-between">
+                          <div className={pricingStyles.buyPlanHeading}>
+                            Paid Plan
+                          </div>
+                        </div>
+                        <div className="d-flex justify-content-between">
+                          <div>
+                            {
                             plan === 'MONTHLY'
                             && (
                             <div className="d-flex align-items-center">
                               <div className={`${pricingStyles.priceDollar} ${pricingStyles.freePlanPrice}`}>
-                                $24
+                                {paymentPrices?.monthly}
                               </div>
                               <div className="mx-2">per month</div>
                             </div>
                             )
                         }
-                      {
+                            {
                             plan === 'LIFETIME'
                             && (
                             <div className="d-flex align-items-center">
                               <div className={`${pricingStyles.priceDollar} ${pricingStyles.freePlanPrice}`}>
-                                $24
+                                {paymentPrices?.lifetime}
                               </div>
                               <div className="mx-2" />
                             </div>
                             )
                         }
-                      {
+                            {
                             plan === 'QUARTERLY'
                             && (
                             <div className="d-flex align-items-center">
                               <div className={`${pricingStyles.priceDollar} ${pricingStyles.freePlanPrice}`}>
-                                $24
+                                {paymentPrices?.quarterly}
                               </div>
                               <div className="mx-2" />
                             </div>
                             )
                         }
-                      {
+                            {
                              plan === 'QUARTERLY'
                              && (
                              <div className={pricingStyles.billingDescription}>
@@ -137,7 +152,7 @@ const Checkout = (props) => {
                              </div>
                              )
                         }
-                      {
+                            {
                              plan === 'MONTHLY'
                              && (
                              <div className={pricingStyles.billingDescription}>
@@ -145,7 +160,7 @@ const Checkout = (props) => {
                              </div>
                              )
                         }
-                      {
+                            {
                              plan === 'LIFETIME'
                              && (
                              <div className={pricingStyles.billingDescription}>
@@ -153,76 +168,76 @@ const Checkout = (props) => {
                              </div>
                              )
                         }
-                    </div>
+                          </div>
 
+                        </div>
+                        <div className={`mt-4 ${pricingStyles.freePlanFeatureDescription}`}>
+                          Weekly plan update
+                        </div>
+                        <div className={`${pricingStyles.freePlanListItem}`}>
+                          <b>
+                            Based on multiple factors
+                          </b>
+                        </div>
+                        <div className={pricingStyles.freePlanFeatureDescription}>
+                          Progress tracking
+                        </div>
+                        <div className={pricingStyles.freePlanListItem}>
+                          <b>
+                            Weight, chest circumference,
+                            <br />
+                            hips...
+                          </b>
+                        </div>
+                        <div className={pricingStyles.freePlanFeatureDescription}>
+                          Meal plan customisation
+                        </div>
+                        <div className={pricingStyles.freePlanListItem}>
+                          <b>
+                            Your opinion matters
+                          </b>
+                        </div>
+                        <div className={styles.freePlanFeatureDescription}>
+                          Number of recipes
+                        </div>
+                        <div className={pricingStyles.freePlanListItem}>
+                          <b>
+                            40 (adding more regularly)
+                          </b>
+                        </div>
+                        <div className={pricingStyles.freePlanFeatureDescription}>
+                          Workout customisation
+                        </div>
+                        <div className={pricingStyles.freePlanListItem}>
+                          <b>
+                            More configurable
+                          </b>
+                        </div>
+                        <div className={pricingStyles.freePlanFeatureDescription}>
+                          Number of exercises
+                        </div>
+                        <div className={pricingStyles.freePlanListItem}>
+                          <b>
+                            60
+                          </b>
+                        </div>
+                        <div>
+                          <PaidPlan
+                            className={pricingStyles.paidCardImage}
+                            style={{ left: 230 }}
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className={`mt-4 ${pricingStyles.freePlanFeatureDescription}`}>
-                    Weekly plan update
-                  </div>
-                  <div className={`${pricingStyles.freePlanListItem}`}>
-                    <b>
-                      Based on multiple factors
-                    </b>
-                  </div>
-                  <div className={pricingStyles.freePlanFeatureDescription}>
-                    Progress tracking
-                  </div>
-                  <div className={pricingStyles.freePlanListItem}>
-                    <b>
-                      Weight, chest circumference,
-                      <br />
-                      hips...
-                    </b>
-                  </div>
-                  <div className={pricingStyles.freePlanFeatureDescription}>
-                    Meal plan customisation
-                  </div>
-                  <div className={pricingStyles.freePlanListItem}>
-                    <b>
-                      Your opinion matters
-                    </b>
-                  </div>
-                  <div className={styles.freePlanFeatureDescription}>
-                    Number of recipes
-                  </div>
-                  <div className={pricingStyles.freePlanListItem}>
-                    <b>
-                      40 (adding more regularly)
-                    </b>
-                  </div>
-                  <div className={pricingStyles.freePlanFeatureDescription}>
-                    Workout customisation
-                  </div>
-                  <div className={pricingStyles.freePlanListItem}>
-                    <b>
-                      More configurable
-                    </b>
-                  </div>
-                  <div className={pricingStyles.freePlanFeatureDescription}>
-                    Number of exercises
-                  </div>
-                  <div className={pricingStyles.freePlanListItem}>
-                    <b>
-                      60
-                    </b>
-                  </div>
-                  <div>
-                    <PaidPlan
-                      className={pricingStyles.paidCardImage}
-                      style={{ left: 230 }}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-5">
-              <div className={styles.checkoutFormContainer}>
-                <div className={styles.checkoutFormTitle}>Checkout</div>
-                <div className={styles.checkoutFormDescription}>
-                  Mauris velit quam,
-                  dignissim vel ullamcorper vitae, egestas eu massa
-                </div>
-                {
+                  <div className="col-5">
+                    <div className={styles.checkoutFormContainer}>
+                      <div className={styles.checkoutFormTitle}>Checkout</div>
+                      <div className={styles.checkoutFormDescription}>
+                        Mauris velit quam,
+                        dignissim vel ullamcorper vitae, egestas eu massa
+                      </div>
+                      {
                   !paymentSession
                   && (
                   <div className={styles.couponContainer}>
@@ -271,29 +286,33 @@ const Checkout = (props) => {
                   </div>
                   )
                 }
-                {
+                      {
                   paymentSession?.provider === 'stripe'
                   && (
                   <Elements stripe={stripePromise} options={stripeOptions}>
-                    <StripeForm />
+                    <StripeForm
+                      paymentSession={paymentSession}
+                    />
                   </Elements>
                   )
                 }
-                {
+                      {
                   paymentSession?.provider === 'paypal'
                   && (
                     <PayPalButtons />
                   )
                 }
-                <div className={styles.cancelPayment}>
-                  Cancel Payment
+                      <div className={styles.cancelPayment}>
+                        Cancel Payment
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+          )
+      }
     </div>
   );
 };
-export default Checkout;
+export default withRouter(Checkout);

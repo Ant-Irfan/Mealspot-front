@@ -40,6 +40,9 @@ const NavigationMenu = (props) => {
     actions.getCurrentActiveUser();
   }, []);
 
+  // eslint-disable-next-line no-console
+  console.log(user);
+
   const collapseStyles = {
     Active: {
       position: 'relative',
