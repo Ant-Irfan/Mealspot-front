@@ -12,6 +12,7 @@ const App = () => (
   <div className="App">
     <PayPalScriptProvider
       options={{
+        vault: true,
         'client-id': process.env.REACT_APP_PAYPAL_CLIENT_KEY,
       }}
     >

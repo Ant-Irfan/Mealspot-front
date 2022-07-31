@@ -4,10 +4,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import {
-  PayPalScriptProvider,
-  PayPalButtons,
-} from '@paypal/react-paypal-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import styles from './checkout.module.scss';
@@ -16,6 +12,8 @@ import { ReactComponent as PaidPlan } from '../../images/pricing/paid.svg';
 import { ReactComponent as Paypal } from '../../images/pricing/paypal.svg';
 import StripeForm from './StripeForm/StripeForm';
 import Loader from '../helpers/Loader/Loader';
+import PaypalLifetime from './PayPal/PayPalLifetime';
+import PayPalSubscription from './PayPal/PayPalSubscription';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_CLIENT_KEY);
 const Checkout = (props) => {
@@ -298,8 +296,23 @@ const Checkout = (props) => {
                 }
                       {
                   paymentSession?.provider === 'paypal'
+                  && (plan === 'LIFETIME')
                   && (
-                    <PayPalButtons />
+                    <PaypalLifetime
+                      prices={paymentPrices}
+                      plan={plan}
+                    />
+                  )
+                }
+                      {
+                  paymentSession?.provider === 'paypal'
+                  && (plan === 'MONTHLY' || plan === 'QUARTERLY')
+                  && (
+                    <PayPalSubscription
+                      prices={paymentPrices}
+                      plan={plan}
+                      paymentSession={paymentSession}
+                    />
                   )
                 }
                       <div className={styles.cancelPayment}>
