@@ -10,3 +10,5 @@ export const SET_USER = 'SET_USER';
 export const SET_NUMBER_OF_USERS = 'SET_NUMBER_OF_USERS';
 export const SET_TRANSACTONS = 'SET_TRANSACTONS';
 export const SET_NUMBER_OF_TRANSACTIONS = 'SET_NUMBER_OF_TRANSACTIONS';
+export const SET_MEALS = 'SET_MEALS';
+export const SET_MEAL = 'SET_MEAL';

@@ -18,6 +18,8 @@ import {
   SET_NUMBER_OF_USERS,
   SET_TRANSACTONS,
   SET_NUMBER_OF_TRANSACTIONS,
+  SET_MEALS,
+  SET_MEAL,
 } from './types';
 
 const setExercises = (exercises) => (
@@ -44,6 +46,9 @@ const setSingleExercise = (exercise) => (
 const setUsers = (users) => (
   { type: SET_USERS, users }
 );
+const setMeal = (meal) => (
+  { type: SET_MEAL, meal }
+);
 const setSingleUser = (user) => (
   { type: SET_USER, user }
 );
@@ -55,6 +60,9 @@ const setTransactions = (transactions) => (
 );
 const setNumberOfTransactions = (number, page) => (
   { type: SET_NUMBER_OF_TRANSACTIONS, number, page }
+);
+const setMeals = (meals) => (
+  { type: SET_MEALS, meals }
 );
 
 // EXERCISES CONTROLLER
@@ -545,6 +553,101 @@ export const getTransactionsForUser = (userId) => async (dispatch) => {
       } else {
         notification.error({
           message: 'Invalid Transactions Fetch!',
+        });
+      }
+    })
+    .catch((err) => {
+      const error = parseError(err);
+      notification.error({
+        message: error,
+      });
+    });
+};
+
+export const addMeal = (meal) => async (/* dispatch */) => {
+  const formData = new FormData();
+  const jsonData = JSON.stringify(meal.data);
+  const blobData = new Blob([jsonData], {
+    type: 'application/json',
+  });
+  formData.append('photo', meal.photo);
+  formData.append('data', blobData);
+  AuthorizedApiFormDataService.post('api/admin/meal', formData)
+    .then((res) => {
+      const { success } = res.data;
+      if (success) {
+        history.push('/admin/meals');
+        notification.success({
+          message: 'Meal Added!',
+        });
+      } else {
+        notification.error({
+          message: 'Invalid Add Meal!',
+        });
+      }
+    })
+    .catch((err) => {
+      const error = parseError(err);
+      notification.error({
+        message: error,
+      });
+    });
+};
+
+export const getMeals = () => async (dispatch) => {
+  AuthorizedApiService.get('api/admin/meal')
+    .then((res) => {
+      const { success, data } = res.data;
+      if (success) {
+        console.log('dataa', data.data);
+        dispatch(setMeals(data.data));
+      } else {
+        notification.error({
+          message: 'Invalid Meal Fetch!',
+        });
+      }
+    })
+    .catch((err) => {
+      const error = parseError(err);
+      notification.error({
+        message: error,
+      });
+    });
+};
+
+export const deleteMeal = (mealId) => async (dispatch) => {
+  AuthorizedApiService.delete(`api/admin/meal/${mealId}`)
+    .then((res) => {
+      const { success } = res.data;
+      if (success) {
+        dispatch(getMeals());
+        notification.success({
+          message: 'Delete Meal success!',
+        });
+      } else {
+        notification.error({
+          message: 'Invalid Meal Exercise!',
+        });
+      }
+    })
+    .catch((err) => {
+      const error = parseError(err);
+      notification.error({
+        message: error,
+      });
+    });
+};
+
+export const getSingleMeal = (id) => async (dispatch) => {
+  AuthorizedApiService.get(`api/admin/meal/${id}`)
+    .then((res) => {
+      const { success, data } = res.data;
+      if (success) {
+        console.log(data);
+        dispatch(setMeal(data));
+      } else {
+        notification.error({
+          message: 'Invalid Meal Fetch!',
         });
       }
     })

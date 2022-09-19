@@ -8,32 +8,30 @@ import {
 import { useLocation } from 'react-router-dom';
 import styles from '../../adminPanel.module.scss';
 
-const AdminViewExercise = (props) => {
-  const { actions, exercise } = props;
+const AdminViewMeal = (props) => {
+  const { actions, meal } = props;
   const location = useLocation();
-  const [viewExerciseForm] = Form.useForm();
+  const [viewMealForm] = Form.useForm();
 
   useEffect(() => {
     const id = location.pathname.split('/')[3];
-    actions.getSingleExercise(id);
+    actions.getSingleMeal(id);
   }, []);
 
   useEffect(() => {
-    if (exercise) {
-      viewExerciseForm.setFieldsValue({
-        name: exercise.name,
-        primary_muscle_groups: exercise.primary_muscle_groups,
-        secondary_muscle_groups: exercise.secondary_muscle_groups,
-        complexity: exercise.complexity,
-        female_video_url: exercise.female_video_url,
-        male_video_url: exercise.male_video_url,
-        description: exercise.description,
-        alternate_exercises: exercise.alternate_exercises.map((work) => (
-          work.name
-        )),
+    if (meal) {
+      viewMealForm.setFieldsValue({
+        photo: meal.photo_url,
+        name: meal.name,
+        timings: meal.timings,
+        description: meal.description,
+        plan: meal.plan,
+        preparation_instructions: meal.preparation_instructions,
+        preparation_time: meal.preparation_time,
+        ingredients: meal.ingredients,
       });
     }
-  }, [exercise]);
+  }, [meal]);
 
   return (
     <div className="container d-flex flex-column h-100">
@@ -41,12 +39,12 @@ const AdminViewExercise = (props) => {
         <h1
           className={styles.adminPanelHeading}
         >
-          { exercise && exercise.name }
+          { meal && meal.name }
         </h1>
       </div>
       <div className="container-content">
         <Form
-          form={viewExerciseForm}
+          form={viewMealForm}
         >
           <div className="row">
             <div className="col-lg-6 col-xs-12">
@@ -57,7 +55,7 @@ const AdminViewExercise = (props) => {
                   <p
                     className="mb-1"
                   >
-                    Ime
+                    Name
                   </p>
                   <Form.Item
                     className="mb-3"
@@ -65,14 +63,14 @@ const AdminViewExercise = (props) => {
                     rules={[
                       {
                         required: true,
-                        message: 'Please input name of exercise!',
+                        message: 'Please input name of Meal!',
                       },
 
                     ]}
                   >
                     <Input
                       className="px-3 py-2"
-                      placeholder="Name of exercise"
+                      placeholder="Name of meal"
                     />
                   </Form.Item>
                 </div>
@@ -82,22 +80,21 @@ const AdminViewExercise = (props) => {
                   <p
                     className="mb-1"
                   >
-                    Primarne Misicne grupe
+                    Description
                   </p>
                   <Form.Item
                     className="mb-3"
-                    name="primary_muscle_groups"
+                    name="description"
                     rules={[
                       {
                         required: true,
-                        message: 'Please select Primary muslce groups!',
                       },
 
                     ]}
                   >
                     <Input
                       className="px-3 py-2"
-                      placeholder="Primary muscle groups"
+                      placeholder="Description of meal"
                     />
                   </Form.Item>
                 </div>
@@ -107,11 +104,11 @@ const AdminViewExercise = (props) => {
                   <p
                     className="mb-1"
                   >
-                    Sekundarne Misicne grupe
+                    Timings
                   </p>
                   <Form.Item
                     className="mb-3"
-                    name="secondary_muscle_groups"
+                    name="timings"
                     rules={[
                       {
                         required: true,
@@ -122,7 +119,7 @@ const AdminViewExercise = (props) => {
                   >
                     <Input
                       className="px-3 py-2"
-                      placeholder="Secondary of exercise"
+                      placeholder="Timings of meal"
                     />
                   </Form.Item>
                 </div>
@@ -133,22 +130,22 @@ const AdminViewExercise = (props) => {
                     <p
                       className="mb-1"
                     >
-                      Kompleksnost
+                      Plan
                     </p>
                     <Form.Item
                       className="mb-3"
-                      name="complexity"
+                      name="plan"
                       rules={[
                         {
                           required: true,
-                          message: 'Please select exercise complexity!',
+                          message: 'Plan',
                         },
 
                       ]}
                     >
                       <Input
                         className="px-3 py-2"
-                        placeholder="Complexity"
+                        placeholder="Plan"
                       />
                     </Form.Item>
                     <div
@@ -157,22 +154,22 @@ const AdminViewExercise = (props) => {
                       <p
                         className="mb-1"
                       >
-                        Male video url
+                        Preparation Instructions
                       </p>
                       <Form.Item
                         className="mb-3"
-                        name="male_video_url"
+                        name="preparation_instructions"
                         rules={[
                           {
                             required: true,
-                            message: 'Please input male video url!',
+                            message: 'Please input preparation',
                           },
 
                         ]}
                       >
                         <Input
                           className="px-3 py-2"
-                          placeholder="Male video url"
+                          placeholder="Preparation Instructions"
                         />
                       </Form.Item>
                     </div>
@@ -182,47 +179,22 @@ const AdminViewExercise = (props) => {
                       <p
                         className="mb-1"
                       >
-                        Female video url
+                        Preparation Time
                       </p>
                       <Form.Item
                         className="mb-3"
-                        name="female_video_url"
+                        name="preparation_time"
                         rules={[
                           {
                             required: true,
-                            message: 'Please input Female video url!',
+                            message: 'Please input Preparation time',
                           },
 
                         ]}
                       >
                         <Input
                           className="px-3 py-2"
-                          placeholder="Female video url"
-                        />
-                      </Form.Item>
-                    </div>
-                    <div
-                      style={{ width: '100%', maxWidth: 500 }}
-                    >
-                      <p
-                        className="mb-1 mt-3"
-                      >
-                        Opis
-                      </p>
-                      <Form.Item
-                        className="mb-3"
-                        name="description"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'Please input exercise description!',
-                          },
-
-                        ]}
-                      >
-                        <Input
-                          className="px-3 py-2"
-                          placeholder="Exercise description"
+                          placeholder="Preparation time"
                         />
                       </Form.Item>
                     </div>
@@ -233,17 +205,30 @@ const AdminViewExercise = (props) => {
                       <p
                         className="mb-1"
                       >
-                        Alternativne vjezbe
+                        Ingredients
                       </p>
-                      <Form.Item
-                        className="mb-3"
-                        name="alternate_exercises"
-                      >
-                        <Input
-                          className="px-3 py-2"
-                          placeholder="Alternate exercises"
-                        />
-                      </Form.Item>
+                      {
+                        meal
+                        && meal.ingredients.map((ingredient) => (
+                          <div style={{ marginBottom: 10 }}>
+                            <div>
+                              Name:
+                              {' '}
+                              {ingredient.foodstuff.name}
+                            </div>
+                            <div>
+                              Unit:
+                              {' '}
+                              {ingredient.display_unit}
+                            </div>
+                            <div>
+                              Category:
+                              {' '}
+                              {ingredient.foodstuff.category}
+                            </div>
+                          </div>
+                        ))
+                      }
                     </div>
                   </div>
                 </div>
@@ -251,7 +236,7 @@ const AdminViewExercise = (props) => {
             </div>
             <div className="col-lg-6 col-xs-12">
               {
-              exercise
+              meal
             && (
               <div>
                 <div
@@ -260,57 +245,12 @@ const AdminViewExercise = (props) => {
                   <p
                     className="mb-3"
                   >
-                    Female photo start
+                    Photo
                   </p>
                   <img
                     style={{ width: 200, height: 200 }}
-                    src={exercise.female_photo_url_start}
-                    alt="female-start"
-                  />
-                </div>
-                <div
-                  className="mt-4"
-                  style={{ width: '100%', maxWidth: 500 }}
-                >
-                  <p
-                    className="mb-3"
-                  >
-                    Female photo end
-                  </p>
-                  <img
-                    style={{ width: 200, height: 200 }}
-                    src={exercise.female_photo_url_end}
-                    alt="female-end"
-                  />
-                </div>
-                <div
-                  className="mt-4"
-                  style={{ width: '100%', maxWidth: 500 }}
-                >
-                  <p
-                    className="mb-3"
-                  >
-                    male photo start
-                  </p>
-                  <img
-                    style={{ width: 200, height: 200 }}
-                    src={exercise.male_photo_url_start}
-                    alt="male-start"
-                  />
-                </div>
-                <div
-                  className="mt-4"
-                  style={{ width: '100%', maxWidth: 500 }}
-                >
-                  <p
-                    className="mb-3"
-                  >
-                    male photo end
-                  </p>
-                  <img
-                    style={{ width: 200, height: 200 }}
-                    src={exercise.male_photo_url_end}
-                    alt="male-end"
+                    src={meal.photo_url}
+                    alt="meal"
                   />
                 </div>
               </div>
@@ -325,10 +265,10 @@ const AdminViewExercise = (props) => {
 };
 
 const { shape, func } = PropTypes;
-AdminViewExercise.propTypes = {
+AdminViewMeal.propTypes = {
   actions: shape({
-    getSingleExercise: func.isRequired,
+    getSingleMeal: func.isRequired,
   }).isRequired,
 };
 
-export default AdminViewExercise;
+export default AdminViewMeal;
