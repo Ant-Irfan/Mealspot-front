@@ -11,7 +11,9 @@ import {
   SET_USER,
   SET_NUMBER_OF_USERS,
   SET_TRANSACTONS,
+  SET_MEALS,
   SET_NUMBER_OF_TRANSACTIONS,
+  SET_MEAL,
 } from './types';
 
 const defaultState = {
@@ -21,10 +23,12 @@ const defaultState = {
   foodstuffs: [],
   users: [],
   transactions: [],
+  meals: [],
   workout: null,
   routine: null,
   exercise: null,
   user: null,
+  meal: null,
   number_of_users: null,
   total_pages: null,
   current_page: null,
@@ -55,6 +59,11 @@ export default (state = defaultState, action) => {
         ...state,
         workout: action.workout,
       };
+    case SET_MEALS:
+      return {
+        ...state,
+        meals: action.meals,
+      };
     case SET_ROUTINES:
       return {
         ...state,
@@ -79,6 +88,11 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         user: action.user,
+      };
+    case SET_MEAL:
+      return {
+        ...state,
+        meal: action.meal,
       };
     case SET_NUMBER_OF_USERS:
       return {

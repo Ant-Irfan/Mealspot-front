@@ -16,6 +16,7 @@ import {
   resetPasswordRouteWithId,
   adminTrainingRoute,
   adminAddExerciseRoute,
+  adminAddMealRoute,
   adminExercisesRoute,
   adminTrainingTableRoute,
   adminRoutinesTableRoute,
@@ -38,6 +39,8 @@ import {
   singleWorkoutsUser,
   userCheckoutPage,
   checkoutSuccessPage,
+  adminMealTableRoute,
+  adminViewMeal,
 } from './utils/pathsHelper';
 import Authentication from './components/Authentication';
 import RegisterConfirmed from './components/Authentication/RegisterConfirmed/RegisterConfirmed';
@@ -65,6 +68,9 @@ import Checkout from './components/Checkout';
 import SingleMeal from './components/Meals/SingleMeal';
 import SingleWorkout from './components/Workout/SingleWorkout';
 import CheckoutSuccess from './components/Checkout/CheckoutSuccess/CheckoutSuccess';
+import AddMeal from './components/AdminPanel/Meal/AddMeal';
+import AdminMealsTable from './components/AdminPanel/Meal/MealTable';
+import AdminViewMeal from './components/AdminPanel/Meal/ViewMeal';
 
 const AppContainer = ({ location }) => (
   <Switch location={location}>
@@ -162,6 +168,21 @@ const AppContainer = ({ location }) => (
       path={adminUsers}
       exact
       component={AdminUsers}
+    />
+    <PrivateNavigationMenuRoute
+      path={adminAddMealRoute}
+      exact
+      component={AddMeal}
+    />
+    <PrivateNavigationMenuRoute
+      path={adminViewMeal}
+      exact
+      component={AdminViewMeal}
+    />
+    <PrivateNavigationMenuRoute
+      path={adminMealTableRoute}
+      exact
+      component={AdminMealsTable}
     />
     <PrivateNavigationMenuRoute
       path={AdminTransaction}
