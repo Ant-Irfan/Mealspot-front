@@ -166,7 +166,7 @@ export const loginUser = (username, password) => async (/* dispatch */) => {
         if (user_type === 'admin') {
           localStorage.setItem('adminToken', token);
           localStorage.setItem('token', token);
-          history.push('/admin/exercises');
+          history.go('/admin/exercises');
           notification.success({
             message: 'Admin Logged In!',
           });

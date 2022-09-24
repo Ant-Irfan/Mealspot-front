@@ -9,7 +9,7 @@
 }
 
 .loginContainer {
-    padding: 40px 40px 100px;
+    padding: 40px 20px 100px 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -38,6 +38,25 @@
         @include desktop {
             width: 75%;
         }
+        &:hover {
+            color: #fff;
+            background-color: #3884a0;
+            border-color: #3884a0;
+        }
+        &:active {
+            color: #fff;
+            background-color: #3884a0;
+            border-color: #3884a0;
+        }
+        &:focus {
+            color: #fff;
+            background-color: #3884a0;
+            border-color: #3884a0;
+        }
+        &.btn-light {
+            border-color: #3884a0;
+            background-color: #3884a0;
+        }
     }
     .loginGoogleButton {
         margin-bottom: 30px;
@@ -45,6 +64,25 @@
         width: 100%;
         @include desktop {
             width: 75%;
+        }
+        &:hover {
+            color: #000;
+            background-color: #D2D2D2;
+            border-color: #D2D2D2;
+        }
+        &:active {
+            color: #000;
+            background-color: #D2D2D2;
+            border-color: #D2D2D2;
+        }
+        &:focus {
+            color: #000;
+            background-color: #D2D2D2;
+            border-color: #D2D2D2;
+        }
+        &.btn-light {
+            border-color: #D2D2D2;
+            background-color: #D2D2D2;
         }
     }
     .signUpNow {

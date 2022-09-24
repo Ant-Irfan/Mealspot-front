@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
+import { Empty } from 'antd';
 import {
   AreaChart,
   ResponsiveContainer,
@@ -26,33 +27,33 @@ const ProgressChart = (props) => {
     <div>
       <div className={styles.graphHeading}>Weight Graph</div>
       <div>
-        <ResponsiveContainer
-          width="100%"
-          height={400}
-        >
-          <AreaChart
-            data={chartData}
-          >
-            <Area dataKey="weight" stroke="#56A2BE" fill="white" strokeWidth="2" />
-            <XAxis
-              tickLine={false}
-              dataKey="week"
-            />
-            <YAxis
-              tickLine={false}
-              dataKey="weight"
-            />
-            <Tooltip />
-            {
+        {
                progress.length < 3
-            && (
-            <text x={400} y={200} textAnchor="middle" dominantBaseline="middle">
-              Graph will show after 3 weeks
-            </text>
-            )
+                 ? (
+                   <Empty />
+                 )
+                 : (
+                   <ResponsiveContainer
+                     width="100%"
+                     height={400}
+                   >
+                     <AreaChart
+                       data={chartData}
+                     >
+                       <Area dataKey="weight" stroke="#56A2BE" fill="white" strokeWidth="2" />
+                       <XAxis
+                         tickLine={false}
+                         dataKey="week"
+                       />
+                       <YAxis
+                         tickLine={false}
+                         dataKey="weight"
+                       />
+                       <Tooltip />
+                     </AreaChart>
+                   </ResponsiveContainer>
+                 )
             }
-          </AreaChart>
-        </ResponsiveContainer>
       </div>
     </div>
   );

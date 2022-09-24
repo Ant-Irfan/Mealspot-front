@@ -1,5 +1,6 @@
+/* eslint-disable camelcase */
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Form, Input, Upload,
 } from 'antd';
@@ -9,25 +10,53 @@ import styles from './user.module.scss';
 
 const UserProfile = ({ user, actions }) => {
   const [accountForm] = Form.useForm();
-  const onAccountDone = (values) => {
-    const oldPassword = values.old_password;
-    const newPassword = values.password;
-    actions.changePassword(oldPassword, newPassword);
-  };
+  const [passwordForm] = Form.useForm();
+  const [formIsComplete, setformIsComplete] = useState(false);
+  const [isNameChange, setisNameChange] = useState(false);
+
   useEffect(() => {
     if (user) {
-      // eslint-disable-next-line no-console
-      console.log(user);
       accountForm.setFieldsValue({
         fullName: user.full_name,
         email: user.email,
-        password: user.password,
       });
     }
   }, [user]);
 
   const submitUserProfile = () => {
     accountForm.submit();
+  };
+  const submitUserPassword = () => {
+    passwordForm.submit();
+  };
+
+  const onAccountDone = (values) => {
+    const oldPassword = values.old_password;
+    const newPassword = values.password;
+    actions.changePassword(oldPassword, newPassword);
+  };
+  const onPasswordDone = (values) => {
+    const oldPassword = values.old_password;
+    const newPassword = values.password;
+    actions.changePassword(oldPassword, newPassword);
+  };
+
+  const handleFormChange = () => {
+    const pass = passwordForm.getFieldValue('password');
+    const oldPass = passwordForm.getFieldValue('old_password');
+    const newPass = passwordForm.getFieldValue('passwordConfirm');
+    if (pass && oldPass && newPass) {
+      const hasErrors = !passwordForm.getFieldsError().some(({ errors }) => errors.length);
+      setformIsComplete(hasErrors);
+    }
+  };
+  const handleNameChange = () => {
+    const name = accountForm.getFieldValue('fullName');
+    // eslint-disable-next-line no-console
+    console.log(name, user.full_name);
+    if (name !== user.full_name) {
+      setisNameChange(true);
+    } else { setisNameChange(false); }
   };
 
   return (
@@ -48,12 +77,13 @@ const UserProfile = ({ user, actions }) => {
       <div className="mt-4">
         <div className="container-content">
           <div>
-            <Form
-              form={accountForm}
-              onFinish={onAccountDone}
-            >
-              <div className="row">
-                <div className="col-lg-6 col-xs-12">
+            <div className="row">
+              <div className="col-lg-6 col-xs-12">
+                <Form
+                  form={accountForm}
+                  onFinish={onAccountDone}
+                  onFieldsChange={handleNameChange}
+                >
                   <div className={styles.formSubHeading}>
                     INFO
                   </div>
@@ -116,19 +146,25 @@ const UserProfile = ({ user, actions }) => {
                       ]}
                     >
                       <Input
+                        disabled
                         className="px-3 py-2"
                         placeholder="Email Address"
                       />
                     </Form.Item>
                   </div>
-                </div>
-                <div className="col-lg-6 col-xs-12">
+                </Form>
+              </div>
+              <div className="col-lg-6 col-xs-12">
+                <Form
+                  form={passwordForm}
+                  onFinish={onPasswordDone}
+                  onFieldsChange={handleFormChange}
+                >
                   <div
                     style={{ maxWidth: 500 }}
                     className="d-flex flex-wrap justify-content-between"
                   >
                     <div className={styles.formSubHeading}>PASSWORD</div>
-                    <div className={styles.formLink}>Forgot Password?</div>
                   </div>
                   <div
                     className="mt-4"
@@ -215,9 +251,21 @@ const UserProfile = ({ user, actions }) => {
                       />
                     </Form.Item>
                   </div>
-                </div>
+                  {
+                  formIsComplete
+                 && (
+                 <button
+                   type="button"
+                   onClick={submitUserPassword}
+                   className={`${styles.saveButton} btn py-2`}
+                 >
+                   SAVE
+                 </button>
+                 )
+                  }
+                </Form>
               </div>
-            </Form>
+            </div>
           </div>
         </div>
       </div>
@@ -226,13 +274,14 @@ const UserProfile = ({ user, actions }) => {
           <button
             type="button"
             onClick={submitUserProfile}
-            className={`${styles.saveButton} btn btn-light py-2`}
+            className={`${styles.saveButton} btn py-2`}
+            disabled={!isNameChange}
           >
             SAVE
           </button>
           <button
             type="button"
-            className={`${styles.deleteButton} btn btn-light py-2`}
+            className={`${styles.deleteButton} btn btn-danger py-2`}
           >
             DELETE ACCOUNT
           </button>

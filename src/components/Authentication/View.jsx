@@ -12,11 +12,11 @@ const Authentication = ({ actions }) => (
     <div className="row">
       <div
         style={{ padding: 0 }}
-        className="col-lg-6 col-md-6 col-xs-12"
+        className="col-lg-5 col-md-6 col-xs-12"
       >
         <AuthSlider />
       </div>
-      <div className={`${styles.loginFormMobileView} col-lg-6 col-md-6 col-xs-12`}>
+      <div className={`${styles.loginFormMobileView} col-lg-7 col-md-6 col-xs-12`}>
         <Switch>
           <Route
             path="/login"

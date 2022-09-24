@@ -192,7 +192,7 @@ const Progress = ({ actions, progress }) => {
             <button
               type="button"
               style={{ width: '50%' }}
-              className={`${styles.progressAddButton} primary-color-button btn btn-light py-2`}
+              className={`${styles.progressAddButton} primary-color-button btn py-2`}
               onClick={addProgress}
             >
               ADD

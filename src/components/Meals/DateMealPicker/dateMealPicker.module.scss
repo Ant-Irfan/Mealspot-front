@@ -55,6 +55,8 @@
 .leftAndRightArrows {
     display: none;
     @include mobile-lg {
+        position: relative;
+        bottom: 2px;
         display: inline;
     }
 }

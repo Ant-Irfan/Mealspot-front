@@ -37,6 +37,11 @@ const Register = ({ actions }) => {
     }, 30000);
   };
 
+  const [registerForm] = Form.useForm();
+  const submitRegister = () => {
+    registerForm.submit();
+  };
+
   return (
     <div className={styles.loginContainer}>
       <div className={styles.logoPlaceholder}>
@@ -52,6 +57,7 @@ const Register = ({ actions }) => {
       </div>
       <Form
         name="Login"
+        form={registerForm}
         onFinish={onFinishLogin}
       >
         {
@@ -86,15 +92,17 @@ const Register = ({ actions }) => {
             </div>
             )
         }
+      </Form>
 
-        <div>
-          {
+      <div>
+        {
                 emailSelected
                   ? (
                     <button
-                      type="submit"
+                      type="button"
+                      onClick={submitRegister}
                       disabled={isRegisterDisabled}
-                      className={`${styles.loginButton} btn btn-light py-2`}
+                      className={`${styles.loginButton} btn py-2`}
                     >
                       {
                         isRegisterDisabled ? `Retry in: ${timeLeft} sec` : 'Submit'
@@ -105,40 +113,40 @@ const Register = ({ actions }) => {
                     <button
                       type="button"
                       onClick={() => setEmailSelected(true)}
-                      className={`${styles.loginButton} btn btn-light py-2`}
+                      className={`${styles.loginButton} btn py-2`}
                     >
                       Continue with email
                     </button>
                   )
             }
-        </div>
-        <div>
-          <a href={`${BASE_URL}/ext/login/google`}>
-            <button
-              type="button"
-              className={`${styles.loginGoogleButton} btn btn-light py-2`}
-            >
-              <GoogleLogo
-                style={{ marginRight: 10 }}
-              />
-              Continue with Google
-            </button>
-          </a>
-        </div>
-
-        <div className={`${styles.loginInputField} text-center`}>
-          Already Have An Account?
-          <NavLink
-            to={loginRoute}
+      </div>
+      <div className="continue-with-google-container">
+        <a href={`${BASE_URL}/ext/login/google`}>
+          <button
+            type="button"
+            className={`${styles.loginGoogleButton} btn btn-light py-2`}
           >
-            <span
-              className={styles.signUpNow}
-            >
-              Log In
-            </span>
-          </NavLink>
-        </div>
-      </Form>
+            <GoogleLogo
+              style={{ marginRight: 10 }}
+            />
+            Continue with Google
+          </button>
+        </a>
+      </div>
+
+      <div className={`${styles.loginInputField} text-center`}>
+        Already Have An Account?
+        <NavLink
+          to={loginRoute}
+          style={{ display:'inline' }}
+        >
+          <span
+            className={styles.signUpNow}
+          >
+            Log In
+          </span>
+        </NavLink>
+      </div>
     </div>
   );
 };

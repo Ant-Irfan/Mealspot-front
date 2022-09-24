@@ -57,7 +57,6 @@ const Login = ({ actions }) => {
           >
             <Input
               className={`${styles.loginInputField} px-3 py-2`}
-              placeholder="Email"
             />
           </Form.Item>
         </div>
@@ -79,7 +78,6 @@ const Login = ({ actions }) => {
           >
             <Input.Password
               className={`${styles.loginInputField} px-3 py-2`}
-              placeholder="Password"
             />
           </Form.Item>
         </div>
@@ -96,6 +94,7 @@ const Login = ({ actions }) => {
           </div>
           <NavLink
             to={resetPasswordRoute}
+            style={{ alignItems:'start' }}
           >
             <div className="mt-1">Forgot Password</div>
           </NavLink>
@@ -104,7 +103,7 @@ const Login = ({ actions }) => {
         <div>
           <button
             type="submit"
-            className={`${styles.loginButton} btn btn-light py-2`}
+            className={`${styles.loginButton} btn py-2`}
           >
             LOG IN
           </button>
@@ -126,6 +125,7 @@ const Login = ({ actions }) => {
           Don´t have an Account?
           <NavLink
             to={registerRoute}
+            style={{ display:'inline' }}
           >
             <span className={styles.signUpNow}>Sign up now.</span>
           </NavLink>

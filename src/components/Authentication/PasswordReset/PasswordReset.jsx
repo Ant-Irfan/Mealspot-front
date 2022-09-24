@@ -69,7 +69,6 @@ const PasswordReset = ({ actions }) => {
           >
             <Input
               className={`${styles.loginInputField} px-3 py-2`}
-              placeholder="Email"
             />
           </Form.Item>
         </div>
@@ -77,7 +76,7 @@ const PasswordReset = ({ actions }) => {
         <div>
           <button
             type="submit"
-            className={`${styles.loginButton} btn btn-light py-2`}
+            className={`${styles.loginButton} btn py-2`}
           >
             RESET PASSWORD
           </button>
@@ -112,7 +111,6 @@ const PasswordReset = ({ actions }) => {
             >
               <Input.Password
                 className={`${styles.loginInputField} px-3 py-2`}
-                placeholder="Password"
               />
             </Form.Item>
           </div>
@@ -120,7 +118,7 @@ const PasswordReset = ({ actions }) => {
           <div>
             <button
               type="submit"
-              className={`${styles.loginButton} btn btn-light py-2`}
+              className={`${styles.loginButton} btn py-2`}
             >
               RESET PASSWORD
             </button>
